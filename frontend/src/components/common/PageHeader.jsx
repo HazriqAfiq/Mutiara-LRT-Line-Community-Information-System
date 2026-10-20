@@ -14,11 +14,11 @@ export default function PageHeader({ title, subtitle, children }) {
       <div className="container">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 style={{ color: 'white', fontSize: '1.75rem', marginBottom: '0.35rem' }}>
+            <h1 style={{ color: '#FFFFFF', fontSize: '1.75rem', marginBottom: '0.35rem', textShadow: '0 2px 6px rgba(0,0,0,0.3)' }}>
               {title}
             </h1>
             {subtitle && (
-              <p style={{ color: 'rgba(255,255,255,0.72)', margin: 0, fontSize: '0.95rem' }}>
+              <p style={{ color: '#E2E8F0', margin: 0, fontSize: '0.95rem' }}>
                 {subtitle}
               </p>
             )}

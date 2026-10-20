@@ -134,7 +134,32 @@ export default function AnnouncementDetailsPage() {
 
         {/* Announcement Details Content */}
         {!loading && !error && announcement && (
-          <article className="card bg-white border border-gray-100 shadow-md rounded-2xl overflow-hidden">
+          <article className="card bg-white border border-gray-100 shadow-md rounded-2xl overflow-hidden p-0">
+            {/* Top Editorial Photo Banner */}
+            <div className="relative w-full h-64 sm:h-80 bg-slate-900 overflow-hidden">
+              <img
+                src={
+                  announcement.image_url ||
+                  (announcement.category === 'General Update'
+                    ? '/images/station_design.jpg'
+                    : announcement.category === 'Public Notice'
+                    ? '/images/traffic_detour.jpg'
+                    : announcement.category === 'Safety Advisory'
+                    ? '/images/hero_lrt.jpg'
+                    : '/images/construction_viaduct.jpg')
+                }
+                alt={announcement.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/30 to-black/20" />
+              <div className="absolute top-4 left-4">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-slate-900/80 backdrop-blur-md border border-white/20 shadow-sm">
+                  <Tag size={12} className="text-teal-400" />
+                  {announcement.category}
+                </span>
+              </div>
+            </div>
+
             {/* Header / Meta banner */}
             <div
               className="p-6 sm:p-8 border-b"
@@ -146,14 +171,8 @@ export default function AnnouncementDetailsPage() {
               {/* Category, Status & Share */}
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <div className="flex items-center gap-2">
-                  <span
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
-                    style={{ backgroundColor: 'rgba(22, 166, 161, 0.12)', color: 'var(--color-teal)' }}
-                  >
-                    <Tag size={12} />
-                    {announcement.category}
-                  </span>
                   <StatusBadge status={announcement.status} type="announcement" />
+                  <span className="text-xs text-gray-500 font-medium">Notice Ref #{announcement.id}</span>
                 </div>
 
                 <button

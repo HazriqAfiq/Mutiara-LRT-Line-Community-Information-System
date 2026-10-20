@@ -18,7 +18,7 @@
  */
 import { MOCK_ANNOUNCEMENTS } from '../mocks/announcements';
 
-const ANNOUNCEMENTS_STORE_KEY = 'mutiara_announcements_store';
+const ANNOUNCEMENTS_STORE_KEY = 'mutiara_announcements_store_v2';
 const delay = (ms = 350) => new Promise((r) => setTimeout(r, ms));
 
 function getStoredAnnouncements() {

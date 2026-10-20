@@ -26,6 +26,7 @@ import ProtectedRoute from './ProtectedRoute';
 
 // Public pages
 import HomePage                from '../pages/public/HomePage';
+import AboutPage               from '../pages/public/AboutPage';
 import AnnouncementsPage       from '../pages/public/AnnouncementsPage';
 import AnnouncementDetailsPage from '../pages/public/AnnouncementDetailsPage';
 import RoadClosuresPage        from '../pages/public/RoadClosuresPage';
@@ -62,6 +63,7 @@ export default function AppRoutes() {
       {/* ── PUBLIC ROUTES ───────────────────────────────────── */}
       <Route element={<PublicLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="about"             element={<AboutPage />} />
         <Route path="announcements"     element={<AnnouncementsPage />} />
         <Route path="announcements/:id" element={<AnnouncementDetailsPage />} />
         <Route path="road-closures"     element={<RoadClosuresPage />} />
