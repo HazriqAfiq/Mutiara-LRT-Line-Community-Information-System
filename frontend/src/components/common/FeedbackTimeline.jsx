@@ -69,7 +69,7 @@ export default function FeedbackTimeline({ status = 'pending', createdAt, update
                     isCompleted
                       ? 'bg-emerald-500 text-white'
                       : isCurrent
-                      ? 'bg-teal-600 text-white animate-pulse'
+                      ? 'bg-teal-600 text-white font-extrabold shadow-sm'
                       : 'bg-gray-200 text-gray-500'
                   }`}
                 >

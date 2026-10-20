@@ -11,7 +11,7 @@
  * e.g. "2026-10-15T09:30:00+08:00" → "15 Oct 2026"
  */
 export function formatDate(isoString) {
-  if (!isoString) return '—';
+  if (!isoString) return '-';
   const date = new Date(isoString);
   return date.toLocaleDateString('en-MY', {
     day: '2-digit',
@@ -25,7 +25,7 @@ export function formatDate(isoString) {
  * e.g. "2026-10-15T09:30:00+08:00" → "15 Oct 2026, 9:30 AM"
  */
 export function formatDateTime(isoString) {
-  if (!isoString) return '—';
+  if (!isoString) return '-';
   const date = new Date(isoString);
   return date.toLocaleDateString('en-MY', {
     day: '2-digit',
@@ -40,7 +40,7 @@ export function formatDateTime(isoString) {
  * Returns a relative time label such as "3 days ago" or "just now".
  */
 export function timeAgo(isoString) {
-  if (!isoString) return '—';
+  if (!isoString) return '-';
   const now = new Date();
   const then = new Date(isoString);
   const diffMs = now - then;
@@ -65,11 +65,11 @@ export function isPast(isoString) {
 }
 
 /**
- * Format a date range for display, e.g. "15 Oct – 20 Nov 2026"
+ * Format a date range for display, e.g. "15 Oct to 20 Nov 2026"
  */
 export function formatDateRange(startIso, endIso) {
-  if (!startIso) return '—';
+  if (!startIso) return '-';
   const start = formatDate(startIso);
   const end   = endIso ? formatDate(endIso) : 'Ongoing';
-  return `${start} – ${end}`;
+  return `${start} to ${end}`;
 }

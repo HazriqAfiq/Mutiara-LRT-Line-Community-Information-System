@@ -80,31 +80,21 @@ export default function HomePage() {
           SECTION A: HERO SECTION
           ======================================================== */}
       <section
-        className="relative overflow-hidden text-white"
+        className="relative text-white border-b border-navy-dark"
         style={{
-          background: 'linear-gradient(135deg, #0c2640 0%, #12375B 55%, #0f4c6e 100%)',
+          backgroundColor: 'var(--color-navy)',
         }}
       >
-        {/* Subtle decorative grid/glow overlay */}
-        <div
-          className="absolute inset-0 opacity-10 pointer-events-none"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 20% 30%, #16A6A1 0%, transparent 40%), radial-gradient(circle at 80% 70%, #F4B942 0%, transparent 40%)',
-          }}
-        />
-
-        <div className="container relative py-16 md:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="container relative py-14 md:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Column: Heading & CTAs */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-5 bg-white/10 backdrop-blur-sm border border-white/15 text-teal-300">
-                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-                Community Engagement Initiative
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded text-xs font-semibold mb-4 bg-white/10 text-teal-200">
+                Official Transit Information & Community Portal
               </div>
 
               <h1
-                className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-white mb-4 tracking-tight"
+                className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white mb-3 tracking-tight"
                 style={{ color: '#FFFFFF' }}
               >
                 Penang LRT <span style={{ color: 'var(--color-amber)' }}>Mutiara Line</span>
@@ -112,94 +102,86 @@ export default function HomePage() {
 
               <p
                 className="text-lg sm:text-xl font-medium mb-3"
-                style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                style={{ color: 'rgba(255, 255, 255, 0.95)' }}
               >
                 Community Information & Feedback Platform
               </p>
 
               <p
                 className="text-sm sm:text-base leading-relaxed mb-8 max-w-xl"
-                style={{ color: 'rgba(255, 255, 255, 0.75)' }}
+                style={{ color: 'rgba(255, 255, 255, 0.8)' }}
               >
-                Stay informed with official construction progress, traffic diversions, and road closure
-                advisories along the Mutiara LRT alignment. Share your voice directly with the project
-                liaison team to ensure safe and accessible neighborhoods.
+                Access verified construction milestones, active traffic diversions, and road closure
+                advisories along the Mutiara LRT alignment. Lodge local concerns directly with project
+                liaison officers.
               </p>
 
               {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-3">
                 <Link
                   to="/announcements"
-                  className="btn btn-amber flex items-center gap-2 px-6 py-3 text-base shadow-lg"
+                  className="btn btn-amber flex items-center gap-2 px-5 py-2.5 text-sm font-semibold shadow-sm"
                 >
-                  <HardHat size={18} />
+                  <HardHat size={16} />
                   View Construction Updates
                 </Link>
 
                 <Link
                   to="/road-closures"
-                  className="btn flex items-center gap-2 px-6 py-3 text-base border-2 border-white/40 text-white hover:bg-white/10 hover:border-white transition-all shadow-md"
+                  className="btn flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border border-white/40 text-white hover:bg-white/10 hover:border-white transition-colors"
                   style={{ color: '#FFFFFF' }}
                 >
-                  <AlertTriangle size={18} style={{ color: 'var(--color-amber)' }} />
+                  <AlertTriangle size={16} style={{ color: 'var(--color-amber)' }} />
                   Check Road Closures
                 </Link>
               </div>
 
               {/* Academic Simulation Notice */}
               <p
-                className="text-xs mt-6 italic flex items-center gap-1.5"
-                style={{ color: 'rgba(255, 255, 255, 0.55)' }}
+                className="text-xs mt-6 text-white/60 flex items-center gap-1.5"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                 Academic demonstration prototype for USM CMT322. Not an official government portal.
               </p>
             </div>
 
-            {/* Right Column: Interactive Line Schematic Card */}
+            {/* Right Column: Line Corridor Overview */}
             <div className="lg:col-span-5">
               <div
-                className="rounded-2xl p-6 sm:p-7 backdrop-blur-md border border-white/15 shadow-2xl"
-                style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
+                className="rounded-lg p-5 border border-white/20 bg-navy-dark/80"
               >
-                <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-5">
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className="w-9 h-9 rounded-xl flex items-center justify-center shadow-md"
-                      style={{ backgroundColor: 'var(--color-teal)' }}
-                    >
-                      <Train size={20} color="white" />
-                    </div>
+                <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+                  <div className="flex items-center gap-2">
+                    <Train size={18} className="text-amber-400" />
                     <div>
-                      <h3 className="text-white text-base font-bold leading-tight" style={{ color: '#FFFFFF' }}>
+                      <h3 className="text-white text-sm font-bold leading-tight" style={{ color: '#FFFFFF' }}>
                         Alignment Snapshot
                       </h3>
-                      <p className="text-xs text-white/60">Silicon Island ⇄ Komtar</p>
+                      <p className="text-xs text-white/70">Silicon Island to Komtar Interchange</p>
                     </div>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    Phase 1 Active
+                  <span className="badge font-semibold bg-emerald-900/60 text-emerald-200 border-emerald-700/50">
+                    Phase 1 Construction
                   </span>
                 </div>
 
                 {/* Corridor details */}
-                <div className="grid grid-cols-3 gap-3 mb-6 text-center">
-                  <div className="rounded-xl p-3 bg-white/5 border border-white/10">
-                    <p className="text-xs text-white/60 mb-0.5">Length</p>
-                    <p className="text-lg font-bold text-white" style={{ color: '#FFFFFF' }}>29.0 km</p>
+                <div className="grid grid-cols-3 gap-2 mb-4 text-center">
+                  <div className="rounded p-2 bg-white/5 border border-white/10">
+                    <p className="text-[11px] text-white/60 mb-0.5">Route Length</p>
+                    <p className="text-base font-bold text-white" style={{ color: '#FFFFFF' }}>29.0 km</p>
                   </div>
-                  <div className="rounded-xl p-3 bg-white/5 border border-white/10">
-                    <p className="text-xs text-white/60 mb-0.5">Stations</p>
-                    <p className="text-lg font-bold text-white" style={{ color: '#FFFFFF' }}>20 Stations</p>
+                  <div className="rounded p-2 bg-white/5 border border-white/10">
+                    <p className="text-[11px] text-white/60 mb-0.5">Planned Stations</p>
+                    <p className="text-base font-bold text-white" style={{ color: '#FFFFFF' }}>20 Stations</p>
                   </div>
-                  <div className="rounded-xl p-3 bg-white/5 border border-white/10">
-                    <p className="text-xs text-white/60 mb-0.5">Depot</p>
-                    <p className="text-lg font-bold text-white" style={{ color: '#FFFFFF' }}>Island A</p>
+                  <div className="rounded p-2 bg-white/5 border border-white/10">
+                    <p className="text-[11px] text-white/60 mb-0.5">Main Depot</p>
+                    <p className="text-base font-bold text-white" style={{ color: '#FFFFFF' }}>Island A</p>
                   </div>
                 </div>
 
                 {/* Schematic stops */}
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 mb-4">
                   {[
                     { name: 'Komtar Interchange', zone: 'George Town Hub', active: true },
                     { name: 'Jelutong Station', zone: 'Sub-surface piling', active: true },
@@ -208,27 +190,27 @@ export default function HomePage() {
                   ].map((station) => (
                     <div
                       key={station.name}
-                      className="flex items-center justify-between text-xs py-2 px-3 rounded-lg bg-white/5 border border-white/5"
+                      className="flex items-center justify-between text-xs py-1.5 px-2.5 rounded bg-white/5 border border-white/5"
                     >
-                      <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-2">
                         <span
-                          className={`w-2.5 h-2.5 rounded-full ${
-                            station.active ? 'bg-amber-400 ring-2 ring-amber-400/30' : 'bg-teal-400/60'
+                          className={`w-2 h-2 rounded-full ${
+                            station.active ? 'bg-amber-400' : 'bg-teal-400/80'
                           }`}
                         />
-                        <span className="font-semibold text-white/90">{station.name}</span>
+                        <span className="font-medium text-white/95">{station.name}</span>
                       </div>
-                      <span className="text-white/50">{station.zone}</span>
+                      <span className="text-white/60 text-[11px]">{station.zone}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="pt-2 text-center">
+                <div className="pt-1 text-center">
                   <Link
                     to="/announcements"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-300 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-teal-300 hover:text-white transition-colors"
                   >
-                    Explore all station development notices <ChevronRight size={14} />
+                    View station progress announcements <ChevronRight size={14} />
                   </Link>
                 </div>
               </div>
@@ -261,76 +243,73 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Service 1 */}
-            <div className="card flex flex-col p-6 rounded-2xl hover:shadow-lg transition-shadow border border-gray-100 bg-white">
+            <div className="card flex flex-col p-6 bg-white">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                className="w-10 h-10 rounded-md flex items-center justify-center mb-4"
                 style={{ backgroundColor: 'rgba(18, 55, 91, 0.08)', color: 'var(--color-navy)' }}
               >
-                <HardHat size={24} />
+                <HardHat size={20} />
               </div>
-              <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--color-navy)' }}>
-                1. Construction Information
+              <h3 className="text-base font-bold mb-2" style={{ color: 'var(--color-navy)' }}>
+                Construction Announcements
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed mb-4 flex-1">
-                Receive verified updates on viaduct assembly, station excavations, piling schedules,
-                and safety protocols straight from the project management office.
+                Verified notices on station excavations, viaduct assembly, utility diversions, and daily construction schedules.
               </p>
               <Link
                 to="/announcements"
                 className="inline-flex items-center gap-1.5 text-sm font-semibold hover:underline mt-auto"
-                style={{ color: 'var(--color-teal)' }}
+                style={{ color: 'var(--color-navy)' }}
               >
                 Browse updates <ArrowRight size={14} />
               </Link>
             </div>
 
             {/* Service 2 */}
-            <div className="card flex flex-col p-6 rounded-2xl hover:shadow-lg transition-shadow border border-gray-100 bg-white">
+            <div className="card flex flex-col p-6 bg-white">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                style={{ backgroundColor: 'rgba(239, 68, 68, 0.08)', color: 'var(--color-error)' }}
+                className="w-10 h-10 rounded-md flex items-center justify-center mb-4"
+                style={{ backgroundColor: 'rgba(244, 185, 66, 0.15)', color: '#b45309' }}
               >
-                <AlertTriangle size={24} />
+                <AlertTriangle size={20} />
               </div>
-              <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--color-navy)' }}>
-                2. Road Closure Advisories
+              <h3 className="text-base font-bold mb-2" style={{ color: 'var(--color-navy)' }}>
+                Road Closures & Detours
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed mb-4 flex-1">
-                Plan your daily journey with advance notices of lane diversions, full road blockages,
-                designated alternative routes, and pedestrian walkway conditions.
+                Active lane restrictions, scheduled night closures, traffic rerouting plans, and designated pedestrian walkways.
               </p>
               <Link
                 to="/road-closures"
                 className="inline-flex items-center gap-1.5 text-sm font-semibold hover:underline mt-auto"
-                style={{ color: 'var(--color-teal)' }}
+                style={{ color: 'var(--color-navy)' }}
               >
-                View road notices <ArrowRight size={14} />
+                Check detour routes <ArrowRight size={14} />
               </Link>
             </div>
 
             {/* Service 3 */}
-            <div className="card flex flex-col p-6 rounded-2xl hover:shadow-lg transition-shadow border border-gray-100 bg-white">
+            <div className="card flex flex-col p-6 bg-white">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                className="w-10 h-10 rounded-md flex items-center justify-center mb-4"
                 style={{ backgroundColor: 'rgba(22, 166, 161, 0.1)', color: 'var(--color-teal)' }}
               >
-                <MessageSquare size={24} />
+                <MessageSquare size={20} />
               </div>
-              <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--color-navy)' }}>
-                3. Community Feedback
+              <h3 className="text-base font-bold mb-2" style={{ color: 'var(--color-navy)' }}>
+                Community Feedback Portal
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed mb-4 flex-1">
-                Raise site-specific concerns regarding noise levels, dust containment, delivery vehicle access,
-                or safety fences. Track team response status directly from your portal.
+                Direct channel for residents and merchants to lodge concerns regarding construction noise, dust, access, or safety.
               </p>
               <Link
                 to={isAuthenticated ? '/feedback/new' : '/login'}
                 className="inline-flex items-center gap-1.5 text-sm font-semibold hover:underline mt-auto"
-                style={{ color: 'var(--color-teal)' }}
+                style={{ color: 'var(--color-navy)' }}
               >
-                Share feedback <ArrowRight size={14} />
+                Lodge an inquiry <ArrowRight size={14} />
               </Link>
             </div>
           </div>
@@ -454,36 +433,39 @@ export default function HomePage() {
       {/* ========================================================
           SECTION E: COMMUNITY FEEDBACK
           ======================================================== */}
+      {/* ========================================================
+          SECTION E: COMMUNITY FEEDBACK
+          ======================================================== */}
       <section
-        className="py-16 text-white relative overflow-hidden"
+        className="py-16 text-white border-t border-navy-dark"
         style={{
-          background: 'linear-gradient(135deg, #12375B 0%, #164670 100%)',
+          backgroundColor: 'var(--color-navy)',
         }}
       >
-        <div className="container relative">
-          <div className="max-w-3xl mx-auto text-center mb-12">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center mb-10">
             <span
-              className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/10 text-amber-300 border border-white/15 inline-block mb-3"
+              className="text-xs font-semibold uppercase tracking-wider text-amber-300 inline-block mb-2"
             >
               Community Voice & Resolution
             </span>
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4"
+              className="text-2xl sm:text-3xl font-extrabold text-white mb-3"
               style={{ color: '#FFFFFF' }}
             >
               Have a Concern Regarding Nearby Works?
             </h2>
             <p className="text-sm sm:text-base leading-relaxed text-white/80">
-              We work closely with contractors and local councils to minimize disruption to residents and
-              merchants. Submit your inquiries, complaints, or safety feedback through our structured resolution pipeline.
+              We work with contractors and local municipal councils to minimize disruption to residents and
+              local merchants. Submit your inquiries, complaints, or safety feedback through our structured resolution pipeline.
             </p>
           </div>
 
           {/* 3-Step Process */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
-            <div className="rounded-xl p-6 bg-white/10 backdrop-blur-sm border border-white/15 text-center flex flex-col items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
+            <div className="rounded-lg p-6 bg-navy-light/60 border border-white/10 text-center flex flex-col items-center">
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg mb-4 text-white"
+                className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 text-white"
                 style={{ backgroundColor: 'var(--color-teal)' }}
               >
                 1
@@ -496,9 +478,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="rounded-xl p-6 bg-white/10 backdrop-blur-sm border border-white/15 text-center flex flex-col items-center">
+            <div className="rounded-lg p-6 bg-navy-light/60 border border-white/10 text-center flex flex-col items-center">
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg mb-4 text-white"
+                className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 text-white"
                 style={{ backgroundColor: 'var(--color-teal)' }}
               >
                 2
@@ -511,9 +493,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="rounded-xl p-6 bg-white/10 backdrop-blur-sm border border-white/15 text-center flex flex-col items-center">
+            <div className="rounded-lg p-6 bg-navy-light/60 border border-white/10 text-center flex flex-col items-center">
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg mb-4 text-white"
+                className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 text-white"
                 style={{ backgroundColor: 'var(--color-teal)' }}
               >
                 3
