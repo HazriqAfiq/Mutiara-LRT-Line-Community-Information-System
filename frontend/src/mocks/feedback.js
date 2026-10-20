@@ -1,0 +1,150 @@
+/**
+ * mocks/feedback.js
+ *
+ * Community feedback and complaint records.
+ * user_id values must match ids in users.js.
+ * Statuses must be: pending | in_progress | resolved
+ */
+
+export const MOCK_FEEDBACK = [
+  {
+    id: 1,
+    reference_number: 'FB-0001',
+    user_id: 2,
+    title: 'Excessive construction noise during late hours',
+    category: 'Construction Noise',
+    location: 'Lebuh Farquhar, George Town',
+    description:
+      'Construction noise from the George Town Station site continues beyond 10:00 PM on weeknights. The noise is severely affecting sleep for residents of the nearby apartment blocks. Pile driving sounds are particularly loud and disruptive.',
+    attachment_url: null,
+    status: 'in_progress',
+    created_at: '2026-10-15T09:30:00+08:00',
+    updated_at: '2026-10-17T14:30:00+08:00',
+  },
+  {
+    id: 2,
+    reference_number: 'FB-0002',
+    user_id: 3,
+    title: 'Dust from construction site affecting nearby homes',
+    category: 'Construction Noise',
+    location: 'Jalan Penang, George Town',
+    description:
+      'Heavy dust from the construction site at Jalan Penang is accumulating on parked vehicles and entering homes through windows. Residents with respiratory conditions are particularly affected. The contractor does not appear to be using dust suppression measures.',
+    attachment_url: null,
+    status: 'pending',
+    created_at: '2026-10-16T14:00:00+08:00',
+    updated_at: '2026-10-16T14:00:00+08:00',
+  },
+  {
+    id: 3,
+    reference_number: 'FB-0003',
+    user_id: 2,
+    title: 'Inadequate pedestrian signage near Komtar construction zone',
+    category: 'Pedestrian Safety',
+    location: 'Jalan Dr Lim Chwee Leong, Komtar, George Town',
+    description:
+      'The temporary pedestrian detour signs around the Komtar construction zone are confusing and poorly lit at night. Several elderly pedestrians were seen struggling to navigate the detour. There are no handrails at the temporary ramp near the hoarding entrance.',
+    attachment_url: null,
+    status: 'resolved',
+    created_at: '2026-10-17T16:00:00+08:00',
+    updated_at: '2026-10-19T10:15:00+08:00',
+  },
+  {
+    id: 4,
+    reference_number: 'FB-0004',
+    user_id: 3,
+    title: 'Road surface damage near construction vehicle entry point',
+    category: 'Road Access',
+    location: 'Gurney Drive, George Town',
+    description:
+      'The road surface near the construction vehicle entry point on Gurney Drive has been severely damaged by heavy machinery. There are several large potholes which pose a risk to motorcyclists. The contractor appears to have failed to repair the road surface after vehicle movement.',
+    attachment_url: null,
+    status: 'pending',
+    created_at: '2026-10-18T10:00:00+08:00',
+    updated_at: '2026-10-18T10:00:00+08:00',
+  },
+  {
+    id: 5,
+    reference_number: 'FB-0005',
+    user_id: 2,
+    title: 'Traffic congestion worsened due to road closure at Bayan Baru',
+    category: 'Traffic Disruption',
+    location: 'Jalan Utama, Bayan Baru',
+    description:
+      'Since the partial closure of Jalan Utama, morning traffic has worsened significantly. The queue now extends past Sunway Carnival Mall. The alternative route via Jalan Tengah is too narrow to accommodate the volume of diverted traffic. I suggest deploying a traffic marshal during peak hours.',
+    attachment_url: null,
+    status: 'in_progress',
+    created_at: '2026-10-17T08:30:00+08:00',
+    updated_at: '2026-10-18T16:00:00+08:00',
+  },
+  {
+    id: 6,
+    reference_number: 'FB-0006',
+    user_id: 3,
+    title: 'Construction workers blocking emergency vehicle access',
+    category: 'Road Access',
+    location: 'Jalan Jelutong, Jelutong',
+    description:
+      'Construction equipment and material stockpiles are partially blocking the lane designated for emergency vehicle access near the Jelutong Station site. This has already caused a delay to an ambulance that was observed on 16 October 2026.',
+    attachment_url: null,
+    status: 'pending',
+    created_at: '2026-10-18T11:30:00+08:00',
+    updated_at: '2026-10-18T11:30:00+08:00',
+  },
+  {
+    id: 7,
+    reference_number: 'FB-0007',
+    user_id: 2,
+    title: 'Business access severely restricted by construction hoarding',
+    category: 'Business Access',
+    location: 'Jalan Utama, Bayan Baru',
+    description:
+      'My restaurant on Jalan Utama has lost over 60 percent of customers since the hoarding was installed. Delivery trucks cannot reach our loading bay. The project team has not communicated any compensation arrangement or alternative access plan for affected businesses.',
+    attachment_url: null,
+    status: 'resolved',
+    created_at: '2026-10-12T09:00:00+08:00',
+    updated_at: '2026-10-15T11:00:00+08:00',
+  },
+  {
+    id: 8,
+    reference_number: 'FB-0008',
+    user_id: 3,
+    title: 'Bright construction lighting affecting residential area',
+    category: 'Construction Noise',
+    location: 'Gurney Drive, George Town',
+    description:
+      'The high-intensity floodlights installed for night construction works at Gurney Drive are directed towards the neighbouring residential block. The lights illuminate residents\'s bedrooms throughout the night. Can the lights be repositioned or shields installed?',
+    attachment_url: null,
+    status: 'pending',
+    created_at: '2026-10-19T21:00:00+08:00',
+    updated_at: '2026-10-19T21:00:00+08:00',
+  },
+  {
+    id: 9,
+    reference_number: 'FB-0009',
+    user_id: 2,
+    title: 'Cracked wall in home adjacent to piling works',
+    category: 'Other',
+    location: 'Jalan Burma, George Town',
+    description:
+      'Following the commencement of piling works near my home, a hairline crack has appeared in my living room wall. I am concerned that the ground vibrations are causing structural damage. I request an immediate inspection by a qualified engineer and documentation of the existing condition of my property.',
+    attachment_url: null,
+    status: 'in_progress',
+    created_at: '2026-10-19T10:00:00+08:00',
+    updated_at: '2026-10-19T10:00:00+08:00',
+  },
+  {
+    id: 10,
+    reference_number: 'FB-0010',
+    user_id: 3,
+    title: 'Unsafe scaffolding observed at construction site boundary',
+    category: 'Pedestrian Safety',
+    location: 'Lebuh Farquhar, George Town',
+    description:
+      'Scaffolding along the boundary of the Mutiara Line construction site on Lebuh Farquhar appears to be inadequately secured. During strong winds on 19 October, sections of the scaffolding were observed swaying. This poses a serious safety risk to pedestrians using the adjacent footpath.',
+    attachment_url: null,
+    status: 'pending',
+    created_at: '2026-10-20T07:45:00+08:00',
+    updated_at: '2026-10-20T07:45:00+08:00',
+  },
+];
