@@ -37,7 +37,7 @@ export default function Footer() {
               affected by the Penang LRT Mutiara Line construction.
             </p>
             <p className="text-xs mt-3 italic" style={{ color: 'rgba(255,255,255,0.4)' }}>
-              Academic simulation project — CMT322, Universiti Sains Malaysia.
+              Academic simulation project, CMT322 (Universiti Sains Malaysia).
               Not affiliated with any official LRT operator.
             </p>
           </div>
@@ -116,7 +116,7 @@ export default function Footer() {
         <div className="container mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs"
           style={{ color: 'rgba(255,255,255,0.4)' }}
         >
-          <p>© {currentYear} Mutiara LRT Community Platform. Academic project — CMT322 USM.</p>
+          <p>© {currentYear} Mutiara LRT Community Platform. Academic project, CMT322 USM.</p>
           <p>This is a simulated platform. All data is fictional.</p>
         </div>
       </div>

@@ -76,22 +76,21 @@ export default function UserDashboard() {
     <div className="min-h-screen pb-16">
       {/* Top Welcome Banner */}
       <div
-        className="text-white py-10 px-4 sm:px-6 shadow-md"
+        className="text-white py-8 px-4 sm:px-6 border-b border-navy-dark"
         style={{
-          background: 'linear-gradient(135deg, #0c2640 0%, #12375B 70%, #164670 100%)',
+          backgroundColor: 'var(--color-navy)',
         }}
       >
         <div className="container">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-teal-300 border border-white/15 mb-3">
-                <span className="w-2 h-2 rounded-full bg-teal-400" />
-                Community Portal
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-white" style={{ color: '#FFFFFF' }}>
-                Welcome back, {user?.name || 'Resident'}!
+              <span className="text-xs font-semibold uppercase tracking-wider text-teal-300 block mb-1">
+                Resident Portal
+              </span>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white" style={{ color: '#FFFFFF' }}>
+                Welcome back, {user?.name || 'Resident'}
               </h1>
-              <p className="text-sm sm:text-base text-white/80 mt-1 max-w-xl">
+              <p className="text-sm text-white/80 mt-1 max-w-xl">
                 Stay informed and manage your construction-related feedback across the Penang LRT Mutiara Line project.
               </p>
             </div>
@@ -99,7 +98,7 @@ export default function UserDashboard() {
             <div className="flex items-center gap-3 self-start md:self-auto">
               <Link
                 to="/feedback/new"
-                className="btn btn-amber flex items-center gap-2 px-5 py-2.5 font-bold shadow-lg"
+                className="btn btn-amber flex items-center gap-2 px-5 py-2.5 font-bold shadow-sm"
               >
                 <PlusCircle size={16} />
                 Submit New Feedback

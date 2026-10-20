@@ -38,7 +38,6 @@ export default function RoadClosureCard({ closure, compact = false }) {
   return (
     <article
       className="card card-hover flex flex-col h-full"
-      style={{ borderLeft: `4px solid ${borderColor}` }}
     >
       {/* Status badge + road tag */}
       <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">

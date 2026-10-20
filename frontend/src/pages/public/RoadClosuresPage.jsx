@@ -99,27 +99,20 @@ export default function RoadClosuresPage() {
       />
 
       <div className="container mt-8">
-        {/* Quick summary alert pill */}
-        <div
-          className="rounded-xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4 border"
-          style={{
-            backgroundColor: 'rgba(18, 55, 91, 0.03)',
-            borderColor: 'var(--color-gray-200)',
-          }}
-        >
+        {/* Quick summary alert bar */}
+        <div className="card p-4 mb-6 flex flex-wrap items-center justify-between gap-4 bg-gray-50 border border-gray-200">
           <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-700 font-medium">
-            <AlertTriangle size={18} style={{ color: 'var(--color-warning)' }} />
+            <AlertTriangle size={16} className="text-amber-600 flex-shrink-0" />
             <span>
               Always exercise caution near heavy construction machinery and obey traffic flaggers.
             </span>
           </div>
 
           <div className="flex items-center gap-3 text-xs">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-semibold bg-red-100 text-red-700">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            <span className="badge badge-active font-semibold">
               {activeCount} Active Now
             </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-semibold bg-blue-100 text-blue-700">
+            <span className="badge badge-scheduled font-semibold">
               {scheduledCount} Scheduled
             </span>
           </div>
