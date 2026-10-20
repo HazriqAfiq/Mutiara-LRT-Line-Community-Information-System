@@ -1,24 +1,17 @@
 /**
  * components/common/RoadClosureCard.jsx
  *
- * Reusable card for a road closure / traffic advisory notice.
- * Used on both the HomePage and RoadClosuresPage.
- *
- * Props:
- *   closure   {object}   - Road closure data object
- *   compact   {boolean}  - Shorter description for homepage
+ * Road Closure / Traffic Advisory card matching the reference design layout:
+ * - Top row: Status pill badge on left (Active, Scheduled, Completed), Circular icon on right
+ * - Date range row with clock/calendar icon
+ * - Bold road name title
+ * - Location with pin
+ * - Brief description
+ * - "View Details →" outline button
  */
 import { Link } from 'react-router-dom';
-import { MapPin, Calendar, Navigation, ArrowRight, AlertTriangle } from 'lucide-react';
-import StatusBadge from './StatusBadge';
+import { MapPin, Clock, ArrowRight, Map, Calendar, CheckCircle2 } from 'lucide-react';
 import { formatDateRange } from '../../utils/dateUtils';
-
-// Status-specific left border colour
-const STATUS_BORDER = {
-  active:    'var(--color-error)',
-  scheduled: 'var(--color-info)',
-  completed: 'var(--color-success)',
-};
 
 export default function RoadClosureCard({ closure, compact = false }) {
   const {
@@ -29,99 +22,99 @@ export default function RoadClosureCard({ closure, compact = false }) {
     description,
     start_date,
     end_date,
-    alternative_route,
     status,
   } = closure;
 
-  const borderColor = STATUS_BORDER[status] || 'var(--color-gray-300)';
+  const isCompleted = status === 'completed';
+  const isScheduled = status === 'scheduled';
+  const isActive = status === 'active';
 
   return (
     <article
-      className="card card-hover flex flex-col h-full"
+      className="bg-white p-5 sm:p-6 flex flex-col h-full hover:shadow-md transition-all duration-200"
+      style={{ borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
     >
-      {/* Status badge + road tag */}
-      <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-        <span
-          className="flex items-center gap-1 text-xs font-semibold"
-          style={{ color: 'var(--color-navy)' }}
+      {/* Top Row: Status Badge & Icon Container */}
+      <div className="flex items-center justify-between gap-2 mb-3">
+        {/* Status Badge */}
+        {isActive && (
+          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#DC2626] text-white">
+            ACTIVE CLOSURE
+          </span>
+        )}
+        {isScheduled && (
+          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#2563EB] text-white">
+            SCHEDULED CLOSURE
+          </span>
+        )}
+        {isCompleted && (
+          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#475569] text-white">
+            COMPLETED
+          </span>
+        )}
+
+        {/* Circular Icon */}
+        <div
+          className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${
+            isActive
+              ? 'bg-red-50 text-red-500'
+              : isScheduled
+              ? 'bg-blue-50 text-blue-500'
+              : 'bg-gray-100 text-gray-500'
+          }`}
         >
-          <AlertTriangle size={12} />
-          {road_name}
-        </span>
-        <StatusBadge status={status} type="roadClosure" />
+          {isActive ? (
+            <Map size={16} />
+          ) : isScheduled ? (
+            <Calendar size={16} />
+          ) : (
+            <CheckCircle2 size={16} />
+          )}
+        </div>
       </div>
 
-      {/* Title */}
-      <h3
-        className="font-bold mb-2 leading-snug"
-        style={{
-          color: 'var(--color-navy)',
-          fontSize: '1rem',
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
-        }}
-      >
-        {title}
+      {/* Date Range */}
+      <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1.5">
+        <Clock size={13} className="text-gray-400" />
+        <span>{formatDateRange(start_date, end_date)}</span>
+      </div>
+
+      {/* Road Name Title */}
+      <h3 className="font-bold text-[#0F2C59] text-base sm:text-lg mb-1 leading-snug">
+        {road_name || title}
       </h3>
 
-      {/* Location + Date row */}
-      <div className="flex flex-wrap gap-x-4 gap-y-1 mb-3">
-        <span
-          className="flex items-center gap-1 text-xs"
-          style={{ color: 'var(--color-gray-500)' }}
-        >
-          <MapPin size={12} />
-          {location}
-        </span>
-        <span
-          className="flex items-center gap-1 text-xs"
-          style={{ color: 'var(--color-gray-500)' }}
-        >
-          <Calendar size={12} />
-          {formatDateRange(start_date, end_date)}
-        </span>
-      </div>
+      {/* Location */}
+      {location && (
+        <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-3 font-medium">
+          <MapPin size={13} className="text-red-500 flex-shrink-0" />
+          <span className="truncate">{location}</span>
+        </div>
+      )}
 
       {/* Description */}
       <p
-        className="text-sm flex-1 mb-3"
+        className="text-xs text-gray-600 leading-relaxed mb-6 flex-1"
         style={{
-          color: 'var(--color-gray-600)',
           display: '-webkit-box',
           WebkitLineClamp: compact ? 2 : 3,
           WebkitBoxOrient: 'vertical',
           overflow: 'hidden',
-          lineHeight: 1.6,
         }}
       >
         {description}
       </p>
 
-      {/* Alternative route snippet (non-compact only) */}
-      {!compact && alternative_route && (
-        <div
-          className="flex items-start gap-2 text-xs rounded-lg p-2 mb-3"
-          style={{
-            backgroundColor: 'var(--color-gray-50)',
-            color: 'var(--color-gray-600)',
-            border: '1px solid var(--color-gray-200)',
-          }}
+      {/* View Details Button */}
+      <div className="pt-1 mt-auto">
+        <Link
+          to={`/road-closures/${id}`}
+          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
         >
-          <Navigation size={12} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--color-teal)' }} />
-          <span className="line-clamp-2">{alternative_route}</span>
-        </div>
-      )}
-
-      {/* View Details link */}
-      <Link
-        to={`/road-closures/${id}`}
-        className="btn btn-outline-teal btn-sm self-start flex items-center gap-1 mt-auto"
-        aria-label={`View details for: ${title}`}
-      >
-        View Details <ArrowRight size={14} />
-      </Link>
+          <span>View Details</span>
+          <ArrowRight size={13} />
+        </Link>
+      </div>
     </article>
   );
 }

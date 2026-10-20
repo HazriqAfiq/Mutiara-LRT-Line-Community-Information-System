@@ -124,7 +124,24 @@ export default function RoadClosureDetailsPage() {
 
         {/* Details Card */}
         {!loading && !error && closure && (
-          <article className="card bg-white border border-gray-100 shadow-md rounded-2xl overflow-hidden">
+          <article className="card bg-white border border-gray-100 shadow-md rounded-2xl overflow-hidden p-0">
+            {/* Visual Traffic Advisory Banner */}
+            <div className="relative w-full h-56 sm:h-72 bg-slate-900 overflow-hidden">
+              <img
+                src="/images/traffic_detour.jpg"
+                alt={closure.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-900/30 to-black/30" />
+              <div className="absolute top-4 left-4 flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold text-slate-950 bg-amber-400 shadow-md">
+                  <AlertTriangle size={14} className="text-slate-950" />
+                  {closure.road_name}
+                </span>
+                <StatusBadge status={closure.status} type="roadClosure" />
+              </div>
+            </div>
+
             {/* Header banner */}
             <div
               className="p-6 sm:p-8 border-b"
