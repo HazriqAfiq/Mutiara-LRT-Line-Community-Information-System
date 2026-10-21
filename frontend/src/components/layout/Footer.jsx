@@ -41,15 +41,6 @@ export default function Footer() {
               Mutiara Line. Delivering real-time construction notices, traffic diversion
               advisories, and two-way citizen feedback channels.
             </p>
-
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold text-[#0F2C59] bg-[#F4B942]">
-                Target Operations: 2030
-              </span>
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-semibold text-slate-200 bg-white/10 border border-white/15">
-                20 Stations • 29.5 km
-              </span>
-            </div>
           </div>
 
           {/* Column 2: Quick Links (3 cols) */}
