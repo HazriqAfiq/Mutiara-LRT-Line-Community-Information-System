@@ -98,14 +98,14 @@ export default function RoadClosureDetailsPage() {
 
         {/* Loading */}
         {loading && (
-          <div className="card p-16 flex justify-center bg-white border border-gray-100 shadow-sm rounded-2xl">
+          <div className="card p-16 flex justify-center bg-white border border-gray-200 shadow-xs rounded-xl">
             <LoadingSpinner message="Loading traffic advisory details..." />
           </div>
         )}
 
         {/* Error / Not Found */}
         {!loading && error && (
-          <div className="card p-12 text-center bg-white border border-red-200 shadow-sm rounded-2xl max-w-lg mx-auto">
+          <div className="card p-12 text-center bg-white border border-red-200 shadow-xs rounded-xl max-w-lg mx-auto">
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
               style={{ backgroundColor: '#FEE2E2', color: 'var(--color-error)' }}
@@ -124,7 +124,7 @@ export default function RoadClosureDetailsPage() {
 
         {/* Details Card */}
         {!loading && !error && closure && (
-          <article className="card bg-white border border-gray-100 shadow-md rounded-2xl overflow-hidden p-0">
+          <article className="card bg-white border border-gray-200 shadow-xs rounded-xl overflow-hidden p-0">
             {/* Visual Traffic Advisory Banner */}
             <div className="relative w-full h-56 sm:h-72 bg-slate-900 overflow-hidden">
               <img

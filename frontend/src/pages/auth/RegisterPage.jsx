@@ -135,7 +135,7 @@ export default function RegisterPage() {
 
       {/* General Registration Error */}
       {generalError && (
-        <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2 text-xs text-red-800">
+        <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 flex items-start gap-2 text-xs text-red-800">
           <AlertCircle size={16} className="text-red-600 mt-0.5 flex-shrink-0" />
           <span>{generalError}</span>
         </div>
@@ -342,7 +342,7 @@ export default function RegisterPage() {
             type="submit"
             disabled={loading}
             id="register-submit-button"
-            className="w-full py-2.5 px-4 rounded-xl bg-[#12375B] hover:bg-[#1a4e7a] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full py-2.5 px-4 rounded-md bg-[#12375B] hover:bg-[#1a4e7a] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-xs hover:shadow-sm transition-all duration-150 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>

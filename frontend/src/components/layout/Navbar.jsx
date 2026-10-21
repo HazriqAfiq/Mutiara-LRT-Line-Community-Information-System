@@ -18,8 +18,6 @@ import {
   User,
   LayoutDashboard,
   MessageSquare,
-  Phone,
-  Mail,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import PenangLRTLogo from '../common/PenangLRTLogo';
@@ -62,60 +60,22 @@ export default function Navbar() {
     <>
       {/* ── Fixed Header ─────────────────────────────────────────── */}
       <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300">
-        {/* ── Top Utility Bar ───────────────────────────────────────── */}
-        <div
-          className={`bg-white border-b border-gray-100 px-4 sm:px-6 pointer-events-auto transition-all duration-300 ${
-            scrolled
-              ? 'max-h-0 opacity-0 -translate-y-full overflow-hidden'
-              : 'max-h-12 opacity-100 translate-y-0'
-          }`}
-        >
-          <div className="max-w-[1200px] mx-auto flex items-center justify-between h-9">
-            {/* Left: contact info */}
-            <div className="flex items-center gap-4 text-[11px] text-gray-500">
-              <a
-                href="tel:1800886782"
-                className="flex items-center gap-1.5 hover:text-[#009688] transition-colors"
-              >
-                <Phone size={11} />
-                <span>1800-88-6782</span>
-              </a>
-              <a
-                href="mailto:feedback@penanglrt-prototype.my"
-                className="hidden sm:flex items-center gap-1.5 hover:text-[#009688] transition-colors"
-              >
-                <Mail size={11} />
-                <span>feedback@penanglrt-prototype.my</span>
-              </a>
-            </div>
-            {/* Right: language */}
-            <div className="flex items-center gap-1 text-[11px] font-semibold text-gray-500">
-              <span className="text-[#009688]">EN</span>
-              <span className="text-gray-300">|</span>
-              <span className="hover:text-gray-700 cursor-pointer">BM</span>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Floating Pill Navbar Container ────────────────────────── */}
-        {/* Transparent wrapper so content flows behind rounded edges (no rectangular box) */}
+        {/* ── Civic Navbar Container ────────────────────────── */}
         <div
           className="px-3 sm:px-5 pointer-events-none pt-3 transition-all duration-300"
           style={{ background: 'transparent' }}
         >
           <nav
-            className="max-w-[1200px] mx-auto rounded-[32px] px-5 sm:px-7 pointer-events-auto transition-all duration-300"
+            className="max-w-[1200px] mx-auto rounded-lg px-4 sm:px-6 pointer-events-auto transition-all duration-200"
             style={{
-              backgroundColor: 'rgba(26, 74, 94, 0.95)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
+              backgroundColor: '#12375B',
               boxShadow: scrolled
-                ? '0 14px 38px 0 rgba(0,0,0,0.32), 0 4px 14px 0 rgba(0,0,0,0.18)'
-                : '0 8px 32px 0 rgba(0,0,0,0.26), 0 2px 8px 0 rgba(0,0,0,0.14)',
+                ? '0 4px 12px 0 rgba(0,0,0,0.2)'
+                : '0 2px 6px 0 rgba(0,0,0,0.12)',
               border: '1px solid rgba(255, 255, 255, 0.12)',
             }}
           >
-          <div className="flex items-center justify-between h-[60px]">
+          <div className="flex items-center justify-between h-[56px]">
 
             {/* Left: Project Branding */}
             <Link to="/" className="flex items-center flex-shrink-0 group">
@@ -230,12 +190,12 @@ export default function Navbar() {
                 <div className="relative">
                   <button
                     onClick={() => setUserMenuOpen((o) => !o)}
-                    className="flex items-center gap-2 text-white/90 hover:text-white text-sm font-semibold transition-colors bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full border border-white/20"
+                    className="flex items-center gap-2 text-white/90 hover:text-white text-xs font-semibold transition-colors bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-md border border-white/20"
                     id="user-menu-button"
                     aria-haspopup="true"
                     aria-expanded={userMenuOpen}
                   >
-                    <div className="w-6 h-6 rounded-full bg-[#F4B942] text-[#0F2C59] text-[11px] font-bold flex items-center justify-center">
+                    <div className="w-5 h-5 rounded bg-[#F4B942] text-[#12375B] text-[10px] font-bold flex items-center justify-center">
                       {user.name.charAt(0).toUpperCase()}
                     </div>
                     <span className="max-w-[100px] truncate">{user.name}</span>
@@ -244,7 +204,7 @@ export default function Navbar() {
 
                   {userMenuOpen && (
                     <div
-                      className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-50"
+                      className="absolute right-0 mt-2 w-52 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50"
                       onMouseLeave={() => setUserMenuOpen(false)}
                     >
                       <div className="px-4 py-2 border-b border-gray-100">
@@ -258,7 +218,7 @@ export default function Navbar() {
                           className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50"
                           onClick={() => setUserMenuOpen(false)}
                         >
-                          <LayoutDashboard size={14} className="text-[#009688]" /> Administrator Panel
+                          <LayoutDashboard size={14} className="text-[#16A6A1]" /> Administrator Panel
                         </Link>
                       ) : (
                         <>
@@ -267,21 +227,21 @@ export default function Navbar() {
                             className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50"
                             onClick={() => setUserMenuOpen(false)}
                           >
-                            <LayoutDashboard size={14} className="text-[#009688]" /> My Dashboard
+                            <LayoutDashboard size={14} className="text-[#16A6A1]" /> My Dashboard
                           </Link>
                           <Link
                             to="/my-feedback"
                             className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50"
                             onClick={() => setUserMenuOpen(false)}
                           >
-                            <MessageSquare size={14} className="text-[#009688]" /> My Feedback
+                            <MessageSquare size={14} className="text-[#16A6A1]" /> My Feedback
                           </Link>
                           <Link
                             to="/profile"
                             className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50"
                             onClick={() => setUserMenuOpen(false)}
                           >
-                            <User size={14} className="text-[#009688]" /> Profile
+                            <User size={14} className="text-[#16A6A1]" /> Profile
                           </Link>
                         </>
                       )}
@@ -304,13 +264,13 @@ export default function Navbar() {
                 <div className="flex items-center gap-2">
                   <Link
                     to="/login"
-                    className="px-4 py-1.5 text-sm font-semibold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/25 rounded-full transition-colors"
+                    className="px-3 py-1.5 text-xs font-semibold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-md transition-colors"
                   >
                     Login
                   </Link>
                   <Link
                     to="/register"
-                    className="px-4 py-1.5 text-sm font-semibold text-[#0F2C59] bg-[#F4B942] hover:bg-[#e5a82e] rounded-full shadow-sm transition-colors"
+                    className="px-3 py-1.5 text-xs font-bold text-[#12375B] bg-[#F4B942] hover:bg-[#d9992a] rounded-md shadow-sm transition-colors"
                   >
                     Register
                   </Link>
@@ -322,10 +282,10 @@ export default function Navbar() {
             <div className="flex lg:hidden items-center gap-2">
               <button
                 onClick={() => setMobileOpen((o) => !o)}
-                className="p-2 text-white/80 hover:text-white transition-colors rounded-lg"
+                className="p-1.5 text-white/80 hover:text-white transition-colors rounded-md"
                 aria-label="Toggle mobile menu"
               >
-                {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
@@ -428,7 +388,7 @@ export default function Navbar() {
     </header>
 
     {/* Spacer so page content starts cleanly below the fixed header */}
-    <div className="h-[108px] pointer-events-none" aria-hidden="true" />
+    <div className="h-[76px] pointer-events-none" aria-hidden="true" />
   </>
   );
 }

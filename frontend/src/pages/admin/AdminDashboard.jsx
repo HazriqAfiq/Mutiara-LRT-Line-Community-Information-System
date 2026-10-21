@@ -235,7 +235,7 @@ export default function AdminDashboard() {
           {/* Section B & C: Recharts Visualizations */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Chart 1: Status Distribution (5 cols) */}
-            <div className="lg:col-span-5 card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between">
+            <div className="lg:col-span-5 card bg-white p-5 rounded-lg border border-gray-200 shadow-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <PieIcon size={16} className="text-teal-600" />
@@ -290,7 +290,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Chart 2: Category Breakdown Bar Chart (7 cols) */}
-            <div className="lg:col-span-7 card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between">
+            <div className="lg:col-span-7 card bg-white p-5 rounded-lg border border-gray-200 shadow-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <BarChart3 size={16} className="text-teal-600" />
@@ -334,7 +334,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Section D: Recent 5 Complaints Table */}
-          <div className="card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="card bg-white rounded-lg border border-gray-200 shadow-xs overflow-hidden">
             <div className="p-5 border-b border-gray-100 flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-gray-900">
@@ -406,7 +406,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Section E: Recent Announcements Overview */}
-          <div className="card bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+          <div className="card bg-white rounded-lg border border-gray-200 shadow-xs p-5">
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
               <div>
                 <h3 className="text-base font-bold text-gray-900">

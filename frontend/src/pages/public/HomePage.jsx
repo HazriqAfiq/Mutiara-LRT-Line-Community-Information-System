@@ -85,215 +85,209 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#EEF2F7' }}>
 
       {/* ============================================================
-          1. HERO SECTION: Official elevated LRT project visual with high-contrast text overlay
+          1. HERO: Civic Public Transit Announcement Header
           ============================================================ */}
-      <section className="px-3 sm:px-5" style={{ paddingTop: '8px', paddingBottom: '0' }}>
+      <section className="px-4 sm:px-6 pt-3 pb-0">
         <div
-          className="relative w-full overflow-hidden flex items-center"
-          style={{
-            borderRadius: '28px',
-            minHeight: '500px',
-            maxHeight: '620px',
-          }}
+          className="relative w-full overflow-hidden border border-gray-200"
+          style={{ borderRadius: '12px', minHeight: '380px', maxHeight: '500px' }}
         >
-          {/* Hero Image: Penang LRT Mutiara Line Elevated Train & Viaduct */}
+          {/* Hero Image */}
           <img
-            src="/images/hero_lrt.jpg"
-            alt="Penang LRT Mutiara Line elevated light rail transit train in George Town Penang"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            src="/images/hero_community.jpg"
+            alt="Penang LRT Mutiara Line Community, residents of George Town"
+            className="w-full h-full object-cover object-center"
+            style={{ minHeight: '380px', maxHeight: '500px' }}
           />
 
-          {/* High-visibility multi-stop contrast gradient overlay */}
+          {/* Contrast scrim */}
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(to right, rgba(10, 31, 56, 0.95) 0%, rgba(10, 31, 56, 0.88) 45%, rgba(10, 31, 56, 0.55) 75%, rgba(10, 31, 56, 0.35) 100%), linear-gradient(180deg, rgba(10, 31, 56, 0.65) 0%, rgba(10, 31, 56, 0.20) 40%, rgba(10, 31, 56, 0.85) 100%)',
-            }}
+            style={{ background: 'linear-gradient(180deg, rgba(18, 55, 91, 0.25) 0%, rgba(18, 55, 91, 0.4) 100%)' }}
           />
 
-          {/* Hero Content Container — with clearance for floating navbar */}
-          <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 lg:px-14 pt-28 sm:pt-36 pb-12 sm:pb-16 flex flex-col justify-center">
-            <div className="max-w-2xl">
-              {/* Civic Authority Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 bg-[#12375B]/85 text-[#F4B942] border border-[#F4B942]/50 shadow-md backdrop-blur-sm">
-                <span className="w-2 h-2 rounded-full bg-[#F4B942] animate-pulse" />
-                <span>PULAU PINANG • LALUAN MUTIARA</span>
-              </div>
-
-              {/* Main Headline — Maximum Visibility with High-Contrast Text Shadow */}
-              <h1
-                className="font-extrabold tracking-tight leading-tight mb-3"
-                style={{
-                  fontSize: 'clamp(2.25rem, 5vw, 3.75rem)',
-                  color: '#FFFFFF',
-                  textShadow: '0 2px 14px rgba(0, 0, 0, 0.9), 0 4px 30px rgba(0, 0, 0, 0.6)',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                LRT Mutiara Line
-              </h1>
-
-              {/* Subtitle — Luminous High-Contrast Cyan/Teal */}
-              <p
-                className="font-bold leading-tight mb-4"
-                style={{
-                  color: '#2DD4BF',
-                  fontSize: 'clamp(1.2rem, 3.2vw, 1.95rem)',
-                  textShadow: '0 2px 10px rgba(0, 0, 0, 0.85)',
-                }}
-              >
-                Enhancing Mobility, Enriching Communities
-              </p>
-
-              {/* Supporting Description */}
-              <p
-                className="text-sm sm:text-base leading-relaxed mb-8 max-w-xl font-medium text-slate-100"
-                style={{
-                  textShadow: '0 1px 4px rgba(0, 0, 0, 0.85)',
-                }}
-              >
-                Stay informed about construction progress, road closures and community updates.
-                Share your concerns and track responses — all in one platform.
-              </p>
-
-              {/* Primary Call-to-Actions */}
-              <div className="flex flex-wrap items-center gap-3 mb-5">
-                <Link
-                  to="/announcements"
-                  id="hero-view-updates-cta"
-                  className="inline-flex items-center gap-2 bg-[#F4B942] hover:bg-[#e5a82e] font-bold text-sm px-6 py-3 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-                  style={{ borderRadius: '24px', color: '#0F2C59' }}
-                >
-                  <span style={{ color: '#0F2C59' }}>View Construction Updates</span>
-                  <ArrowRight size={15} style={{ color: '#0F2C59' }} />
-                </Link>
-
-                <Link
-                  to="/road-closures"
-                  id="hero-check-closures-cta"
-                  className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-md font-bold text-sm px-6 py-3 border border-white/50 transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
-                  style={{ borderRadius: '24px', color: '#FFFFFF' }}
-                >
-                  <span style={{ color: '#FFFFFF' }}>Check Traffic Advisories</span>
-                  <ArrowRight size={15} style={{ color: '#FFFFFF' }} />
-                </Link>
-              </div>
-
-              {/* Scroll down indicator */}
-              <div className="pt-1">
-                <button
-                  onClick={scrollToContent}
-                  aria-label="Scroll to explore services"
-                  className="inline-flex items-center gap-2 text-xs font-semibold text-white/80 hover:text-white transition-colors group cursor-pointer"
-                >
-                  <span className="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center group-hover:border-white group-hover:bg-white/15 transition-all">
-                    <ChevronDown size={15} strokeWidth={2.5} className="group-hover:translate-y-0.5 transition-transform" />
-                  </span>
-                  <span style={{ textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>Scroll to Explore</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
           {/* Academic disclaimer watermark */}
-          <div
-            className="absolute bottom-3 right-4 text-right text-[10px] text-white/70 pointer-events-none hidden sm:block"
-            style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}
-          >
-            <p>Academic prototype — not an official MRT Corp website.</p>
+          <div className="absolute bottom-3 right-4 text-right text-[11px] text-white/90 pointer-events-none hidden sm:block bg-navy/60 px-3 py-1 rounded">
+            <p>Academic prototype. Developed for educational research.</p>
           </div>
         </div>
       </section>
 
       {/* ============================================================
-          2. THREE QUICK ACCESS SERVICE CARDS
+          HEADLINE SECTION: Civic transit identity
           ============================================================ */}
-      <section ref={belowHeroRef} className="px-3 sm:px-5 py-6 scroll-mt-24">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Card 1: Construction Updates */}
-            <div
-              className="bg-white p-6 flex items-start gap-4 hover:shadow-md transition-all duration-200"
-              style={{ borderRadius: '20px', border: '1px solid #e2e8f0' }}
+      <section
+        className="px-4 sm:px-6 py-8"
+        style={{ backgroundColor: '#F5F7FA' }}
+      >
+        <div className="max-w-[850px] mx-auto text-center">
+          <h1
+            className="font-extrabold tracking-tight leading-tight mb-2"
+            style={{ color: '#12375B', fontSize: 'clamp(2rem, 4.5vw, 3rem)' }}
+          >
+            Penang LRT Mutiara Line
+          </h1>
+          <p
+            className="font-bold leading-tight mb-4"
+            style={{ color: '#16A6A1', fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)' }}
+          >
+            Community Information and Public Feedback Portal
+          </p>
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-xl mx-auto mb-6">
+            Official public notices, scheduled road closures, and neighbourhood traffic advisories.
+            Submit inquiries directly to the project team and track resolution progress.
+          </p>
+
+          {/* Primary Action Buttons */}
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              to="/announcements"
+              id="hero-view-updates-cta"
+              className="inline-flex items-center gap-2 bg-[#12375B] hover:bg-[#0c2640] text-white font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16A6A1]"
             >
-              <div
-                className="w-12 h-12 flex items-center justify-center flex-shrink-0"
-                style={{ borderRadius: '14px', backgroundColor: '#E0F2FE', color: '#0284C7' }}
+              <span>View Construction Notices</span>
+            </Link>
+            <Link
+              to="/road-closures"
+              id="hero-check-closures-cta"
+              className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-[#12375B] border border-gray-300 font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16A6A1]"
+            >
+              <span>Traffic Advisories & Detours</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          2. PROJECT BANNER: Transit Corridor Overview
+          ============================================================ */}
+      <section ref={belowHeroRef} className="px-4 sm:px-6 py-4">
+        <div
+          className="relative w-full overflow-hidden border border-gray-200"
+          style={{ borderRadius: '12px', minHeight: '320px', maxHeight: '420px' }}
+        >
+          <img
+            src="/images/penang_cityscape.jpg"
+            alt="Aerial view of George Town Penang showing the alignment corridor"
+            className="w-full h-full object-cover object-center"
+            style={{ minHeight: '320px', maxHeight: '420px' }}
+          />
+          {/* Contrast scrim for clear text legibility */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to right, rgba(18, 55, 91, 0.94) 0%, rgba(18, 55, 91, 0.82) 50%, rgba(18, 55, 91, 0.35) 100%)',
+            }}
+          />
+          <div className="absolute inset-0 flex items-center">
+            <div className="px-6 sm:px-12 max-w-xl">
+              <span
+                className="text-xs font-bold uppercase tracking-wider block mb-2 text-[#F4B942]"
               >
-                <Newspaper size={22} />
+                PUBLIC INFRASTRUCTURE
+              </span>
+              <h2
+                className="font-extrabold leading-tight mb-3 text-white"
+                style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.25rem)' }}
+              >
+                Connecting Penang Communities
+              </h2>
+              <p
+                className="text-sm sm:text-base leading-relaxed mb-6 max-w-md text-gray-100"
+              >
+                Linking George Town, Bayan Lepas, and Butterworth via Penang Sentral.
+                Structured notifications ensure daily commuters and residents navigate construction smoothly.
+              </p>
+              <div>
+                <Link
+                  to="/about"
+                  className="inline-flex items-center gap-2 bg-[#F4B942] hover:bg-[#d9992a] font-bold text-sm px-5 py-2.5 rounded-md text-[#12375B] transition-colors shadow-sm"
+                >
+                  <span>Explore Route Alignment</span>
+                </Link>
               </div>
-              <div className="flex flex-col flex-1">
-                <h3 className="font-bold text-[#12375B] text-base mb-1.5">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          3. KEY PUBLIC SERVICES
+          ============================================================ */}
+      <section className="px-4 sm:px-6 py-6">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Service 1: Construction Notices */}
+            <div
+              className="bg-white p-6 flex flex-col justify-between border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
+            >
+              <div>
+                <div className="w-10 h-10 flex items-center justify-center rounded bg-[#E0F2FE] text-[#0284C7] mb-4">
+                  <Newspaper size={20} />
+                </div>
+                <h3 className="font-bold text-[#12375B] text-base mb-2">
                   Construction Updates
                 </h3>
-                <p className="text-xs text-gray-500 leading-relaxed mb-3">
-                  Stay informed about ongoing construction activities and important project announcements.
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
+                  Regular progress reports on station piling, viaduct segmental launch, and safety procedures.
                 </p>
-                <Link
-                  to="/announcements"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] transition-colors mt-auto"
-                >
-                  <span>View Updates</span>
-                  <ArrowRight size={13} />
-                </Link>
               </div>
+              <Link
+                to="/announcements"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] focus:outline-none focus:underline"
+              >
+                <span>Browse Announcements</span>
+                <ChevronRight size={14} />
+              </Link>
             </div>
 
-            {/* Card 2: Traffic Announcement */}
+            {/* Service 2: Traffic Detours */}
             <div
-              className="bg-white p-6 flex items-start gap-4 hover:shadow-md transition-all duration-200"
-              style={{ borderRadius: '20px', border: '1px solid #e2e8f0' }}
+              className="bg-white p-6 flex flex-col justify-between border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
             >
-              <div
-                className="w-12 h-12 flex items-center justify-center flex-shrink-0"
-                style={{ borderRadius: '14px', backgroundColor: '#FEF3C7', color: '#D97706' }}
-              >
-                <Car size={22} />
-              </div>
-              <div className="flex flex-col flex-1">
-                <h3 className="font-bold text-[#12375B] text-base mb-1.5">
-                  Traffic Advisories
+              <div>
+                <div className="w-10 h-10 flex items-center justify-center rounded bg-[#FEF3C7] text-[#D97706] mb-4">
+                  <Car size={20} />
+                </div>
+                <h3 className="font-bold text-[#12375B] text-base mb-2">
+                  Road Closures & Detours
                 </h3>
-                <p className="text-xs text-gray-500 leading-relaxed mb-3">
-                  Check affected roads, temporary closures, diversions, and alternative routes.
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
+                  Scheduled lane closures, night-time diversions, and alternative arterial routes across Penang.
                 </p>
-                <Link
-                  to="/road-closures"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] transition-colors mt-auto"
-                >
-                  <span>View Advisories</span>
-                  <ArrowRight size={13} />
-                </Link>
               </div>
+              <Link
+                to="/road-closures"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] focus:outline-none focus:underline"
+              >
+                <span>View Traffic Map & Notices</span>
+                <ChevronRight size={14} />
+              </Link>
             </div>
 
-            {/* Card 3: Community Feedback */}
+            {/* Service 3: Public Feedback */}
             <div
-              className="bg-white p-6 flex items-start gap-4 hover:shadow-md transition-all duration-200"
-              style={{ borderRadius: '20px', border: '1px solid #e2e8f0' }}
+              className="bg-white p-6 flex flex-col justify-between border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
             >
-              <div
-                className="w-12 h-12 flex items-center justify-center flex-shrink-0"
-                style={{ borderRadius: '14px', backgroundColor: '#D1FAE5', color: '#059669' }}
-              >
-                <MessageSquare size={22} />
-              </div>
-              <div className="flex flex-col flex-1">
-                <h3 className="font-bold text-[#12375B] text-base mb-1.5">
-                  Community Feedback
+              <div>
+                <div className="w-10 h-10 flex items-center justify-center rounded bg-[#D1FAE5] text-[#059669] mb-4">
+                  <MessageSquare size={20} />
+                </div>
+                <h3 className="font-bold text-[#12375B] text-base mb-2">
+                  Public Feedback System
                 </h3>
-                <p className="text-xs text-gray-500 leading-relaxed mb-3">
-                  Submit concerns about construction activities and track progress on your reports.
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
+                  Log concerns regarding noise, dust, vibration, or accessibility directly to project liaison officers.
                 </p>
-                <Link
-                  to={isAuthenticated ? (isAdmin ? '/admin/feedback' : '/feedback/new') : '/feedback/new'}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] transition-colors mt-auto"
-                >
-                  <span>Submit Feedback</span>
-                  <ArrowRight size={13} />
-                </Link>
               </div>
+              <Link
+                to={isAuthenticated ? (isAdmin ? '/admin/feedback' : '/feedback/new') : '/feedback/new'}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] focus:outline-none focus:underline"
+              >
+                <span>Submit Inquiries or Complaints</span>
+                <ChevronRight size={14} />
+              </Link>
             </div>
           </div>
         </div>
@@ -307,24 +301,24 @@ export default function HomePage() {
       {/* ============================================================
           4. CONSTRUCTION UPDATES & ANNOUNCEMENTS
           ============================================================ */}
-      <section className="px-3 sm:px-5 py-8">
+      <section className="px-4 sm:px-6 py-8">
         <div className="max-w-[1200px] mx-auto">
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 pb-2 border-b border-gray-200">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#16A6A1] block mb-1">
-                LATEST UPDATES
+              <span className="text-xs font-bold uppercase tracking-wider text-[#16A6A1] block mb-1">
+                PUBLIC NOTICES
               </span>
               <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] tracking-tight">
-                Construction Updates & Announcements
+                Latest Construction Announcements
               </h2>
             </div>
             <Link
               to="/announcements"
-              className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-[#12375B] hover:text-[#16A6A1] transition-colors self-start sm:self-auto"
+              className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#12375B] hover:text-[#16A6A1] transition-colors self-start sm:self-auto"
             >
-              <span>View All Updates</span>
-              <ArrowRight size={14} />
+              <span>View All Notices</span>
+              <ChevronRight size={16} />
             </Link>
           </div>
 
@@ -334,14 +328,15 @@ export default function HomePage() {
               <LoadingSpinner message="Loading updates..." />
             </div>
           ) : error ? (
-            <div
-              className="p-8 text-center bg-white"
-              style={{ borderRadius: '16px', border: '1px solid #fecaca' }}
-            >
-              <p className="text-xs text-red-600 mb-2">{error}</p>
+            <div className="p-6 text-center bg-white border border-red-200 rounded-lg">
+              <p className="text-sm text-red-600 mb-1">{error}</p>
+            </div>
+          ) : announcements.length === 0 ? (
+            <div className="p-8 text-center bg-white border border-gray-200 rounded-lg">
+              <p className="text-sm text-gray-500">No announcements published at this time.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {announcements.map((announcement) => (
                 <AnnouncementCard
                   key={announcement.id}
@@ -358,26 +353,26 @@ export default function HomePage() {
           5. ROAD CLOSURES & TRAFFIC ADVISORIES
           ============================================================ */}
       <section
-        className="px-3 sm:px-5 py-8"
-        style={{ backgroundColor: '#f8fafc' }}
+        className="px-4 sm:px-6 py-8"
+        style={{ backgroundColor: '#F5F7FA' }}
       >
         <div className="max-w-[1200px] mx-auto">
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 pb-2 border-b border-gray-200">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#16A6A1] block mb-1">
-                TRAFFIC INFORMATION
+              <span className="text-xs font-bold uppercase tracking-wider text-[#16A6A1] block mb-1">
+                TRAFFIC MANAGEMENT
               </span>
               <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] tracking-tight">
-                Road Closures & Traffic Advisories
+                Scheduled Road Closures & Diversions
               </h2>
             </div>
             <Link
               to="/road-closures"
-              className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-[#12375B] hover:text-[#16A6A1] transition-colors self-start sm:self-auto"
+              className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#12375B] hover:text-[#16A6A1] transition-colors self-start sm:self-auto"
             >
               <span>View All Advisories</span>
-              <ArrowRight size={14} />
+              <ChevronRight size={16} />
             </Link>
           </div>
 
@@ -386,8 +381,12 @@ export default function HomePage() {
             <div className="py-16 flex justify-center">
               <LoadingSpinner message="Checking road closures..." />
             </div>
+          ) : closures.length === 0 ? (
+            <div className="p-8 text-center bg-white border border-gray-200 rounded-lg">
+              <p className="text-sm text-gray-500">No active or scheduled road closures reported.</p>
+            </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {closures.map((closure) => (
                 <RoadClosureCard
                   key={closure.id}
@@ -401,91 +400,53 @@ export default function HomePage() {
       </section>
 
       {/* ============================================================
-          6. HOW FEEDBACK WORKS: 3 Simple Steps
+          6. COMMUNITY ENGAGEMENT PROTOCOL
           ============================================================ */}
-      <section className="px-3 sm:px-5 py-10">
+      <section className="px-4 sm:px-6 py-10 bg-white border-y border-gray-200">
         <div className="max-w-[1200px] mx-auto">
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#16A6A1] block mb-1">
-              HOW FEEDBACK WORKS
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#16A6A1] block mb-1">
+              COMMUNITY GRIEVANCE MECHANISM
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] tracking-tight">
-              Share Your Concerns in 3 Simple Steps
+              Community Engagement & Inquiries
             </h2>
+            <p className="text-xs sm:text-sm text-gray-600 mt-2">
+              Every complaint is logged, assigned to an on-site liaison engineer, and resolved under transparent timelines.
+            </p>
           </div>
 
-          {/* Stepper */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {/* Step 1 */}
-            <div
-              className="bg-white p-6 flex flex-col items-center text-center"
-              style={{ borderRadius: '20px', border: '1px solid #e2e8f0' }}
-            >
-              <div
-                className="w-14 h-14 flex items-center justify-center mb-4 relative"
-                style={{ borderRadius: '18px', backgroundColor: '#E0F2FE', color: '#0284C7' }}
-              >
-                <FileEdit size={24} />
-                <span
-                  className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white"
-                  style={{ backgroundColor: '#16A6A1' }}
-                >
-                  1
-                </span>
+            <div className="bg-[#F5F7FA] p-6 rounded-lg border border-gray-200 flex flex-col items-center text-center">
+              <div className="w-12 h-12 flex items-center justify-center mb-3 rounded-md bg-[#E0F2FE] text-[#0284C7] font-bold text-lg">
+                1
               </div>
-              <h3 className="font-bold text-[#12375B] text-sm mb-2">Submit Your Feedback</h3>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                Tell us about construction-related issues affecting your neighbourhood.
+              <h3 className="font-bold text-[#12375B] text-sm mb-1.5">Lodge Inquiry</h3>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Provide location, category (e.g. noise, traffic detour), and description of construction concerns.
               </p>
             </div>
 
-            {/* Connector (desktop) */}
-            <div className="hidden md:flex items-center justify-center absolute" style={{ display: 'none' }} />
-
             {/* Step 2 */}
-            <div
-              className="bg-white p-6 flex flex-col items-center text-center"
-              style={{ borderRadius: '20px', border: '1px solid #e2e8f0' }}
-            >
-              <div
-                className="w-14 h-14 flex items-center justify-center mb-4 relative"
-                style={{ borderRadius: '18px', backgroundColor: '#CCFBF1', color: '#16A6A1' }}
-              >
-                <Search size={24} />
-                <span
-                  className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white"
-                  style={{ backgroundColor: '#16A6A1' }}
-                >
-                  2
-                </span>
+            <div className="bg-[#F5F7FA] p-6 rounded-lg border border-gray-200 flex flex-col items-center text-center">
+              <div className="w-12 h-12 flex items-center justify-center mb-3 rounded-md bg-[#CCFBF1] text-[#0f7a76] font-bold text-lg">
+                2
               </div>
-              <h3 className="font-bold text-[#12375B] text-sm mb-2">Track Your Complaint</h3>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                Log in to check the real-time status and updates on your submitted feedback.
+              <h3 className="font-bold text-[#12375B] text-sm mb-1.5">Site Investigation</h3>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Project engineers inspect the site and document mitigation steps directly in the resolution log.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div
-              className="bg-white p-6 flex flex-col items-center text-center"
-              style={{ borderRadius: '20px', border: '1px solid #e2e8f0' }}
-            >
-              <div
-                className="w-14 h-14 flex items-center justify-center mb-4 relative"
-                style={{ borderRadius: '18px', backgroundColor: '#E0E7FF', color: '#4F46E5' }}
-              >
-                <MessageCircle size={24} />
-                <span
-                  className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white"
-                  style={{ backgroundColor: '#16A6A1' }}
-                >
-                  3
-                </span>
+            <div className="bg-[#F5F7FA] p-6 rounded-lg border border-gray-200 flex flex-col items-center text-center">
+              <div className="w-12 h-12 flex items-center justify-center mb-3 rounded-md bg-[#E0E7FF] text-[#4F46E5] font-bold text-lg">
+                3
               </div>
-              <h3 className="font-bold text-[#12375B] text-sm mb-2">Receive Official Response</h3>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                Get official responses and follow-up actions from the project team.
+              <h3 className="font-bold text-[#12375B] text-sm mb-1.5">Verified Resolution</h3>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Status is updated to Resolved once mitigation measures are verified by municipal authorities.
               </p>
             </div>
           </div>
@@ -493,150 +454,77 @@ export default function HomePage() {
       </section>
 
       {/* ============================================================
-          STRATEGIC TRANSIT ALIGNMENT BANNER
-          ============================================================ */}
-      <section className="px-3 sm:px-5 py-4">
-        <div
-          className="max-w-[1200px] mx-auto relative overflow-hidden"
-          style={{ borderRadius: '24px', minHeight: '320px', maxHeight: '420px' }}
-        >
-          <img
-            src="/images/penang_cityscape.jpg"
-            alt="Aerial view of George Town Penang showing the city and Penang Strait"
-            className="w-full h-full object-cover object-center"
-            style={{ minHeight: '320px', maxHeight: '420px' }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(to right, rgba(11, 37, 69, 0.94) 0%, rgba(11, 37, 69, 0.78) 50%, rgba(11, 37, 69, 0.25) 100%)',
-            }}
-          />
-          <div className="absolute inset-0 flex items-center">
-            <div className="px-8 sm:px-12 max-w-xl">
-              <span
-                className="text-xs font-extrabold uppercase tracking-widest block mb-2"
-                style={{ color: '#F4B942', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
-              >
-                STRATEGIC TRANSIT ALIGNMENT
-              </span>
-              <h2
-                className="font-extrabold leading-tight mb-3"
-                style={{
-                  fontSize: 'clamp(1.5rem, 3.2vw, 2.35rem)',
-                  color: '#FFFFFF',
-                  textShadow: '0 2px 10px rgba(0,0,0,0.7)',
-                }}
-              >
-                Connecting Penang's Communities
-              </h2>
-              <p
-                className="text-sm sm:text-base leading-relaxed mb-6 max-w-md font-medium"
-                style={{ color: '#F1F5F9', textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}
-              >
-                A transformative public transit network linking George Town, Bayan Lepas, and Butterworth across 20 stations and 29.5 km of dedicated track.
-              </p>
-              <div>
-                <Link
-                  to="/about"
-                  className="inline-flex items-center gap-2 bg-[#F4B942] hover:bg-[#e5a82e] font-bold text-sm px-6 py-2.5 transition-all shadow-md"
-                  style={{ borderRadius: '24px', color: '#0F2C59' }}
-                >
-                  <span style={{ color: '#0F2C59' }}>Explore Alignment & Stations</span>
-                  <ArrowRight size={15} style={{ color: '#0F2C59' }} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          7. ABOUT THE PROJECT
+          7. ABOUT THE INFRASTRUCTURE
           ============================================================ */}
       <section
         id="about-project"
-        className="px-3 sm:px-5 py-10 scroll-mt-24"
-        style={{ backgroundColor: '#f8fafc' }}
+        className="px-4 sm:px-6 py-10 scroll-mt-24"
+        style={{ backgroundColor: '#F5F7FA' }}
       >
         <div className="max-w-[1200px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-
-            {/* Left: Rounded Image */}
+            {/* Visual Container */}
             <div
-              className="overflow-hidden"
-              style={{ borderRadius: '24px', aspectRatio: '16/10', background: '#e2e8f0' }}
+              className="overflow-hidden border border-gray-200 rounded-lg"
+              style={{ aspectRatio: '16/10', background: '#e2e8f0' }}
             >
               <img
                 src="/images/construction_viaduct.jpg"
-                alt="Penang LRT Mutiara Line Construction Progress"
+                alt="Penang LRT Mutiara Line viaduct construction"
                 className="w-full h-full object-cover"
               />
             </div>
 
-            {/* Right: Narrative & Stats */}
-            <div className="space-y-5">
+            {/* Narrative & Key Facts */}
+            <div className="space-y-4">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-widest text-[#16A6A1] block mb-1">
-                  ABOUT THE PROJECT
+                <span className="text-xs font-bold uppercase tracking-wider text-[#16A6A1] block mb-1">
+                  PROJECT SCOPE
                 </span>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] tracking-tight mb-3">
-                  The Penang LRT Mutiara Line
+                <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] tracking-tight mb-2">
+                  Penang LRT Mutiara Line Overview
                 </h2>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  The Penang LRT Mutiara Line is a proposed light rail transit project that will
-                  enhance connectivity across Penang, supporting sustainable mobility and economic
-                  growth for the state. This platform keeps the community informed and engaged
-                  throughout the construction journey.
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  The Mutiara Line represents Penang's first urban light rail transit system, spanning from
+                  Silicon Island through the Bayan Lepas industrial corridor to George Town (KOMTAR) and connecting
+                  to Penang Sentral (Butterworth) via a sea-crossing viaduct.
                 </p>
               </div>
 
-              {/* 3 Key Stats */}
-              <div className="grid grid-cols-3 gap-4 pt-1">
-                <div
-                  className="p-4 text-center"
-                  style={{ borderRadius: '16px', background: '#EEF2F7', border: '1px solid #e2e8f0' }}
-                >
-                  <div className="text-[#16A6A1] mb-1.5 flex justify-center">
-                    <Train size={22} />
+              {/* Transit Parameters (Real Planned Specifications) */}
+              <div className="grid grid-cols-3 gap-3 pt-2">
+                <div className="p-3 text-center bg-white border border-gray-200 rounded-md">
+                  <div className="text-[#16A6A1] mb-1 flex justify-center">
+                    <Train size={20} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">20</p>
-                  <p className="text-[11px] text-gray-500 leading-tight">Stations</p>
+                  <p className="font-extrabold text-sm text-[#12375B]">29</p>
+                  <p className="text-[11px] text-gray-600">Stations</p>
                 </div>
 
-                <div
-                  className="p-4 text-center"
-                  style={{ borderRadius: '16px', background: '#EEF2F7', border: '1px solid #e2e8f0' }}
-                >
-                  <div className="text-[#16A6A1] mb-1.5 flex justify-center">
-                    <Route size={22} />
+                <div className="p-3 text-center bg-white border border-gray-200 rounded-md">
+                  <div className="text-[#16A6A1] mb-1 flex justify-center">
+                    <Route size={20} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">29.5 km</p>
-                  <p className="text-[11px] text-gray-500 leading-tight">Alignment</p>
+                  <p className="font-extrabold text-sm text-[#12375B]">29 km</p>
+                  <p className="text-[11px] text-gray-600">Alignment</p>
                 </div>
 
-                <div
-                  className="p-4 text-center"
-                  style={{ borderRadius: '16px', background: '#EEF2F7', border: '1px solid #e2e8f0' }}
-                >
-                  <div className="text-[#16A6A1] mb-1.5 flex justify-center">
-                    <Users size={22} />
+                <div className="p-3 text-center bg-white border border-gray-200 rounded-md">
+                  <div className="text-[#16A6A1] mb-1 flex justify-center">
+                    <Users size={20} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">1.7M+</p>
-                  <p className="text-[11px] text-gray-500 leading-tight">Residents</p>
+                  <p className="font-extrabold text-sm text-[#12375B]">Penang</p>
+                  <p className="text-[11px] text-gray-600">Island & Mainland</p>
                 </div>
               </div>
 
-              {/* CTA */}
-              <div>
+              <div className="pt-2">
                 <Link
                   to="/about"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-[#16A6A1] bg-white hover:bg-teal-50 transition-colors"
-                  style={{ borderRadius: '24px', border: '2px solid #16A6A1' }}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-[#12375B] bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors shadow-sm"
                 >
-                  <span>Learn More About the Project</span>
-                  <ArrowRight size={15} />
+                  <span>Detailed Station Alignment and Technical Specs</span>
+                  <ChevronRight size={15} />
                 </Link>
               </div>
             </div>
@@ -645,48 +533,34 @@ export default function HomePage() {
       </section>
 
       {/* ============================================================
-          8. CALL TO ACTION BANNER
+          8. CALL TO ACTION BANNER: Civic Engagement
           ============================================================ */}
-      <section className="px-3 sm:px-5 py-6 pb-10">
+      <section className="px-4 sm:px-6 py-8">
         <div
-          className="max-w-[1200px] mx-auto overflow-hidden"
-          style={{ borderRadius: '24px', background: 'linear-gradient(135deg, #12375B 0%, #1a4a5e 60%, #16A6A1 100%)' }}
+          className="max-w-[1200px] mx-auto rounded-lg border border-navy/20"
+          style={{ backgroundColor: '#12375B' }}
         >
-          <div className="px-8 sm:px-12 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Left Text */}
+          <div className="px-6 sm:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-left max-w-lg">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#F4B942] block mb-1">
-                HAVE A CONCERN?
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F4B942] block mb-1">
+                PUBLIC INQUIRIES & COMPLAINTS
               </span>
-              <h2
-                className="text-xl sm:text-2xl font-extrabold tracking-tight mb-1"
-                style={{ color: '#FFFFFF', textShadow: '0 2px 6px rgba(0,0,0,0.3)' }}
-              >
-                Let Us Know About Construction Activities
+              <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight mb-2">
+                Have an Issue Regarding Construction in Your Area?
               </h2>
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: '#F1F5F9' }}
-              >
-                Your feedback helps build a better, more connected Penang.
+              <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
+                Submit an inquiry or feedback ticket. The project coordination desk reviews submissions daily.
               </p>
             </div>
 
-            {/* Right Button */}
             <div className="flex-shrink-0">
               <Link
                 to={isAuthenticated ? (isAdmin ? '/admin/feedback' : '/feedback/new') : '/feedback/new'}
-                className="inline-flex items-center gap-2 font-bold text-sm px-7 py-3.5 transition-all shadow-md hover:shadow-lg"
+                className="inline-flex items-center gap-2 font-bold text-sm px-6 py-3 rounded-md bg-[#F4B942] hover:bg-[#d9992a] text-[#12375B] transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
                 id="cta-submit-feedback-button"
-                style={{
-                  backgroundColor: '#F4B942',
-                  color: '#12375B',
-                  borderRadius: '28px',
-                }}
               >
                 <MessageSquare size={16} />
-                <span>Submit Feedback</span>
-                <ArrowRight size={15} />
+                <span>Submit Feedback Ticket</span>
               </Link>
             </div>
           </div>

@@ -98,11 +98,11 @@ export default function LRTMapSection() {
 
         {/* Loading / Error States */}
         {loading ? (
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-16 flex flex-col items-center justify-center min-h-[420px] shadow-xs">
+          <div className="bg-white rounded-xl border border-slate-200 p-16 flex flex-col items-center justify-center min-h-[420px]">
             <LoadingSpinner message="Loading interactive transit & construction map..." />
           </div>
         ) : error ? (
-          <div className="bg-white rounded-2xl border border-red-200 p-8 text-center min-h-[300px] flex flex-col items-center justify-center shadow-xs">
+          <div className="bg-white rounded-xl border border-red-200 p-8 text-center min-h-[300px] flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mb-3">
               <AlertCircle size={24} />
             </div>
@@ -110,7 +110,7 @@ export default function LRTMapSection() {
             <button
               type="button"
               onClick={loadData}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#12375B] hover:bg-[#1a4e7a] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#12375B] hover:bg-[#1a4e7a] text-white text-xs font-bold rounded-md transition-colors cursor-pointer"
             >
               <RefreshCw size={13} />
               <span>Retry Loading Map</span>
@@ -122,7 +122,7 @@ export default function LRTMapSection() {
             {/* Left Control & Info Panel (12 cols mobile, 4 cols desktop = ~33%) */}
             <div className="lg:col-span-4 flex flex-col gap-3.5 order-2 lg:order-1">
               {/* Search Bar */}
-              <div className="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">
+              <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs">
                 <span className="text-[11px] font-bold text-slate-700 block mb-1.5">
                   Quick Search
                 </span>
@@ -134,7 +134,7 @@ export default function LRTMapSection() {
               </div>
 
               {/* Category Filters */}
-              <div className="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">
+              <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[11px] font-bold text-slate-700">
                     Category Filter

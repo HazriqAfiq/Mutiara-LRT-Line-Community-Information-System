@@ -44,20 +44,19 @@ export default function AnnouncementCard({ announcement, compact = false }) {
 
   return (
     <article
-      className="bg-white overflow-hidden flex flex-col h-full group hover:shadow-md transition-all duration-200"
-      style={{ borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
+      className="bg-white overflow-hidden flex flex-col h-full border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
     >
       {/* Image Header with Category Badge */}
       <div className="relative w-full h-48 bg-gray-100 overflow-hidden flex-shrink-0">
         <img
           src={displayImage}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover"
           loading="lazy"
         />
         {/* Top-left Category Pill */}
         <div className="absolute top-3 left-3 z-10">
-          <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm ${badgeClass}`}>
+          <span className={`inline-block px-2.5 py-1 rounded text-[11px] font-bold uppercase tracking-wider ${badgeClass}`}>
             {category}
           </span>
         </div>
@@ -73,9 +72,9 @@ export default function AnnouncementCard({ announcement, compact = false }) {
 
         {/* Title */}
         <h3
-          className="font-bold text-[#0F2C59] mb-2 leading-snug group-hover:text-[#009688] transition-colors"
+          className="font-bold text-[#12375B] mb-2 leading-snug hover:text-[#16A6A1] transition-colors"
           style={{
-            fontSize: '1.05rem',
+            fontSize: '1rem',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
@@ -88,14 +87,14 @@ export default function AnnouncementCard({ announcement, compact = false }) {
         {/* Location Row */}
         {location && (
           <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-3 font-medium">
-            <MapPin size={13} className="text-[#009688] flex-shrink-0" />
+            <MapPin size={13} className="text-[#16A6A1] flex-shrink-0" />
             <span className="truncate">{location}</span>
           </div>
         )}
 
         {/* Excerpt */}
         <p
-          className="text-xs text-gray-600 leading-relaxed mb-4 flex-1"
+          className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4 flex-1"
           style={{
             display: '-webkit-box',
             WebkitLineClamp: compact ? 2 : 3,
@@ -107,12 +106,12 @@ export default function AnnouncementCard({ announcement, compact = false }) {
         </p>
 
         {/* Read More Link */}
-        <div className="pt-2 mt-auto">
+        <div className="pt-2 mt-auto border-t border-gray-100">
           <Link
             to={`/announcements/${id}`}
-            className="inline-flex items-center gap-1 text-xs font-bold text-[#0F2C59] hover:text-[#009688] transition-colors"
+            className="inline-flex items-center gap-1 text-xs font-bold text-[#12375B] hover:text-[#16A6A1] transition-colors focus:outline-none focus:underline"
           >
-            <span>Read More</span>
+            <span>Read Full Notice</span>
             <ArrowRight size={13} />
           </Link>
         </div>

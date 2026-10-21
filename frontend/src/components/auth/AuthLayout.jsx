@@ -18,23 +18,19 @@ export default function AuthLayout({ children }) {
         className="fixed inset-0 w-full h-full object-cover object-center pointer-events-none"
       />
 
-      {/* ── Subtle Dark Gradient Overlay ────────────────────────────── */}
+      {/* ── High-Contrast Civic Transit Overlay ─────────────────────── */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(135deg, rgba(10, 31, 56, 0.72) 0%, rgba(18, 55, 91, 0.62) 50%, rgba(10, 31, 56, 0.80) 100%)',
+            'linear-gradient(135deg, rgba(18, 55, 91, 0.88) 0%, rgba(12, 38, 64, 0.94) 100%)',
         }}
       />
 
-      {/* ── Centered Glassmorphic Form Card ─────────────────────────── */}
-      <div className="relative z-10 w-full max-w-[430px] my-auto animate-in fade-in zoom-in-95 duration-200">
+      {/* ── Centered Civic Form Container ──────────────────────────── */}
+      <div className="relative z-10 w-full max-w-[440px] my-auto">
         <div
-          className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/40"
-          style={{
-            boxShadow:
-              '0 20px 45px -10px rgba(10, 31, 56, 0.45), 0 10px 20px -5px rgba(0, 0, 0, 0.20)',
-          }}
+          className="bg-white rounded-lg p-6 sm:p-8 shadow-lg border border-gray-200"
         >
           {children}
         </div>

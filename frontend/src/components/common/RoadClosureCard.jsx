@@ -31,31 +31,30 @@ export default function RoadClosureCard({ closure, compact = false }) {
 
   return (
     <article
-      className="bg-white p-5 sm:p-6 flex flex-col h-full hover:shadow-md transition-all duration-200"
-      style={{ borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
+      className="bg-white p-5 sm:p-6 flex flex-col h-full border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
     >
       {/* Top Row: Status Badge & Icon Container */}
       <div className="flex items-center justify-between gap-2 mb-3">
         {/* Status Badge */}
         {isActive && (
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#DC2626] text-white">
+          <span className="inline-block px-2.5 py-1 rounded text-[11px] font-bold uppercase tracking-wider bg-[#DC2626] text-white">
             ACTIVE CLOSURE
           </span>
         )}
         {isScheduled && (
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#2563EB] text-white">
+          <span className="inline-block px-2.5 py-1 rounded text-[11px] font-bold uppercase tracking-wider bg-[#2563EB] text-white">
             SCHEDULED CLOSURE
           </span>
         )}
         {isCompleted && (
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#475569] text-white">
+          <span className="inline-block px-2.5 py-1 rounded text-[11px] font-bold uppercase tracking-wider bg-[#475569] text-white">
             COMPLETED
           </span>
         )}
 
         {/* Circular Icon */}
         <div
-          className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${
+          className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
             isActive
               ? 'bg-red-50 text-red-500'
               : isScheduled
@@ -80,21 +79,21 @@ export default function RoadClosureCard({ closure, compact = false }) {
       </div>
 
       {/* Road Name Title */}
-      <h3 className="font-bold text-[#0F2C59] text-base sm:text-lg mb-1 leading-snug">
+      <h3 className="font-bold text-[#12375B] text-base mb-1 leading-snug">
         {road_name || title}
       </h3>
 
       {/* Location */}
       {location && (
         <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-3 font-medium">
-          <MapPin size={13} className="text-red-500 flex-shrink-0" />
+          <MapPin size={13} className="text-[#16A6A1] flex-shrink-0" />
           <span className="truncate">{location}</span>
         </div>
       )}
 
       {/* Description */}
       <p
-        className="text-xs text-gray-600 leading-relaxed mb-6 flex-1"
+        className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-6 flex-1"
         style={{
           display: '-webkit-box',
           WebkitLineClamp: compact ? 2 : 3,
@@ -106,12 +105,12 @@ export default function RoadClosureCard({ closure, compact = false }) {
       </p>
 
       {/* View Details Button */}
-      <div className="pt-1 mt-auto">
+      <div className="pt-2 mt-auto border-t border-gray-100">
         <Link
           to={`/road-closures/${id}`}
-          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#12375B] hover:text-[#16A6A1] transition-colors focus:outline-none focus:underline"
         >
-          <span>View Details</span>
+          <span>View Detour Details</span>
           <ArrowRight size={13} />
         </Link>
       </div>
