@@ -200,16 +200,15 @@ export default function SubmitFeedbackPage() {
 
       <div className="container max-w-3xl mt-8">
         <div className="card bg-white p-6 sm:p-8 rounded-lg border border-gray-200 shadow-sm">
-          {/* Simulation disclaimer banner */}
+          {/* Community grievance notice */}
           <div
             className="mb-6 p-4 rounded-md border flex items-start gap-3 bg-[#EEF2F7] border-gray-200"
           >
             <Info size={18} className="text-[#16A6A1] mt-0.5 flex-shrink-0" />
             <div className="text-xs text-gray-700 leading-relaxed">
-              <p className="font-bold text-[#12375B]">Academic Simulation Notice</p>
+              <p className="font-bold text-[#12375B]">Community Feedback Guidelines</p>
               <p>
-                Feedback logged through this prototype is recorded in your demonstration account session.
-                No submissions are dispatched to real-world government agencies or transit contractors.
+                Please provide specific location details and timing for construction-related concerns to facilitate prompt contractor investigation and mitigation.
               </p>
             </div>
           </div>
