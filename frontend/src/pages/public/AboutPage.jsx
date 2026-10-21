@@ -667,24 +667,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ============================================================
-            8. ACADEMIC DISCLAIMER BANNER (CMT322)
-            ============================================================ */}
-        <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 flex items-start gap-3 text-xs text-amber-900 leading-relaxed">
-          <Info size={16} className="text-amber-700 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="font-bold text-amber-950 mb-0.5">
-              Academic Project Notice &amp; Prototype Disclaimer
-            </p>
-            <p className="text-amber-800">
-              This website is an academic prototype developed for <strong>CMT322</strong> at Universiti
-              Sains Malaysia (USM). It is created strictly for academic research and interface simulation
-              purposes, and is <strong>not</strong> the official corporate website of Mass Rapid Transit
-              Corporation Sdn Bhd (MRT Corp) or the Penang State Government.
-            </p>
-          </div>
-        </div>
-
       </div>
     </div>
   );

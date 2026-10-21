@@ -264,15 +264,12 @@ export default function FeedbackDetailsPage() {
                     <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
                       Attached Photographic Evidence
                     </h3>
-                    <div className="inline-block p-2 bg-gray-50 rounded-xl border border-gray-200">
+                    <div className="inline-block p-2 bg-gray-50 rounded-lg border border-gray-200">
                       <img
                         src={feedback.attachment_url}
                         alt="Supporting evidence"
-                        className="max-h-72 w-auto object-cover rounded-lg shadow-sm"
+                        className="max-h-72 w-auto object-cover rounded-md shadow-xs"
                       />
-                      <p className="text-[11px] text-gray-400 mt-1.5 px-1 italic">
-                        Previewed attachment (academic demonstration)
-                      </p>
                     </div>
                   </div>
                 )}
