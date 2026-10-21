@@ -105,11 +105,6 @@ export default function HomePage() {
             className="absolute inset-0 pointer-events-none"
             style={{ background: 'linear-gradient(180deg, rgba(18, 55, 91, 0.25) 0%, rgba(18, 55, 91, 0.4) 100%)' }}
           />
-
-          {/* Academic disclaimer watermark */}
-          <div className="absolute bottom-3 right-4 text-right text-[11px] text-white/90 pointer-events-none hidden sm:block bg-navy/60 px-3 py-1 rounded">
-            <p>Academic prototype. Developed for educational research.</p>
-          </div>
         </div>
       </section>
 
