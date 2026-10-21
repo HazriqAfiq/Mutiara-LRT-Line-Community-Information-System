@@ -174,7 +174,7 @@ export default function Navbar() {
                   }`
                 }
               >
-                Traffic Announcement
+                Traffic Advisories
               </NavLink>
 
               <NavLink
@@ -376,7 +376,7 @@ export default function Navbar() {
                   }`
                 }
               >
-                Traffic Announcement
+                Traffic Advisories
               </NavLink>
               <NavLink
                 to={isAuthenticated ? (isAdmin ? '/admin/feedback' : '/feedback/new') : '/feedback/new'}

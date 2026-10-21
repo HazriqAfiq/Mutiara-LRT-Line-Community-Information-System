@@ -101,7 +101,7 @@ export default function FeedbackDetailsPage() {
   }, [id, user]);
 
   return (
-    <div className="min-h-screen py-10" style={{ backgroundColor: 'var(--color-bg)' }}>
+    <div className="min-h-screen pt-28 sm:pt-32 pb-16" style={{ backgroundColor: 'var(--color-bg)' }}>
       <div className="container max-w-4xl mx-auto px-4">
         {/* Navigation Breadcrumb */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">

@@ -18,7 +18,7 @@
  */
 import { MOCK_ROAD_CLOSURES } from '../mocks/roadClosures';
 
-const ROAD_CLOSURES_STORE_KEY = 'mutiara_road_closures_store_v2';
+const ROAD_CLOSURES_STORE_KEY = 'mutiara_road_closures_store_v3';
 const delay = (ms = 350) => new Promise((r) => setTimeout(r, ms));
 
 function getStoredRoadClosures() {

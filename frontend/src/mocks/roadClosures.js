@@ -10,6 +10,8 @@ export const MOCK_ROAD_CLOSURES = [
     title: 'Jalan Sultan Azlan Shah',
     road_name: 'Jalan Sultan Azlan Shah',
     location: 'Bayan Lepas, Penang',
+    latitude: 5.305,
+    longitude: 100.278,
     description:
       'Partial lane closure due to utility relocation works for station construction.',
     start_date: '2024-12-10',
@@ -25,6 +27,8 @@ export const MOCK_ROAD_CLOSURES = [
     title: 'Jalan Masjid Negeri',
     road_name: 'Jalan Masjid Negeri',
     location: 'Georgetown, Penang',
+    latitude: 5.402,
+    longitude: 100.303,
     description:
       'Temporary lane closure for guideway construction works.',
     start_date: '2024-12-15',
@@ -40,6 +44,8 @@ export const MOCK_ROAD_CLOSURES = [
     title: 'Jalan Tun Dr. Lim Chong Eu',
     road_name: 'Jalan Tun Dr. Lim Chong Eu',
     location: 'Gelugor, Penang',
+    latitude: 5.362,
+    longitude: 100.311,
     description:
       'Road works completed. All lanes are now open to traffic.',
     start_date: '2024-11-01',
