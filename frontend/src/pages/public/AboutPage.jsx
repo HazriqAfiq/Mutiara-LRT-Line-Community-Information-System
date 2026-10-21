@@ -170,7 +170,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#EEF2F7' }}>
+    <div className="min-h-screen bg-[#F5F7FA]">
       {/* ── Page Header ─────────────────────────────────────────── */}
       <PageHeader
         title="About Penang LRT Mutiara Line"
@@ -260,9 +260,9 @@ export default function AboutPage() {
                 spanning the Penang Strait. This ensures direct rail connectivity between the island’s
                 central terminal at KOMTAR and the mainland railway hub at Penang Sentral in Butterworth.
               </p>
-              <div className="p-4 bg-[#EEF2F7] rounded-2xl border-l-4 border-[#16A6A1] space-y-1">
+              <div className="p-4 bg-white rounded-lg border border-gray-200 border-l-4 border-l-[#16A6A1] space-y-1">
                 <p className="font-semibold text-xs text-[#12375B]">Key Project Beneficiaries:</p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-600">
                   Over 100,000 daily industrial commuters in Bayan Lepas, regional tourists arriving via
                   Penang International Airport, students at USM, and interstate travelers transferring at
                   Penang Sentral.
@@ -274,7 +274,7 @@ export default function AboutPage() {
           {/* 3 Strategic Pillars */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-gray-100">
             <div className="flex items-start gap-3.5 p-4 rounded-lg bg-[#F5F7FA] border border-gray-200">
-              <div className="p-2 rounded bg-teal-50 text-[#16A6A1] flex-shrink-0">
+              <div className="p-2 rounded-md bg-teal-50 text-[#16A6A1] flex-shrink-0">
                 <Compass size={20} />
               </div>
               <div>
@@ -286,7 +286,7 @@ export default function AboutPage() {
             </div>
 
             <div className="flex items-start gap-3.5 p-4 rounded-lg bg-[#F5F7FA] border border-gray-200">
-              <div className="p-2 rounded bg-amber-50 text-[#F4B942] flex-shrink-0">
+              <div className="p-2 rounded-md bg-amber-50 text-[#B45309] flex-shrink-0">
                 <Plane size={20} />
               </div>
               <div>
@@ -298,7 +298,7 @@ export default function AboutPage() {
             </div>
 
             <div className="flex items-start gap-3.5 p-4 rounded-lg bg-[#F5F7FA] border border-gray-200">
-              <div className="p-2 rounded bg-blue-50 text-[#12375B] flex-shrink-0">
+              <div className="p-2 rounded-md bg-blue-50 text-[#12375B] flex-shrink-0">
                 <Shield size={20} />
               </div>
               <div>
@@ -332,7 +332,7 @@ export default function AboutPage() {
                   key={metric.label}
                   className="bg-white rounded-lg p-5 border border-gray-200 shadow-sm flex flex-col justify-between"
                 >
-                  <div className="p-2.5 w-fit rounded bg-[#EEF2F7] text-[#16A6A1] mb-3">
+                  <div className="p-2.5 w-fit rounded-md bg-teal-50 text-[#16A6A1] border border-teal-100 mb-3">
                     <IconComp size={22} />
                   </div>
                   <div>
@@ -371,12 +371,16 @@ export default function AboutPage() {
           </div>
 
           {/* Zone Selector Tabs */}
-          <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-3">
+          <div role="tablist" aria-label="LRT Route Zones" className="flex flex-wrap gap-2 border-b border-gray-200 pb-3">
             {ZONES.map((zone) => (
               <button
                 key={zone.id}
+                role="tab"
+                id={`zone-tab-${zone.id}`}
+                aria-selected={activeZone === zone.id}
+                aria-controls={`zone-panel-${zone.id}`}
                 onClick={() => setActiveZone(zone.id)}
-                className={`px-3.5 py-2 rounded-md text-xs font-bold transition-colors ${
+                className={`px-3.5 py-2 rounded-md text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-[#16A6A1] focus:ring-offset-2 ${
                   activeZone === zone.id
                     ? 'bg-[#12375B] text-white shadow-sm'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -391,7 +395,12 @@ export default function AboutPage() {
           {(() => {
             const currentZone = ZONES.find((z) => z.id === activeZone) || ZONES[0];
             return (
-              <div className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-4">
+              <div
+                role="tabpanel"
+                id={`zone-panel-${currentZone.id}`}
+                aria-labelledby={`zone-tab-${currentZone.id}`}
+                className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-4"
+              >
                 <div>
                   <h3 className="text-base sm:text-lg font-extrabold text-[#12375B]">
                     {currentZone.title}
@@ -437,34 +446,34 @@ export default function AboutPage() {
               Strategic Multimodal Interchanges
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-2xl border border-gray-100 bg-slate-50 space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#16A6A1] bg-teal-50 px-2 py-0.5 rounded-md">
+              <div className="p-4 rounded-lg border border-gray-200 bg-[#F5F7FA] space-y-1.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#0f7a76] bg-teal-100/70 px-2 py-0.5 rounded-md">
                   Island Central Hub
                 </span>
                 <h5 className="font-bold text-sm text-[#12375B]">KOMTAR Interchange</h5>
-                <p className="text-xs text-gray-500 leading-relaxed">
+                <p className="text-xs text-gray-600 leading-relaxed">
                   Direct connection with Rapid Penang central bus depot, Komtar pedestrian mall, and
                   state administrative headquarters.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl border border-gray-100 bg-slate-50 space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#F4B942] bg-amber-50 px-2 py-0.5 rounded-md text-[#92400e]">
+              <div className="p-4 rounded-lg border border-gray-200 bg-[#F5F7FA] space-y-1.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#92400e] bg-amber-100/80 px-2 py-0.5 rounded-md">
                   Mainland Railway Hub
                 </span>
                 <h5 className="font-bold text-sm text-[#12375B]">Penang Sentral (Butterworth)</h5>
-                <p className="text-xs text-gray-500 leading-relaxed">
+                <p className="text-xs text-gray-600 leading-relaxed">
                   Seamless intermodal link to KTM Electric Train Service (ETS), KTM Komuter, interstate
                   bus services, and the Penang Ferry.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl border border-gray-100 bg-slate-50 space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#3B82F6] bg-blue-50 px-2 py-0.5 rounded-md">
+              <div className="p-4 rounded-lg border border-gray-200 bg-[#F5F7FA] space-y-1.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#1d4ed8] bg-blue-100/70 px-2 py-0.5 rounded-md">
                   Aviation Gateway
                 </span>
                 <h5 className="font-bold text-sm text-[#12375B]">Penang International Airport</h5>
-                <p className="text-xs text-gray-500 leading-relaxed">
+                <p className="text-xs text-gray-600 leading-relaxed">
                   Direct terminal baggage concourse connection supporting international flight passengers
                   and airport employment precinct.
                 </p>
@@ -493,7 +502,7 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-2">
             <div className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-3">
-              <div className="p-2 w-fit rounded bg-white text-[#12375B] border border-gray-200">
+              <div className="p-2 w-fit rounded-md bg-white text-[#12375B] border border-gray-200">
                 <Info size={18} />
               </div>
               <h4 className="font-bold text-sm text-[#12375B]">Verified Construction Updates</h4>
@@ -511,7 +520,7 @@ export default function AboutPage() {
             </div>
 
             <div className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-3">
-              <div className="p-2 w-fit rounded bg-white text-[#F4B942] border border-gray-200">
+              <div className="p-2 w-fit rounded-md bg-white text-[#B45309] border border-gray-200">
                 <AlertTriangle size={18} />
               </div>
               <h4 className="font-bold text-sm text-[#12375B]">Real-Time Traffic Advisories</h4>
@@ -529,7 +538,7 @@ export default function AboutPage() {
             </div>
 
             <div className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-3">
-              <div className="p-2 w-fit rounded bg-white text-[#16A6A1] border border-gray-200">
+              <div className="p-2 w-fit rounded-md bg-white text-[#16A6A1] border border-gray-200">
                 <MessageSquare size={18} />
               </div>
               <h4 className="font-bold text-sm text-[#12375B]">Direct Community Feedback</h4>
@@ -611,12 +620,12 @@ export default function AboutPage() {
                   </div>
 
                   <span
-                    className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded w-fit ${
+                    className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md w-fit ${
                       isActive
                         ? 'text-[#0f7a76] bg-teal-100'
                         : isCompleted
                         ? 'text-gray-700 bg-gray-200'
-                        : 'text-gray-400 bg-gray-100'
+                        : 'text-gray-600 bg-gray-100'
                     }`}
                   >
                     {item.status}
@@ -665,6 +674,19 @@ export default function AboutPage() {
               </Link>
             </div>
           </div>
+        </section>
+
+        {/* ============================================================
+            8. ACADEMIC DISCLAIMER (CMT322)
+            ============================================================ */}
+        <section className="bg-white rounded-lg p-5 border border-gray-200 text-xs text-gray-600 space-y-2">
+          <div className="flex items-center gap-2 text-[#12375B] font-bold">
+            <Info size={16} className="text-[#16A6A1] flex-shrink-0" />
+            <span>Academic Project Notice (CMT322)</span>
+          </div>
+          <p className="leading-relaxed">
+            This platform is an educational prototype developed for course CMT322 at Universiti Sains Malaysia (USM). It models a civic engagement and community information system for the Penang LRT Mutiara Line infrastructure initiative. All route alignments, station details, and timelines are based on publicly gazetted federal and state announcements.
+          </p>
         </section>
 
       </div>
