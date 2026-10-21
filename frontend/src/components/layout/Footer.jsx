@@ -163,12 +163,12 @@ export default function Footer() {
                 <Phone size={16} className="text-[#F4B942] flex-shrink-0 mt-0.5" />
                 <div>
                   <a
-                    href="tel:1800886782"
+                    href="tel:0130000000"
                     className="font-bold text-white hover:text-[#F4B942] transition-colors"
                   >
-                    1800-88-6782
+                    013-XXXXXXX
                   </a>
-                  <p className="text-[11px] text-slate-300">Toll-Free Hotline (24/7)</p>
+                  <p className="text-[11px] text-slate-300">Community Hotline</p>
                 </div>
               </li>
 
@@ -176,20 +176,20 @@ export default function Footer() {
                 <Mail size={16} className="text-[#F4B942] flex-shrink-0 mt-0.5" />
                 <div>
                   <a
-                    href="mailto:feedback@penanglrt-prototype.my"
-                    className="text-slate-200 hover:text-white transition-colors break-all"
+                    href="mailto:email@gmail.com"
+                    className="text-slate-200 hover:text-white transition-colors"
                   >
-                    feedback@penanglrt-prototype.my
+                    email@gmail.com
                   </a>
-                  <p className="text-[11px] text-slate-300">Community Liaison Inquiries</p>
+                  <p className="text-[11px] text-slate-300">General Inquiries</p>
                 </div>
               </li>
 
               <li className="flex items-start gap-2.5">
                 <MapPin size={16} className="text-[#F4B942] flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-slate-200 font-medium">KOMTAR Project Office</span>
-                  <p className="text-[11px] text-slate-300">George Town, 10000 Penang</p>
+                  <span className="text-slate-200 font-medium">George Town, Penang</span>
+                  <p className="text-[11px] text-slate-300">Malaysia</p>
                 </div>
               </li>
             </ul>
