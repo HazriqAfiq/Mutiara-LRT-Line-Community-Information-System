@@ -115,49 +115,49 @@ export default function LoginPage() {
   return (
     <AuthLayout>
       {/* ── Brand Header (Logo & Title Only) ────────────────────────── */}
-      <div className="flex flex-col items-center text-center mb-6">
+      <div className="flex flex-col items-center text-center mb-3">
         <Link
           to="/"
-          className="inline-block mb-3 hover:opacity-90 transition-opacity"
+          className="inline-block mb-1.5 hover:opacity-90 transition-opacity"
           title="Return to Homepage"
         >
           <PenangLRTLogo variant="dark" />
         </Link>
-        <h1 className="text-xl font-bold text-[#12375B] tracking-tight">
+        <h1 className="text-lg font-bold text-[#12375B] tracking-tight">
           Sign In
         </h1>
       </div>
 
       {/* Registration Success Banner */}
       {successMessage && (
-        <div className="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200 flex items-start gap-2 text-xs text-emerald-800">
-          <CheckCircle2 size={16} className="text-emerald-600 mt-0.5 flex-shrink-0" />
+        <div className="mb-2.5 p-2 rounded-lg bg-emerald-50 border border-emerald-200 flex items-start gap-2 text-xs text-emerald-800">
+          <CheckCircle2 size={15} className="text-emerald-600 mt-0.5 flex-shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {/* General Login Error */}
       {generalError && (
-        <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 flex items-start gap-2 text-xs text-red-800">
-          <AlertCircle size={16} className="text-red-600 mt-0.5 flex-shrink-0" />
+        <div className="mb-2.5 p-2 rounded-lg bg-red-50 border border-red-200 flex items-start gap-2 text-xs text-red-800">
+          <AlertCircle size={15} className="text-red-600 mt-0.5 flex-shrink-0" />
           <span>{generalError}</span>
         </div>
       )}
 
       {/* Login Form */}
-      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      <form onSubmit={handleSubmit} className="space-y-2.5" noValidate>
         {/* Email Field */}
         <div>
           <label
             htmlFor="email"
-            className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+            className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-0.5"
           >
             Email Address
           </label>
           <div className="relative">
             <Mail
-              size={16}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+              size={15}
+              className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
             />
             <input
               id="email"
@@ -169,17 +169,17 @@ export default function LoginPage() {
                 setSelectedDemoRole(null);
                 if (errors.email) setErrors({ ...errors, email: null });
               }}
-              className={`form-input pl-10 ${
+              className={`form-input pl-9 py-2 text-xs sm:text-sm ${
                 errors.email
-                  ? 'border-red-500 ring-2 ring-red-500/20'
-                  : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
+                  ? 'border-red-500 ring-1 ring-red-500/20'
+                  : 'focus:border-[#16A6A1] focus:ring-1 focus:ring-[#16A6A1]/20'
               }`}
               placeholder="name@example.com"
             />
           </div>
           {errors.email && (
-            <p className="mt-1 text-xs text-red-600 font-medium flex items-center gap-1">
-              <AlertCircle size={12} />
+            <p className="mt-0.5 text-[11px] text-red-600 font-medium flex items-center gap-1">
+              <AlertCircle size={11} />
               <span>{errors.email}</span>
             </p>
           )}
@@ -189,14 +189,14 @@ export default function LoginPage() {
         <div>
           <label
             htmlFor="password"
-            className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+            className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-0.5"
           >
             Password
           </label>
           <div className="relative">
             <Lock
-              size={16}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+              size={15}
+              className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
             />
             <input
               id="password"
@@ -208,46 +208,46 @@ export default function LoginPage() {
                 setSelectedDemoRole(null);
                 if (errors.password) setErrors({ ...errors, password: null });
               }}
-              className={`form-input pl-10 pr-10 ${
+              className={`form-input pl-9 pr-9 py-2 text-xs sm:text-sm ${
                 errors.password
-                  ? 'border-red-500 ring-2 ring-red-500/20'
-                  : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
+                  ? 'border-red-500 ring-1 ring-red-500/20'
+                  : 'focus:border-[#16A6A1] focus:ring-1 focus:ring-[#16A6A1]/20'
               }`}
               placeholder="••••••••"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 rounded-md transition-colors"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-md transition-colors"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
-              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
             </button>
           </div>
           {errors.password && (
-            <p className="mt-1 text-xs text-red-600 font-medium flex items-center gap-1">
-              <AlertCircle size={12} />
+            <p className="mt-0.5 text-[11px] text-red-600 font-medium flex items-center gap-1">
+              <AlertCircle size={11} />
               <span>{errors.password}</span>
             </p>
           )}
         </div>
 
         {/* Sign In Button */}
-        <div className="pt-1">
+        <div className="pt-0.5">
           <button
             type="submit"
             disabled={loading}
             id="login-submit-button"
-            className="w-full py-2.5 px-4 rounded-md bg-[#12375B] hover:bg-[#1a4e7a] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-xs hover:shadow-sm transition-all duration-150 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full py-2 px-4 rounded-md bg-[#12375B] hover:bg-[#1a4e7a] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:shadow-sm transition-all duration-150 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
-                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 <span>Signing in...</span>
               </>
             ) : (
               <>
-                <LogIn size={16} />
+                <LogIn size={15} />
                 <span>Sign In</span>
               </>
             )}
@@ -256,7 +256,7 @@ export default function LoginPage() {
       </form>
 
       {/* Demo Accounts */}
-      <div className="mt-5 pt-4 border-t border-slate-200/80">
+      <div className="mt-3 pt-2.5 border-t border-slate-200/80">
         <DemoAccountSelector
           selectedRole={selectedDemoRole}
           onSelect={fillDemoAccount}
@@ -264,8 +264,8 @@ export default function LoginPage() {
       </div>
 
       {/* Registration Link */}
-      <div className="mt-5 pt-4 border-t border-slate-200/80 text-center">
-        <p className="text-xs text-slate-600">
+      <div className="mt-3 pt-2 border-t border-slate-200/80 text-center">
+        <p className="text-[11px] text-slate-600">
           Don&apos;t have an account?{' '}
           <Link
             to="/register"
@@ -278,13 +278,13 @@ export default function LoginPage() {
       </div>
 
       {/* Back to Homepage */}
-      <div className="mt-3 text-center">
+      <div className="mt-2 text-center">
         <Link
           to="/"
           id="login-back-home-link"
-          className="inline-flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-slate-700 transition-colors"
+          className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400 hover:text-slate-700 transition-colors"
         >
-          <ArrowLeft size={13} />
+          <ArrowLeft size={12} />
           <span>Back to Homepage</span>
         </Link>
       </div>
