@@ -2,21 +2,14 @@
  * pages/auth/RegisterPage.jsx
  * Route: /register
  *
- * Community member registration page.
- * Features:
- *   - Fields: Full Name, Email, Phone (optional), Password, Confirm Password.
- *   - Client-side validation:
- *       * Name cannot be empty
- *       * Email format regex check
- *       * Duplicate email check (handled by authService)
- *       * Password minimum length (min 6 characters)
- *       * Confirm password exact match
- *   - On success: navigates to /login with prefilled email and success message.
+ * Minimalist, modern LRT-themed registration page:
+ * - Centered glassmorphic card over full-screen LRT background.
+ * - Simple, distraction-free interface displaying only required registration fields.
+ * - Retains full functionality: input validation, error alerts, redirect to login with prefill.
  */
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Train,
   Eye,
   EyeOff,
   UserPlus,
@@ -26,9 +19,10 @@ import {
   Mail,
   Phone,
   Lock,
-  CheckCircle2,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import AuthLayout from '../../components/auth/AuthLayout';
+import PenangLRTLogo from '../../components/common/PenangLRTLogo';
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -42,11 +36,11 @@ export default function RegisterPage() {
     confirmPassword: '',
   });
 
-  const [showPassword, setShowPassword]       = useState(false);
-  const [showConfirm, setShowConfirm]         = useState(false);
-  const [errors, setErrors]                   = useState({});
-  const [loading, setLoading]                 = useState(false);
-  const [generalError, setGeneralError]       = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm]   = useState(false);
+  const [errors, setErrors]             = useState({});
+  const [loading, setLoading]           = useState(false);
+  const [generalError, setGeneralError] = useState(null);
 
   const validate = () => {
     const newErrors = {};
@@ -63,7 +57,7 @@ export default function RegisterPage() {
     if (!formData.email.trim()) {
       newErrors.email = 'Email address is required.';
     } else if (!emailRegex.test(formData.email.trim())) {
-      newErrors.email = 'Please provide a valid email format (e.g. user@example.com).';
+      newErrors.email = 'Please provide a valid email format.';
     }
 
     // Password
@@ -104,7 +98,7 @@ export default function RegisterPage() {
         replace: true,
         state: {
           registeredMessage:
-            'Registration successful! Your simulated community account is ready. Please log in below.',
+            'Registration successful! Please sign in with your credentials below.',
           prefillEmail: formData.email,
         },
       });
@@ -124,253 +118,272 @@ export default function RegisterPage() {
   };
 
   return (
-    <div
-      className="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8"
-      style={{ backgroundColor: 'var(--color-bg)' }}
-    >
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {/* Brand header */}
-        <div className="flex justify-center mb-3">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
-              style={{ backgroundColor: 'var(--color-teal)' }}
-            >
-              <Train size={22} color="white" />
-            </div>
-            <div>
-              <p className="font-bold text-lg leading-tight" style={{ color: 'var(--color-navy)' }}>
-                Mutiara LRT Line
-              </p>
-              <p className="text-xs text-gray-500 leading-tight">Community Platform</p>
-            </div>
-          </Link>
+    <AuthLayout>
+      {/* ── Brand Header (Logo & Title Only) ────────────────────────── */}
+      <div className="flex flex-col items-center text-center mb-5">
+        <Link
+          to="/"
+          className="inline-block mb-2.5 hover:opacity-90 transition-opacity"
+          title="Return to Homepage"
+        >
+          <PenangLRTLogo variant="dark" />
+        </Link>
+        <h1 className="text-xl font-bold text-[#12375B] tracking-tight">
+          Create Account
+        </h1>
+      </div>
+
+      {/* General Registration Error */}
+      {generalError && (
+        <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2 text-xs text-red-800">
+          <AlertCircle size={16} className="text-red-600 mt-0.5 flex-shrink-0" />
+          <span>{generalError}</span>
+        </div>
+      )}
+
+      {/* Registration Form */}
+      <form onSubmit={handleSubmit} className="space-y-3" noValidate>
+        {/* Full Name */}
+        <div>
+          <label
+            htmlFor="reg-name"
+            className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+          >
+            Full Name <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <User
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+            />
+            <input
+              id="reg-name"
+              type="text"
+              autoComplete="name"
+              value={formData.name}
+              onChange={(e) => {
+                setFormData({ ...formData, name: e.target.value });
+                if (errors.name) setErrors({ ...errors, name: null });
+              }}
+              className={`form-input pl-10 ${
+                errors.name
+                  ? 'border-red-500 ring-2 ring-red-500/20'
+                  : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
+              }`}
+              placeholder="Full name"
+            />
+          </div>
+          {errors.name && (
+            <p className="mt-1 text-xs text-red-600 font-medium flex items-center gap-1">
+              <AlertCircle size={12} />
+              <span>{errors.name}</span>
+            </p>
+          )}
         </div>
 
-        <h2 className="text-center text-2xl font-black" style={{ color: 'var(--color-navy)' }}>
-          Create a community account
-        </h2>
-        <p className="mt-1 text-center text-sm text-gray-600">
-          Already registered?{' '}
-          <Link to="/login" className="font-semibold text-teal-600 hover:text-teal-700 underline">
-            Sign in here
+        {/* Email Address */}
+        <div>
+          <label
+            htmlFor="reg-email"
+            className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+          >
+            Email Address <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <Mail
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+            />
+            <input
+              id="reg-email"
+              type="email"
+              autoComplete="email"
+              value={formData.email}
+              onChange={(e) => {
+                setFormData({ ...formData, email: e.target.value });
+                if (errors.email) setErrors({ ...errors, email: null });
+              }}
+              className={`form-input pl-10 ${
+                errors.email
+                  ? 'border-red-500 ring-2 ring-red-500/20'
+                  : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
+              }`}
+              placeholder="name@example.com"
+            />
+          </div>
+          {errors.email && (
+            <p className="mt-1 text-xs text-red-600 font-medium flex items-center gap-1">
+              <AlertCircle size={12} />
+              <span>{errors.email}</span>
+            </p>
+          )}
+        </div>
+
+        {/* Phone Number */}
+        <div>
+          <label
+            htmlFor="reg-phone"
+            className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+          >
+            Phone Number <span className="text-[11px] text-slate-400 font-normal lowercase">(optional)</span>
+          </label>
+          <div className="relative">
+            <Phone
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+            />
+            <input
+              id="reg-phone"
+              type="tel"
+              autoComplete="tel"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="form-input pl-10 focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20"
+              placeholder="e.g. 012-3456789"
+            />
+          </div>
+        </div>
+
+        {/* Password */}
+        <div>
+          <label
+            htmlFor="reg-password"
+            className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+          >
+            Password <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <Lock
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+            />
+            <input
+              id="reg-password"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="new-password"
+              value={formData.password}
+              onChange={(e) => {
+                setFormData({ ...formData, password: e.target.value });
+                if (errors.password) setErrors({ ...errors, password: null });
+              }}
+              className={`form-input pl-10 pr-10 ${
+                errors.password
+                  ? 'border-red-500 ring-2 ring-red-500/20'
+                  : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
+              }`}
+              placeholder="At least 6 characters"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 rounded-md transition-colors"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
+          {errors.password && (
+            <p className="mt-1 text-xs text-red-600 font-medium flex items-center gap-1">
+              <AlertCircle size={12} />
+              <span>{errors.password}</span>
+            </p>
+          )}
+        </div>
+
+        {/* Confirm Password */}
+        <div>
+          <label
+            htmlFor="reg-confirm"
+            className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+          >
+            Confirm Password <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <Lock
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+            />
+            <input
+              id="reg-confirm"
+              type={showConfirm ? 'text' : 'password'}
+              autoComplete="new-password"
+              value={formData.confirmPassword}
+              onChange={(e) => {
+                setFormData({ ...formData, confirmPassword: e.target.value });
+                if (errors.confirmPassword) setErrors({ ...errors, confirmPassword: null });
+              }}
+              className={`form-input pl-10 pr-10 ${
+                errors.confirmPassword
+                  ? 'border-red-500 ring-2 ring-red-500/20'
+                  : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
+              }`}
+              placeholder="Re-enter password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirm(!showConfirm)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 rounded-md transition-colors"
+              aria-label={showConfirm ? 'Hide password' : 'Show password'}
+            >
+              {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
+          {errors.confirmPassword && (
+            <p className="mt-1 text-xs text-red-600 font-medium flex items-center gap-1">
+              <AlertCircle size={12} />
+              <span>{errors.confirmPassword}</span>
+            </p>
+          )}
+        </div>
+
+        {/* Create Account Button */}
+        <div className="pt-1.5">
+          <button
+            type="submit"
+            disabled={loading}
+            id="register-submit-button"
+            className="w-full py-2.5 px-4 rounded-xl bg-[#12375B] hover:bg-[#1a4e7a] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <>
+                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Creating account...</span>
+              </>
+            ) : (
+              <>
+                <UserPlus size={16} />
+                <span>Create Account</span>
+              </>
+            )}
+          </button>
+        </div>
+      </form>
+
+      {/* Sign In Link */}
+      <div className="mt-5 pt-3.5 border-t border-slate-200/80 text-center">
+        <p className="text-xs text-slate-600">
+          Already have an account?{' '}
+          <Link
+            to="/login"
+            id="go-to-login-link"
+            className="font-bold text-[#16A6A1] hover:text-[#0f7a76] hover:underline transition-colors"
+          >
+            Sign in
           </Link>
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="card bg-white py-8 px-4 shadow-lg sm:rounded-2xl sm:px-10 border border-gray-100">
-          {generalError && (
-            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
-              <AlertCircle size={18} className="text-red-600 mt-0.5 flex-shrink-0" />
-              <p className="text-xs text-red-800 leading-relaxed font-medium">{generalError}</p>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-            {/* Full Name */}
-            <div>
-              <label
-                htmlFor="reg-name"
-                className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
-              >
-                Full Name <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
-                <User
-                  size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
-                />
-                <input
-                  id="reg-name"
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => {
-                    setFormData({ ...formData, name: e.target.value });
-                    if (errors.name) setErrors({ ...errors, name: null });
-                  }}
-                  className={`form-input pl-9 ${errors.name ? 'border-red-500 ring-1 ring-red-500' : ''}`}
-                  placeholder="e.g. Ahmad Rahman"
-                  autoComplete="name"
-                />
-              </div>
-              {errors.name && (
-                <p className="mt-1 text-xs text-red-600 font-medium">{errors.name}</p>
-              )}
-            </div>
-
-            {/* Email Address */}
-            <div>
-              <label
-                htmlFor="reg-email"
-                className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
-              >
-                Email Address <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
-                <Mail
-                  size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
-                />
-                <input
-                  id="reg-email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => {
-                    setFormData({ ...formData, email: e.target.value });
-                    if (errors.email) setErrors({ ...errors, email: null });
-                  }}
-                  className={`form-input pl-9 ${errors.email ? 'border-red-500 ring-1 ring-red-500' : ''}`}
-                  placeholder="name@example.com"
-                  autoComplete="email"
-                />
-              </div>
-              {errors.email && (
-                <p className="mt-1 text-xs text-red-600 font-medium">{errors.email}</p>
-              )}
-            </div>
-
-            {/* Phone Number (Optional) */}
-            <div>
-              <label
-                htmlFor="reg-phone"
-                className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
-              >
-                Phone Number <span className="text-xs text-gray-400 font-normal lowercase">(optional)</span>
-              </label>
-              <div className="relative">
-                <Phone
-                  size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
-                />
-                <input
-                  id="reg-phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="form-input pl-9"
-                  placeholder="e.g. 012-3456789"
-                  autoComplete="tel"
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div>
-              <label
-                htmlFor="reg-password"
-                className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
-              >
-                Password <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
-                <Lock
-                  size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
-                />
-                <input
-                  id="reg-password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={formData.password}
-                  onChange={(e) => {
-                    setFormData({ ...formData, password: e.target.value });
-                    if (errors.password) setErrors({ ...errors, password: null });
-                  }}
-                  className={`form-input pl-9 pr-10 ${errors.password ? 'border-red-500 ring-1 ring-red-500' : ''}`}
-                  placeholder="At least 6 characters"
-                  autoComplete="new-password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-              {errors.password && (
-                <p className="mt-1 text-xs text-red-600 font-medium">{errors.password}</p>
-              )}
-            </div>
-
-            {/* Confirm Password */}
-            <div>
-              <label
-                htmlFor="reg-confirm"
-                className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
-              >
-                Confirm Password <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
-                <Lock
-                  size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
-                />
-                <input
-                  id="reg-confirm"
-                  type={showConfirm ? 'text' : 'password'}
-                  value={formData.confirmPassword}
-                  onChange={(e) => {
-                    setFormData({ ...formData, confirmPassword: e.target.value });
-                    if (errors.confirmPassword) setErrors({ ...errors, confirmPassword: null });
-                  }}
-                  className={`form-input pl-9 pr-10 ${errors.confirmPassword ? 'border-red-500 ring-1 ring-red-500' : ''}`}
-                  placeholder="Re-enter password"
-                  autoComplete="new-password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirm(!showConfirm)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
-                  aria-label={showConfirm ? 'Hide password' : 'Show password'}
-                >
-                  {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-              {errors.confirmPassword && (
-                <p className="mt-1 text-xs text-red-600 font-medium">{errors.confirmPassword}</p>
-              )}
-            </div>
-
-            {/* Submit button */}
-            <div className="pt-2">
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn btn-primary w-full py-2.5 flex items-center justify-center gap-2 font-bold shadow-md"
-              >
-                {loading ? (
-                  <>
-                    <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                    Creating account...
-                  </>
-                ) : (
-                  <>
-                    <UserPlus size={16} />
-                    Create Account
-                  </>
-                )}
-              </button>
-            </div>
-          </form>
-
-          {/* Academic notice */}
-          <p className="text-[11px] text-gray-400 text-center mt-5 italic">
-            This registration is an academic simulation for USM CMT322. Registered accounts are stored in browser session storage for testing.
-          </p>
-
-          {/* Return link */}
-          <div className="mt-6 pt-4 border-t border-gray-100 text-center">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-800 transition-colors font-medium"
-            >
-              <ArrowLeft size={13} /> Back to homepage
-            </Link>
-          </div>
-        </div>
+      {/* Back to Homepage */}
+      <div className="mt-2.5 text-center">
+        <Link
+          to="/"
+          id="register-back-home-link"
+          className="inline-flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-slate-700 transition-colors"
+        >
+          <ArrowLeft size={13} />
+          <span>Back to Homepage</span>
+        </Link>
       </div>
-    </div>
+    </AuthLayout>
   );
 }

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 /* =========================================================
    DESIGN TOKENS — Penang LRT Mutiara Line Community Platform
@@ -286,7 +287,10 @@ body {
 .form-select,
 .form-textarea {
   width: 100%;
-  padding: 0.625rem 0.875rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
   border: 1px solid var(--color-gray-300);
   border-radius: var(--radius-md);
   font-size: 0.9375rem;
@@ -295,6 +299,30 @@ body {
   background-color: var(--color-white);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   outline: none;
+}
+
+/* Explicit left padding for inputs with icons (prevents overlap with placeholder/text) */
+.form-input.pl-9,
+.form-input.pl-10,
+.form-input.pl-11,
+input.pl-9,
+input.pl-10,
+input.pl-11,
+[class*="pl-9"],
+[class*="pl-10"] {
+  padding-left: 2.75rem !important; /* 44px ensures 12px margin + 16px icon + 16px clearance */
+}
+
+/* Explicit right padding for inputs with right actions (e.g. clear button, password eye toggle) */
+.form-input.pr-9,
+.form-input.pr-10,
+.form-input.pr-11,
+input.pr-9,
+input.pr-10,
+input.pr-11,
+[class*="pr-9"],
+[class*="pr-10"] {
+  padding-right: 2.75rem !important;
 }
 
 .form-input:focus,
@@ -364,16 +392,26 @@ body {
 .container {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 /* --- Page Header --- */
 .page-header {
   background: linear-gradient(135deg, #12375B 0%, #1a4a5e 100%);
   color: var(--color-white);
-  padding: 3rem 0 2.5rem;
-  /* Matches the floating pill navbar aesthetic: contained feel with the page bg */
+  padding: 7.25rem 0 2.5rem;
+  margin-bottom: 2.25rem;
+  /* Provides generous clearance for the fixed floating navbar (108px) and clean space below */
+}
+
+@media (max-width: 640px) {
+  .page-header {
+    padding: 6.25rem 0 2rem;
+    margin-bottom: 1.75rem;
+  }
 }
 
 .page-header h1 {
@@ -402,3 +440,38 @@ body {
 ::-webkit-scrollbar-track { background: var(--color-gray-100); }
 ::-webkit-scrollbar-thumb { background: var(--color-gray-300); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-gray-400); }
+
+/* --- Leaflet Map Overrides --- */
+.leaflet-container {
+  font-family: var(--font-sans);
+  z-index: 1;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E2E8F0;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4;
+}
+
+.leaflet-popup-tip {
+  background: #FFFFFF;
+}
+
+.custom-map-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.custom-map-pin:hover {
+  transform: scale(1.15) translateY(-2px);
+  z-index: 999 !important;
+}

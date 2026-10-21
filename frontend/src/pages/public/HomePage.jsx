@@ -34,6 +34,7 @@ import { getRoadClosures } from '../../services/roadClosureService';
 import AnnouncementCard from '../../components/common/AnnouncementCard';
 import RoadClosureCard from '../../components/common/RoadClosureCard';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import LRTMapSection from '../../components/map/LRTMapSection';
 
 export default function HomePage() {
   const { isAuthenticated, isAdmin } = useAuth();
@@ -84,30 +85,121 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#EEF2F7' }}>
 
       {/* ============================================================
-          1. HERO: Large rounded-corner image container
+          1. HERO SECTION: Official elevated LRT project visual with high-contrast text overlay
           ============================================================ */}
       <section className="px-3 sm:px-5" style={{ paddingTop: '8px', paddingBottom: '0' }}>
         <div
-          className="relative w-full overflow-hidden"
-          style={{ borderRadius: '28px', minHeight: '420px', maxHeight: '540px' }}
+          className="relative w-full overflow-hidden flex items-center"
+          style={{
+            borderRadius: '28px',
+            minHeight: '500px',
+            maxHeight: '620px',
+          }}
         >
-          {/* Hero Image */}
+          {/* Hero Image: Penang LRT Mutiara Line Elevated Train & Viaduct */}
           <img
-            src="/images/hero_community.jpg"
-            alt="Penang LRT Mutiara Line Community — residents of George Town"
-            className="w-full h-full object-cover object-center"
-            style={{ minHeight: '420px', maxHeight: '540px' }}
+            src="/images/hero_lrt.jpg"
+            alt="Penang LRT Mutiara Line elevated light rail transit train in George Town Penang"
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
 
-          {/* Subtle dark overlay on top for navbar readability only */}
+          {/* High-visibility multi-stop contrast gradient overlay */}
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0) 60%)' }}
+            style={{
+              background:
+                'linear-gradient(to right, rgba(10, 31, 56, 0.95) 0%, rgba(10, 31, 56, 0.88) 45%, rgba(10, 31, 56, 0.55) 75%, rgba(10, 31, 56, 0.35) 100%), linear-gradient(180deg, rgba(10, 31, 56, 0.65) 0%, rgba(10, 31, 56, 0.20) 40%, rgba(10, 31, 56, 0.85) 100%)',
+            }}
           />
 
+          {/* Hero Content Container — with clearance for floating navbar */}
+          <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 lg:px-14 pt-28 sm:pt-36 pb-12 sm:pb-16 flex flex-col justify-center">
+            <div className="max-w-2xl">
+              {/* Civic Authority Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 bg-[#12375B]/85 text-[#F4B942] border border-[#F4B942]/50 shadow-md backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-[#F4B942] animate-pulse" />
+                <span>PULAU PINANG • LALUAN MUTIARA</span>
+              </div>
+
+              {/* Main Headline — Maximum Visibility with High-Contrast Text Shadow */}
+              <h1
+                className="font-extrabold tracking-tight leading-tight mb-3"
+                style={{
+                  fontSize: 'clamp(2.25rem, 5vw, 3.75rem)',
+                  color: '#FFFFFF',
+                  textShadow: '0 2px 14px rgba(0, 0, 0, 0.9), 0 4px 30px rgba(0, 0, 0, 0.6)',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                LRT Mutiara Line
+              </h1>
+
+              {/* Subtitle — Luminous High-Contrast Cyan/Teal */}
+              <p
+                className="font-bold leading-tight mb-4"
+                style={{
+                  color: '#2DD4BF',
+                  fontSize: 'clamp(1.2rem, 3.2vw, 1.95rem)',
+                  textShadow: '0 2px 10px rgba(0, 0, 0, 0.85)',
+                }}
+              >
+                Enhancing Mobility, Enriching Communities
+              </p>
+
+              {/* Supporting Description */}
+              <p
+                className="text-sm sm:text-base leading-relaxed mb-8 max-w-xl font-medium text-slate-100"
+                style={{
+                  textShadow: '0 1px 4px rgba(0, 0, 0, 0.85)',
+                }}
+              >
+                Stay informed about construction progress, road closures and community updates.
+                Share your concerns and track responses — all in one platform.
+              </p>
+
+              {/* Primary Call-to-Actions */}
+              <div className="flex flex-wrap items-center gap-3 mb-5">
+                <Link
+                  to="/announcements"
+                  id="hero-view-updates-cta"
+                  className="inline-flex items-center gap-2 bg-[#F4B942] hover:bg-[#e5a82e] font-bold text-sm px-6 py-3 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                  style={{ borderRadius: '24px', color: '#0F2C59' }}
+                >
+                  <span style={{ color: '#0F2C59' }}>View Construction Updates</span>
+                  <ArrowRight size={15} style={{ color: '#0F2C59' }} />
+                </Link>
+
+                <Link
+                  to="/road-closures"
+                  id="hero-check-closures-cta"
+                  className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-md font-bold text-sm px-6 py-3 border border-white/50 transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                  style={{ borderRadius: '24px', color: '#FFFFFF' }}
+                >
+                  <span style={{ color: '#FFFFFF' }}>Check Traffic Advisories</span>
+                  <ArrowRight size={15} style={{ color: '#FFFFFF' }} />
+                </Link>
+              </div>
+
+              {/* Scroll down indicator */}
+              <div className="pt-1">
+                <button
+                  onClick={scrollToContent}
+                  aria-label="Scroll to explore services"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-white/80 hover:text-white transition-colors group cursor-pointer"
+                >
+                  <span className="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center group-hover:border-white group-hover:bg-white/15 transition-all">
+                    <ChevronDown size={15} strokeWidth={2.5} className="group-hover:translate-y-0.5 transition-transform" />
+                  </span>
+                  <span style={{ textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>Scroll to Explore</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Academic disclaimer watermark */}
-          <div className="absolute bottom-3 right-4 text-right text-[10px] text-white/60 pointer-events-none hidden sm:block"
-            style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}
+          <div
+            className="absolute bottom-3 right-4 text-right text-[10px] text-white/70 pointer-events-none hidden sm:block"
+            style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}
           >
             <p>Academic prototype — not an official MRT Corp website.</p>
           </div>
@@ -115,119 +207,9 @@ export default function HomePage() {
       </section>
 
       {/* ============================================================
-          HEADLINE SECTION — below the rounded hero image, on the page bg
+          2. THREE QUICK ACCESS SERVICE CARDS
           ============================================================ */}
-      <section
-        className="px-3 sm:px-5"
-        style={{ background: 'linear-gradient(180deg, #f0f4e4 0%, #EEF2F7 55%)', paddingTop: '2rem', paddingBottom: '1rem' }}
-      >
-        <div className="max-w-[900px] mx-auto text-center">
-          {/* Main headline — dark navy, bold, large */}
-          <h1
-            className="font-extrabold tracking-tight leading-tight mb-3"
-            style={{ color: '#12375B', fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
-          >
-            LRT Mutiara Line
-          </h1>
-          <p
-            className="font-semibold leading-tight mb-6"
-            style={{ color: '#16A6A1', fontSize: 'clamp(1.25rem, 3.5vw, 2.25rem)' }}
-          >
-            Enhancing Mobility, Enriching Communities
-          </p>
-          <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-xl mx-auto mb-8">
-            Stay informed about construction progress, road closures and community updates.
-            Share your concerns and track responses — all in one platform.
-          </p>
-
-          {/* Scroll-down indicator (matching reference site design) */}
-          <button
-            onClick={scrollToContent}
-            aria-label="Scroll to content"
-            className="inline-flex items-center justify-center w-11 h-11 rounded-full border-2 text-[#12375B] hover:bg-[#12375B] hover:text-white transition-all duration-200 mx-auto"
-            style={{ borderColor: '#12375B' }}
-          >
-            <ChevronDown size={20} strokeWidth={2.5} />
-          </button>
-        </div>
-      </section>
-
-      {/* ============================================================
-          2. PENANG CITYSCAPE — large rounded container (like reference site)
-          ============================================================ */}
-      <section ref={belowHeroRef} className="px-3 sm:px-5 py-3">
-        <div
-          className="relative w-full overflow-hidden"
-          style={{ borderRadius: '28px', minHeight: '340px', maxHeight: '480px' }}
-        >
-          <img
-            src="/images/penang_cityscape.jpg"
-            alt="Aerial view of George Town Penang showing the city and Penang Strait"
-            className="w-full h-full object-cover object-center"
-            style={{ minHeight: '340px', maxHeight: '480px' }}
-          />
-          {/* Gradient overlay with high contrast for text visibility */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(to right, rgba(11, 37, 69, 0.92) 0%, rgba(11, 37, 69, 0.75) 48%, rgba(11, 37, 69, 0.20) 100%)',
-            }}
-          />
-          <div className="absolute inset-0 flex items-center">
-            <div className="px-8 sm:px-12 max-w-xl">
-              <span
-                className="text-xs font-extrabold uppercase tracking-widest block mb-2"
-                style={{ color: '#F4B942', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
-              >
-                PENANG LRT MUTIARA LINE
-              </span>
-              <h2
-                className="font-extrabold leading-tight mb-4"
-                style={{
-                  fontSize: 'clamp(1.75rem, 3.8vw, 2.75rem)',
-                  color: '#FFFFFF',
-                  textShadow: '0 2px 10px rgba(0,0,0,0.7)',
-                }}
-              >
-                Connecting Penang's Communities
-              </h2>
-              <p
-                className="text-sm sm:text-base leading-relaxed mb-6 max-w-md font-medium"
-                style={{ color: '#F1F5F9', textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}
-              >
-                A transformative public transit project linking George Town, Butterworth
-                and beyond — keeping residents informed every step of the way.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  to="/announcements"
-                  id="hero-view-updates-cta"
-                  className="inline-flex items-center gap-2 bg-[#F4B942] hover:bg-[#e5a82e] font-bold text-sm px-6 py-3 transition-all shadow-md"
-                  style={{ borderRadius: '24px', color: '#0F2C59' }}
-                >
-                  <span style={{ color: '#0F2C59' }}>View Construction Updates</span>
-                  <ArrowRight size={15} style={{ color: '#0F2C59' }} />
-                </Link>
-                <Link
-                  to="/road-closures"
-                  id="hero-check-closures-cta"
-                  className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md font-bold text-sm px-6 py-3 border border-white/60 transition-all shadow-md"
-                  style={{ borderRadius: '24px', color: '#FFFFFF' }}
-                >
-                  <span style={{ color: '#FFFFFF' }}>Check Traffic Announcements</span>
-                  <ArrowRight size={15} style={{ color: '#FFFFFF' }} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          3. THREE QUICK ACCESS SERVICE CARDS
-          ============================================================ */}
-      <section className="px-3 sm:px-5 py-6">
+      <section ref={belowHeroRef} className="px-3 sm:px-5 py-6 scroll-mt-24">
         <div className="max-w-[1200px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Card 1: Construction Updates */}
@@ -271,7 +253,7 @@ export default function HomePage() {
               </div>
               <div className="flex flex-col flex-1">
                 <h3 className="font-bold text-[#12375B] text-base mb-1.5">
-                  Traffic Announcement
+                  Traffic Advisories
                 </h3>
                 <p className="text-xs text-gray-500 leading-relaxed mb-3">
                   Check affected roads, temporary closures, diversions, and alternative routes.
@@ -316,6 +298,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ============================================================
+          INTERACTIVE LRT CONSTRUCTION & TRAFFIC INFORMATION MAP
+          ============================================================ */}
+      <LRTMapSection />
 
       {/* ============================================================
           4. CONSTRUCTION UPDATES & ANNOUNCEMENTS
@@ -506,6 +493,66 @@ export default function HomePage() {
       </section>
 
       {/* ============================================================
+          STRATEGIC TRANSIT ALIGNMENT BANNER
+          ============================================================ */}
+      <section className="px-3 sm:px-5 py-4">
+        <div
+          className="max-w-[1200px] mx-auto relative overflow-hidden"
+          style={{ borderRadius: '24px', minHeight: '320px', maxHeight: '420px' }}
+        >
+          <img
+            src="/images/penang_cityscape.jpg"
+            alt="Aerial view of George Town Penang showing the city and Penang Strait"
+            className="w-full h-full object-cover object-center"
+            style={{ minHeight: '320px', maxHeight: '420px' }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to right, rgba(11, 37, 69, 0.94) 0%, rgba(11, 37, 69, 0.78) 50%, rgba(11, 37, 69, 0.25) 100%)',
+            }}
+          />
+          <div className="absolute inset-0 flex items-center">
+            <div className="px-8 sm:px-12 max-w-xl">
+              <span
+                className="text-xs font-extrabold uppercase tracking-widest block mb-2"
+                style={{ color: '#F4B942', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
+              >
+                STRATEGIC TRANSIT ALIGNMENT
+              </span>
+              <h2
+                className="font-extrabold leading-tight mb-3"
+                style={{
+                  fontSize: 'clamp(1.5rem, 3.2vw, 2.35rem)',
+                  color: '#FFFFFF',
+                  textShadow: '0 2px 10px rgba(0,0,0,0.7)',
+                }}
+              >
+                Connecting Penang's Communities
+              </h2>
+              <p
+                className="text-sm sm:text-base leading-relaxed mb-6 max-w-md font-medium"
+                style={{ color: '#F1F5F9', textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}
+              >
+                A transformative public transit network linking George Town, Bayan Lepas, and Butterworth across 20 stations and 29.5 km of dedicated track.
+              </p>
+              <div>
+                <Link
+                  to="/about"
+                  className="inline-flex items-center gap-2 bg-[#F4B942] hover:bg-[#e5a82e] font-bold text-sm px-6 py-2.5 transition-all shadow-md"
+                  style={{ borderRadius: '24px', color: '#0F2C59' }}
+                >
+                  <span style={{ color: '#0F2C59' }}>Explore Alignment & Stations</span>
+                  <ArrowRight size={15} style={{ color: '#0F2C59' }} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
           7. ABOUT THE PROJECT
           ============================================================ */}
       <section
@@ -554,7 +601,7 @@ export default function HomePage() {
                   <div className="text-[#16A6A1] mb-1.5 flex justify-center">
                     <Train size={22} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">29</p>
+                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">20</p>
                   <p className="text-[11px] text-gray-500 leading-tight">Stations</p>
                 </div>
 
@@ -565,7 +612,7 @@ export default function HomePage() {
                   <div className="text-[#16A6A1] mb-1.5 flex justify-center">
                     <Route size={22} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">27 km</p>
+                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">29.5 km</p>
                   <p className="text-[11px] text-gray-500 leading-tight">Alignment</p>
                 </div>
 
@@ -576,7 +623,7 @@ export default function HomePage() {
                   <div className="text-[#16A6A1] mb-1.5 flex justify-center">
                     <Users size={22} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">1.2M+</p>
+                  <p className="font-extrabold text-sm text-[#12375B] leading-tight">1.7M+</p>
                   <p className="text-[11px] text-gray-500 leading-tight">Residents</p>
                 </div>
               </div>

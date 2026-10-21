@@ -16,14 +16,11 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   ArrowLeft,
   Save,
-  CheckCircle2,
   AlertCircle,
   Navigation,
   MapPin,
   Calendar,
   Eye,
-  Route,
-  Footprints,
   FileText,
 } from 'lucide-react';
 import {
@@ -48,6 +45,8 @@ export default function RoadClosureFormPage() {
     title: '',
     road_name: '',
     location: '',
+    latitude: '',
+    longitude: '',
     status: 'scheduled',
     start_date: '',
     end_date: '',
@@ -75,6 +74,8 @@ export default function RoadClosureFormPage() {
             title: data.title || '',
             road_name: data.road_name || '',
             location: data.location || '',
+            latitude: data.latitude !== undefined && data.latitude !== null ? String(data.latitude) : '',
+            longitude: data.longitude !== undefined && data.longitude !== null ? String(data.longitude) : '',
             status: data.status || 'scheduled',
             start_date: data.start_date || '',
             end_date: data.end_date || '',
@@ -131,8 +132,12 @@ export default function RoadClosureFormPage() {
       newErrors.description = 'Notice description and scope of works is required.';
     }
 
-    if (!formData.alternative_route.trim()) {
-      newErrors.alternative_route = 'Recommended alternative detour route is required.';
+    if (formData.latitude && isNaN(Number(formData.latitude))) {
+      newErrors.latitude = 'Latitude must be a valid numeric decimal (e.g. 5.4020).';
+    }
+
+    if (formData.longitude && isNaN(Number(formData.longitude))) {
+      newErrors.longitude = 'Longitude must be a valid numeric decimal (e.g. 100.3030).';
     }
 
     setErrors(newErrors);
@@ -151,6 +156,8 @@ export default function RoadClosureFormPage() {
         title: formData.title.trim(),
         road_name: formData.road_name.trim(),
         location: formData.location.trim(),
+        latitude: formData.latitude.trim() !== '' ? parseFloat(formData.latitude) : undefined,
+        longitude: formData.longitude.trim() !== '' ? parseFloat(formData.longitude) : undefined,
         status: formData.status,
         start_date: formData.start_date,
         end_date: formData.end_date,
@@ -324,6 +331,65 @@ export default function RoadClosureFormPage() {
               {errors.location && (
                 <p className="mt-1 text-xs text-red-600 font-medium">{errors.location}</p>
               )}
+            </div>
+          </div>
+
+          {/* Optional Geographic Coordinates for LRT Construction Map */}
+          <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-4">
+            <div className="flex items-center gap-2 mb-1.5">
+              <MapPin size={16} className="text-[#16A6A1]" />
+              <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                Map Geographic Coordinates (Optional)
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 mb-3">
+              Add coordinates to display this traffic advisory on the public interactive map. Leave blank if coordinates are not available.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  htmlFor="rc-latitude"
+                  className="block text-xs font-semibold text-slate-700 mb-1"
+                >
+                  Latitude (e.g. 5.4020)
+                </label>
+                <input
+                  id="rc-latitude"
+                  type="text"
+                  value={formData.latitude}
+                  onChange={(e) => {
+                    setFormData({ ...formData, latitude: e.target.value });
+                    if (errors.latitude) setErrors({ ...errors, latitude: null });
+                  }}
+                  className={`form-input bg-white ${errors.latitude ? 'border-red-500 ring-1 ring-red-500' : ''}`}
+                  placeholder="5.4020"
+                />
+                {errors.latitude && (
+                  <p className="mt-1 text-xs text-red-600 font-medium">{errors.latitude}</p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="rc-longitude"
+                  className="block text-xs font-semibold text-slate-700 mb-1"
+                >
+                  Longitude (e.g. 100.3030)
+                </label>
+                <input
+                  id="rc-longitude"
+                  type="text"
+                  value={formData.longitude}
+                  onChange={(e) => {
+                    setFormData({ ...formData, longitude: e.target.value });
+                    if (errors.longitude) setErrors({ ...errors, longitude: null });
+                  }}
+                  className={`form-input bg-white ${errors.longitude ? 'border-red-500 ring-1 ring-red-500' : ''}`}
+                  placeholder="100.3030"
+                />
+                {errors.longitude && (
+                  <p className="mt-1 text-xs text-red-600 font-medium">{errors.longitude}</p>
+                )}
+              </div>
             </div>
           </div>
 

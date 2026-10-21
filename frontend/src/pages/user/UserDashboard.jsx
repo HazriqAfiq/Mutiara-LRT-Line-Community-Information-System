@@ -76,7 +76,7 @@ export default function UserDashboard() {
     <div className="min-h-screen pb-16">
       {/* Top Welcome Banner */}
       <div
-        className="text-white py-8 px-4 sm:px-6 border-b border-navy-dark"
+        className="text-white pt-28 sm:pt-32 pb-10 px-4 sm:px-6 border-b border-navy-dark"
         style={{
           backgroundColor: 'var(--color-navy)',
         }}
