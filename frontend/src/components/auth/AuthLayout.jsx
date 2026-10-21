@@ -10,7 +10,7 @@
  */
 export default function AuthLayout({ children }) {
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-y-auto">
+    <div className="relative h-screen w-full flex items-center justify-center p-3 sm:p-4 overflow-y-auto lg:overflow-hidden">
       {/* ── Fixed Full-Screen LRT Background Image ─────────────────── */}
       <img
         src="/images/hero_lrt.jpg"
@@ -28,9 +28,9 @@ export default function AuthLayout({ children }) {
       />
 
       {/* ── Centered Civic Form Container ──────────────────────────── */}
-      <div className="relative z-10 w-full max-w-[440px] my-auto">
+      <div className="relative z-10 w-full max-w-[420px] my-auto">
         <div
-          className="bg-white rounded-lg p-6 sm:p-8 shadow-lg border border-gray-200"
+          className="bg-white rounded-lg p-5 sm:p-6 shadow-lg border border-gray-200"
         >
           {children}
         </div>
