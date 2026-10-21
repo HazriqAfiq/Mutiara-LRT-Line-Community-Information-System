@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import {
   MessageSquare,
   ArrowRight,
-  Newspaper,
+  NotepadText,
   Car,
   ChevronRight,
   Train,
@@ -219,7 +219,7 @@ export default function HomePage() {
             >
               <div>
                 <div className="w-10 h-10 flex items-center justify-center rounded bg-[#E0F2FE] text-[#0284C7] mb-4">
-                  <Newspaper size={20} />
+                  <NotepadText size={20} />
                 </div>
                 <h3 className="font-bold text-[#12375B] text-base mb-2">
                   Construction Updates
