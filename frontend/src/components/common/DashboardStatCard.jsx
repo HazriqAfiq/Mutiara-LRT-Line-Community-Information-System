@@ -47,14 +47,14 @@ export default function DashboardStatCard({
 
   const CardContent = (
     <div
-      className={`card p-5 bg-white border ${scheme.border} shadow-sm rounded-2xl flex flex-col justify-between h-full hover:shadow-md transition-shadow group`}
+      className={`card p-5 bg-white border ${scheme.border} shadow-sm rounded-lg flex flex-col justify-between h-full hover:border-gray-300 transition-colors group`}
     >
       <div className="flex items-center justify-between gap-3 mb-3">
         <span className="text-xs font-bold uppercase tracking-wider text-gray-500">
           {title}
         </span>
         <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+          className="w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0"
           style={{ backgroundColor: scheme.bg, color: scheme.text }}
         >
           {icon}

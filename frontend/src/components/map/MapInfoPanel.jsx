@@ -21,9 +21,9 @@ import {
 export default function MapInfoPanel({ selectedLocation, onClearSelection }) {
   if (!selectedLocation) {
     return (
-      <div className="bg-slate-50 border border-dashed border-slate-200 rounded-xl p-4 text-center">
-        <div className="w-10 h-10 rounded-full bg-slate-200/60 text-slate-400 flex items-center justify-center mx-auto mb-2">
-          <Info size={18} />
+      <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 text-center">
+        <div className="w-9 h-9 rounded-md bg-slate-200/70 text-slate-500 flex items-center justify-center mx-auto mb-2">
+          <Info size={17} />
         </div>
         <h4 className="text-xs font-bold text-slate-700 mb-1">Select a Location on the Map</h4>
         <p className="text-[11px] text-slate-500 leading-relaxed max-w-xs mx-auto">
@@ -36,12 +36,12 @@ export default function MapInfoPanel({ selectedLocation, onClearSelection }) {
   const { type } = selectedLocation;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs relative transition-all">
+    <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs relative transition-all">
       {/* Close button */}
       <button
         type="button"
         onClick={onClearSelection}
-        className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+        className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 p-1 rounded-md hover:bg-slate-100 transition-colors cursor-pointer"
         aria-label="Deselect location"
       >
         <X size={14} />
@@ -51,7 +51,7 @@ export default function MapInfoPanel({ selectedLocation, onClearSelection }) {
       {type === 'station' && (
         <div>
           <div className="flex items-center gap-1.5 mb-2">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-50 text-[#16A6A1] border border-teal-200/60">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-teal-50 text-[#16A6A1] border border-teal-200/60">
               <Train size={11} />
               <span>STATION</span>
             </span>
@@ -60,7 +60,7 @@ export default function MapInfoPanel({ selectedLocation, onClearSelection }) {
                 {selectedLocation.code}
               </span>
             )}
-            <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 ml-auto mr-6">
+            <span className="text-[10px] px-2 py-0.5 rounded-md font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 ml-auto mr-6">
               {selectedLocation.status || 'Gazetted'}
             </span>
           </div>
@@ -93,7 +93,7 @@ export default function MapInfoPanel({ selectedLocation, onClearSelection }) {
       {type === 'construction_zone' && (
         <div>
           <div className="flex items-center gap-1.5 mb-2">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-[#B45309] border border-amber-200">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 text-[#B45309] border border-amber-200">
               <HardHat size={11} />
               <span>CONSTRUCTION ZONE</span>
             </span>
@@ -138,12 +138,12 @@ export default function MapInfoPanel({ selectedLocation, onClearSelection }) {
       {type === 'road_closure' && (
         <div>
           <div className="flex items-center gap-1.5 mb-2">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-50 text-[#EF4444] border border-red-200">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-red-50 text-[#EF4444] border border-red-200">
               <AlertTriangle size={11} />
               <span>TRAFFIC ADVISORY</span>
             </span>
             <span
-              className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ml-auto mr-6 ${
+              className={`text-[10px] px-2 py-0.5 rounded-md font-bold uppercase ml-auto mr-6 ${
                 selectedLocation.status === 'active'
                   ? 'bg-red-100 text-red-800'
                   : selectedLocation.status === 'scheduled'
@@ -189,7 +189,7 @@ export default function MapInfoPanel({ selectedLocation, onClearSelection }) {
           {selectedLocation.road_closure_id && (
             <Link
               to={`/road-closures/${selectedLocation.road_closure_id}`}
-              className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-[#12375B] hover:bg-[#1a4e7a] text-white text-xs font-bold rounded-lg transition-colors shadow-xs"
+              className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-[#12375B] hover:bg-[#1a4e7a] text-white text-xs font-bold rounded-md transition-colors"
             >
               <span>View Full Road Closure Notice</span>
               <ArrowRight size={13} />

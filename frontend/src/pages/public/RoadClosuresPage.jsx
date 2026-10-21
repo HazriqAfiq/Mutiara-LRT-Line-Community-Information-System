@@ -175,8 +175,8 @@ export default function RoadClosuresPage() {
                 {closures.length === 1 ? 'advisory' : 'advisories'}
                 {hasActiveFilters && ' (filtered)'}
               </span>
-              <span className="text-gray-400">
-                Sorted by status urgency (Active → Scheduled → Completed)
+              <span className="text-gray-500">
+                Sorted by status priority (Active, Scheduled, Completed)
               </span>
             </div>
           )}

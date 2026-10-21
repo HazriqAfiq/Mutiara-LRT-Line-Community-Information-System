@@ -21,10 +21,10 @@ export default function DemoAccountSelector({ selectedRole, onSelect }) {
         <button
           type="button"
           onClick={() => onSelect('user')}
-          className={`p-2.5 rounded-xl text-left border transition-all duration-150 cursor-pointer ${
+          className={`p-2.5 rounded-md text-left border transition-all duration-150 cursor-pointer ${
             selectedRole === 'user'
               ? 'border-[#16A6A1] bg-teal-50/70 ring-1 ring-[#16A6A1]'
-              : 'border-slate-200 bg-slate-50/60 hover:bg-slate-100 hover:border-slate-300'
+              : 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300'
           }`}
           aria-pressed={selectedRole === 'user'}
         >
@@ -42,10 +42,10 @@ export default function DemoAccountSelector({ selectedRole, onSelect }) {
         <button
           type="button"
           onClick={() => onSelect('admin')}
-          className={`p-2.5 rounded-xl text-left border transition-all duration-150 cursor-pointer ${
+          className={`p-2.5 rounded-md text-left border transition-all duration-150 cursor-pointer ${
             selectedRole === 'admin'
               ? 'border-[#12375B] bg-blue-50/70 ring-1 ring-[#12375B]'
-              : 'border-slate-200 bg-slate-50/60 hover:bg-slate-100 hover:border-slate-300'
+              : 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300'
           }`}
           aria-pressed={selectedRole === 'admin'}
         >

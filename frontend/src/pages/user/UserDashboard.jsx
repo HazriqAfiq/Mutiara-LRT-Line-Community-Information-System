@@ -174,7 +174,7 @@ export default function UserDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: Recent Feedback (8 cols) */}
               <div className="lg:col-span-8 space-y-6">
-                <div className="card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <div className="card bg-white p-6 rounded-lg border border-gray-200 shadow-xs">
                   <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
                     <div>
                       <h2 className="text-lg font-bold" style={{ color: 'var(--color-navy)' }}>
@@ -255,7 +255,7 @@ export default function UserDashboard() {
 
               {/* Right Column: Quick Actions & Helpful Info (4 cols) */}
               <div className="lg:col-span-4 space-y-6">
-                <div className="card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <div className="card bg-white p-6 rounded-lg border border-gray-200 shadow-xs">
                   <h2 className="text-base font-bold mb-4" style={{ color: 'var(--color-navy)' }}>
                     Quick Actions
                   </h2>
@@ -263,9 +263,9 @@ export default function UserDashboard() {
                   <div className="space-y-2.5">
                     <Link
                       to="/feedback/new"
-                      className="w-full p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-amber-50 hover:border-amber-300 transition-colors flex items-center gap-3 group text-left"
+                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-amber-50 hover:border-amber-300 transition-colors flex items-center gap-3 group text-left"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0">
                         <Send size={15} />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -281,9 +281,9 @@ export default function UserDashboard() {
 
                     <Link
                       to="/my-feedback"
-                      className="w-full p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-teal-50 hover:border-teal-300 transition-colors flex items-center gap-3 group text-left"
+                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-teal-50 hover:border-teal-300 transition-colors flex items-center gap-3 group text-left"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-teal-100 text-teal-800 flex items-center justify-center flex-shrink-0">
                         <FileText size={15} />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -299,9 +299,9 @@ export default function UserDashboard() {
 
                     <Link
                       to="/announcements"
-                      className="w-full p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-colors flex items-center gap-3 group text-left"
+                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-colors flex items-center gap-3 group text-left"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-blue-100 text-blue-800 flex items-center justify-center flex-shrink-0">
                         <HardHat size={15} />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -317,9 +317,9 @@ export default function UserDashboard() {
 
                     <Link
                       to="/road-closures"
-                      className="w-full p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-red-50 hover:border-red-300 transition-colors flex items-center gap-3 group text-left"
+                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-red-50 hover:border-red-300 transition-colors flex items-center gap-3 group text-left"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-red-100 text-red-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-red-100 text-red-800 flex items-center justify-center flex-shrink-0">
                         <AlertTriangle size={15} />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -337,7 +337,7 @@ export default function UserDashboard() {
 
                 {/* Account Details Widget */}
                 <div
-                  className="rounded-2xl p-5 border shadow-sm"
+                  className="rounded-lg p-5 border shadow-xs"
                   style={{
                     backgroundColor: 'rgba(18, 55, 91, 0.03)',
                     borderColor: 'var(--color-gray-200)',

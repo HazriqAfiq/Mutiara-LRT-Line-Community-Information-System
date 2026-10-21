@@ -108,14 +108,14 @@ export default function AnnouncementDetailsPage() {
 
         {/* Loading state */}
         {loading && (
-          <div className="card p-16 flex justify-center bg-white border border-gray-100 shadow-sm rounded-2xl">
+          <div className="card p-16 flex justify-center bg-white border border-gray-200 shadow-xs rounded-xl">
             <LoadingSpinner message="Fetching announcement details..." />
           </div>
         )}
 
         {/* Error / Not Found state */}
         {!loading && error && (
-          <div className="card p-12 text-center bg-white border border-red-200 shadow-sm rounded-2xl max-w-lg mx-auto">
+          <div className="card p-12 text-center bg-white border border-red-200 shadow-xs rounded-xl max-w-lg mx-auto">
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
               style={{ backgroundColor: '#FEE2E2', color: 'var(--color-error)' }}
@@ -134,7 +134,7 @@ export default function AnnouncementDetailsPage() {
 
         {/* Announcement Details Content */}
         {!loading && !error && announcement && (
-          <article className="card bg-white border border-gray-100 shadow-md rounded-2xl overflow-hidden p-0">
+          <article className="card bg-white border border-gray-200 shadow-xs rounded-xl overflow-hidden p-0">
             {/* Top Editorial Photo Banner */}
             <div className="relative w-full h-64 sm:h-80 bg-slate-900 overflow-hidden">
               <img
@@ -153,7 +153,7 @@ export default function AnnouncementDetailsPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/30 to-black/20" />
               <div className="absolute top-4 left-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-slate-900/80 backdrop-blur-md border border-white/20 shadow-sm">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider text-white bg-slate-900/90 border border-slate-700 shadow-sm">
                   <Tag size={12} className="text-teal-400" />
                   {announcement.category}
                 </span>

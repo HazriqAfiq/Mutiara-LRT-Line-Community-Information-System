@@ -89,7 +89,7 @@ export default function MapSearch({ locations, onSelectLocation, selectedLocatio
             if (query.trim()) setIsOpen(true);
           }}
           placeholder="Search station or location..."
-          className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#16A6A1] focus:border-transparent text-slate-800 placeholder-slate-400 shadow-sm transition-all"
+          className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#16A6A1] focus:border-[#16A6A1] text-slate-800 placeholder-slate-400 transition-all"
         />
         <Search
           size={15}
@@ -109,7 +109,7 @@ export default function MapSearch({ locations, onSelectLocation, selectedLocatio
 
       {/* Autocomplete Dropdown */}
       {isOpen && query.trim().length > 0 && (
-        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-lg z-50 overflow-hidden max-h-64 overflow-y-auto">
+        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-lg shadow-md z-50 overflow-hidden max-h-64 overflow-y-auto">
           {filteredLocations.length > 0 ? (
             <ul className="divide-y divide-slate-100 py-1">
               {filteredLocations.map((loc) => (

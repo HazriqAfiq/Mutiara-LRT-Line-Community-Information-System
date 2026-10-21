@@ -157,7 +157,7 @@ export default function MapCanvas({
   }, [selectedLocation]);
 
   return (
-    <div className="relative w-full h-[380px] sm:h-[460px] lg:h-[540px] rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-slate-100">
+    <div className="relative w-full h-[380px] sm:h-[460px] lg:h-[540px] rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-xs">
       <MapContainer
         center={PENANG_CENTER}
         zoom={DEFAULT_ZOOM}

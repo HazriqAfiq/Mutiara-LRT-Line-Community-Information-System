@@ -242,7 +242,7 @@ export default function Footer() {
           <div className="flex items-center gap-1.5 text-center md:text-right text-[#F4B942]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#F4B942] inline-block" />
             <p>
-              Academic Prototype — CMT322 (Universiti Sains Malaysia). Not affiliated with MRT Corp.
+              Academic Prototype: CMT322 (Universiti Sains Malaysia). Not affiliated with MRT Corp.
             </p>
           </div>
         </div>
