@@ -36,10 +36,8 @@ export default function Footer() {
               <PenangLRTLogo variant="light" />
             </Link>
 
-            <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-sm">
-              Official community information and engagement platform for the Penang LRT
-              Mutiara Line. Delivering real-time construction notices, traffic diversion
-              advisories, and two-way citizen feedback channels.
+            <p className="text-xs sm:text-sm text-slate-300 font-medium tracking-wide">
+              Connect . Inform . Engage
             </p>
           </div>
 
@@ -154,10 +152,10 @@ export default function Footer() {
                 <Phone size={16} className="text-[#F4B942] flex-shrink-0 mt-0.5" />
                 <div>
                   <a
-                    href="tel:0130000000"
+                    href="tel:1800886782"
                     className="font-bold text-white hover:text-[#F4B942] transition-colors"
                   >
-                    013-XXXXXXX
+                    1800-88-6782
                   </a>
                   <p className="text-[11px] text-slate-300">Community Hotline</p>
                 </div>
@@ -167,21 +165,18 @@ export default function Footer() {
                 <Mail size={16} className="text-[#F4B942] flex-shrink-0 mt-0.5" />
                 <div>
                   <a
-                    href="mailto:email@gmail.com"
+                    href="mailto:feedback_pml@mymrt.com.my"
                     className="text-slate-200 hover:text-white transition-colors"
                   >
-                    email@gmail.com
+                    feedback_pml@mymrt.com.my
                   </a>
                   <p className="text-[11px] text-slate-300">General Inquiries</p>
                 </div>
               </li>
 
-              <li className="flex items-start gap-2.5">
-                <MapPin size={16} className="text-[#F4B942] flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-slate-200 font-medium">George Town, Penang</span>
-                  <p className="text-[11px] text-slate-300">Malaysia</p>
-                </div>
+              <li className="flex items-center gap-2.5">
+                <MapPin size={16} className="text-[#F4B942] flex-shrink-0" />
+                <span className="text-slate-200 font-medium">Penang, Malaysia</span>
               </li>
             </ul>
 

@@ -93,7 +93,7 @@ export default function HomePage() {
         >
           {/* Hero Image */}
           <img
-            src="/images/hero_lrt.jpg"
+            src="/images/hero_lrt.png"
             alt="Penang LRT Mutiara Line elevated rapid transit train"
             className="absolute inset-0 w-full h-full object-cover object-center"
           />

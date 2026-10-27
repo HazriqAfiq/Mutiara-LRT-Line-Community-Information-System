@@ -193,7 +193,7 @@ export default function AboutPage() {
           style={{ minHeight: '340px', maxHeight: '440px' }}
         >
           <img
-            src="/images/hero_lrt.jpg"
+            src="/images/hero_lrt.png"
             alt="Penang LRT Mutiara Line Elevated Train Simulation"
             className="w-full h-full object-cover object-center"
             style={{ minHeight: '340px', maxHeight: '440px' }}
