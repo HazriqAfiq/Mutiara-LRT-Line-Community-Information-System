@@ -2,18 +2,9 @@
  * pages/public/AboutPage.jsx
  * Route: /about
  *
- * Comprehensive About Project page for the Penang LRT Mutiara Line
- * Community Information & Feedback Platform.
- *
- * Sections:
- *   1. Page Header & Hero Banner
- *   2. Strategic Vision & Executive Summary
- *   3. Key Project Metrics & Technical Specifications
- *   4. Route Alignment & Landmark Station Corridor
- *   5. Community-First Information & Feedback Mission
- *   6. Project Milestones & Delivery Timeline
- *   7. Call to Action (Feedback & Updates)
- *   8. Academic Disclaimer (CMT322)
+ * Streamlined, high-signal About Project page for Penang LRT Mutiara Line.
+ * Focuses strictly on core project facts and specifications from MRT Corp
+ * (https://laluanmutiara.mymrt.com.my/ms/lrt-mutiara-line/).
  */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -21,160 +12,215 @@ import {
   Train,
   MapPin,
   Clock,
-  Shield,
-  Layers,
   Building,
   Plane,
   ArrowRight,
-  CheckCircle2,
-  Users,
   Compass,
-  AlertTriangle,
-  Info,
-  Calendar,
-  MessageSquare,
+  CheckCircle2,
   HardHat,
   ChevronRight,
+  Anchor,
+  Car,
+  ShieldCheck,
 } from 'lucide-react';
 import PageHeader from '../../components/common/PageHeader';
 
 export default function AboutPage() {
-  const [activeZone, setActiveZone] = useState('zone1');
+  const [activeZone, setActiveZone] = useState('sector-all');
 
-  const ZONES = [
-    {
-      id: 'zone1',
-      title: 'Zone 1: Southern Terminal & Airport',
-      subtitle: 'Silicon Island to Penang International Airport',
-      description:
-        'Serving the expanding southern island development, primary depot operations, and providing seamless direct rail transit to Penang International Airport (PIA).',
-      stations: [
-        'Silicon Island Depot & Terminal',
-        'Permatang Damar Laut',
-        'Penang International Airport (PIA)',
-        'Sungai Tiram',
-      ],
-      highlights: 'Direct airport terminal link, multimodal parking, and Southern maintenance depot.',
-    },
-    {
-      id: 'zone2',
-      title: 'Zone 2: Industrial & University Corridor',
-      subtitle: 'Bayan Lepas Free Industrial Zone to USM Gelugor',
-      description:
-        'The high-capacity spine connecting over 100,000 workforce commuters across the semiconductor hub, residential townships, and Universiti Sains Malaysia (USM).',
-      stations: [
-        'Bayan Lepas FIZ Phase 1-4',
-        'Bayan Baru Central',
-        'Sungai Nibong (Interstate Bus Hub)',
-        'Bukit Jambul',
-        'Universiti Sains Malaysia (USM)',
-      ],
-      highlights: 'Peak commuter relief for Tun Dr Lim Chong Eu Expressway and industrial workers.',
-    },
-    {
-      id: 'zone3',
-      title: 'Zone 3: Heritage & George Town Core',
-      subtitle: 'Gelugor to Komtar Central Station',
-      description:
-        'Threading through Penang’s dense urban core and UNESCO World Heritage buffer zone, culminating at the premier island transit hub at KOMTAR.',
-      stations: [
-        'Bandar Sri Pinang',
-        'Sungai Pinang',
-        'KOMTAR Central Interchange Station',
-        'Macallum Urban Gateway',
-      ],
-      highlights: 'Full interchange with Rapid Penang bus network, pedestrian skywalks, and government administrative hub.',
-    },
-    {
-      id: 'zone4',
-      title: 'Zone 4: Sea-Crossing & Mainland Gateway',
-      subtitle: 'George Town Cross-Channel Link to Penang Sentral (Butterworth)',
-      description:
-        'The iconic cross-channel sea viaduct linking Penang Island directly to Seberang Perai, offering an all-weather alternative to existing road bridges.',
-      stations: [
-        'Penang Strait Cross-Channel Viaduct',
-        'Penang Sentral / Butterworth Station',
-      ],
-      highlights: 'Direct cross-platform transfer to KTM ETS, KTM Komuter Northern Sector, and Penang Ferry services.',
-    },
-  ];
-
+  // Key Technical Metrics
   const KEY_METRICS = [
     {
       icon: Train,
       value: '29.5 km',
-      label: 'Total Route Length',
-      detail: 'Fully elevated guideway and cross-channel sea-crossing rail bridge',
+      label: 'Route Length',
+      detail: 'Fully elevated guideway and dedicated sea-crossing rail bridge.',
     },
     {
       icon: MapPin,
-      value: '20 Stations',
+      value: '21 Stations',
       label: 'Passenger Stations',
-      detail: 'Including 2 major multimodal interchanges at Komtar and Penang Sentral',
+      detail: '20 stations on Penang Island and 1 major mainland interchange.',
     },
     {
-      icon: Clock,
-      value: '18 - 20 mins',
-      label: 'Estimated Transit Time',
-      detail: 'Between Silicon Island and KOMTAR during peak operating hours',
+      icon: Anchor,
+      value: 'Cross-Strait',
+      label: 'Direct Sea Link',
+      detail: 'Rail bridge across Penang Strait from Macallum to Penang Sentral.',
     },
     {
       icon: Building,
-      value: '1 Primary Depot',
-      label: 'Operations & Maintenance',
-      detail: 'State-of-the-art facility located at Silicon Island for 30+ train sets',
+      value: 'Silicon Island',
+      label: 'Main Depot & OCC',
+      detail: 'Primary operations, maintenance facility, and transit development.',
+    },
+    {
+      icon: Plane,
+      value: 'Airport Direct',
+      label: 'PIA Connection',
+      detail: 'Integrated station directly linking the Penang Airport terminal.',
+    },
+    {
+      icon: Clock,
+      value: '2031',
+      label: 'Target Operations',
+      detail: 'Targeted full commercial passenger operations across the line.',
     },
   ];
 
+  // 21 Stations categorized into 5 focused sectors
+  const SECTORS = [
+    {
+      id: 'sector-all',
+      shortTitle: 'All 21 Stations',
+      title: 'Full Alignment: Silicon Island to Penang Sentral (29.5 km)',
+      stations: [
+        { no: 1, name: 'Silicon Island (PSR-A)', tag: 'Main Depot & Terminal' },
+        { no: 2, name: 'Permatang Damar Laut', tag: 'Elevated Station' },
+        { no: 3, name: 'Penang International Airport (PIA)', tag: 'Airport Concourse Link' },
+        { no: 4, name: 'Sungai Tiram', tag: 'Elevated Station' },
+        { no: 5, name: 'FIZ South', tag: 'Industrial Corridor' },
+        { no: 6, name: 'FIZ North', tag: 'High-Tech Zone' },
+        { no: 7, name: 'Jalan Tengah', tag: 'Residential Hub' },
+        { no: 8, name: 'SPICE', tag: 'Convention Centre' },
+        { no: 9, name: 'Bukit Jambul', tag: 'Commercial Precinct' },
+        { no: 10, name: 'Sungai Nibong', tag: 'Interstate Bus Interchange' },
+        { no: 11, name: 'Sungai Dua', tag: 'Township Station' },
+        { no: 12, name: 'Batu Uban', tag: 'Park & Ride' },
+        { no: 13, name: 'Jalan Universiti (USM)', tag: 'University Campus' },
+        { no: 14, name: 'Gelugor', tag: 'Suburban Station' },
+        { no: 15, name: 'Penang Waterfront', tag: 'Waterfront Precinct' },
+        { no: 16, name: 'East Jelutong', tag: 'Elevated Station' },
+        { no: 17, name: 'Sungai Pinang', tag: 'Urban Station' },
+        { no: 18, name: 'Bandar Sri Pinang', tag: 'Commercial Hub' },
+        { no: 19, name: 'Macallum', tag: 'Cross-Strait Split Junction' },
+        { no: 20, name: 'KOMTAR', tag: 'Central Island Terminal' },
+        { no: 21, name: 'Penang Sentral (Butterworth)', tag: 'Mainland Intermodal Hub' },
+      ],
+    },
+    {
+      id: 'sector-south',
+      shortTitle: 'South & Airport (Stn 1 - 4)',
+      title: 'Sector 1: Silicon Island to Penang Airport',
+      stations: [
+        { no: 1, name: 'Silicon Island (PSR-A)', tag: 'Main Depot & Terminal' },
+        { no: 2, name: 'Permatang Damar Laut', tag: 'Elevated Station' },
+        { no: 3, name: 'Penang International Airport (PIA)', tag: 'Airport Concourse Link' },
+        { no: 4, name: 'Sungai Tiram', tag: 'Elevated Station' },
+      ],
+    },
+    {
+      id: 'sector-industrial',
+      shortTitle: 'Industrial & SPICE (Stn 5 - 10)',
+      title: 'Sector 2: Bayan Lepas FIZ & Convention Corridor',
+      stations: [
+        { no: 5, name: 'FIZ South', tag: 'Industrial Corridor' },
+        { no: 6, name: 'FIZ North', tag: 'High-Tech Zone' },
+        { no: 7, name: 'Jalan Tengah', tag: 'Residential Hub' },
+        { no: 8, name: 'SPICE', tag: 'Convention Centre' },
+        { no: 9, name: 'Bukit Jambul', tag: 'Commercial Precinct' },
+        { no: 10, name: 'Sungai Nibong', tag: 'Interstate Bus Interchange' },
+      ],
+    },
+    {
+      id: 'sector-university',
+      shortTitle: 'USM & Gelugor (Stn 11 - 14)',
+      title: 'Sector 3: Education & Gelugor Residential',
+      stations: [
+        { no: 11, name: 'Sungai Dua', tag: 'Township Station' },
+        { no: 12, name: 'Batu Uban', tag: 'Park & Ride' },
+        { no: 13, name: 'Jalan Universiti (USM)', tag: 'University Campus' },
+        { no: 14, name: 'Gelugor', tag: 'Suburban Station' },
+      ],
+    },
+    {
+      id: 'sector-georgetown',
+      shortTitle: 'George Town & KOMTAR (Stn 15 - 20)',
+      title: 'Sector 4: George Town Urban Core',
+      stations: [
+        { no: 15, name: 'Penang Waterfront', tag: 'Waterfront Precinct' },
+        { no: 16, name: 'East Jelutong', tag: 'Elevated Station' },
+        { no: 17, name: 'Sungai Pinang', tag: 'Urban Station' },
+        { no: 18, name: 'Bandar Sri Pinang', tag: 'Commercial Hub' },
+        { no: 19, name: 'Macallum', tag: 'Cross-Strait Split Junction' },
+        { no: 20, name: 'KOMTAR', tag: 'Central Island Terminal' },
+      ],
+    },
+    {
+      id: 'sector-crosschannel',
+      shortTitle: 'Cross-Strait (Stn 19 & 21)',
+      title: 'Sector 5: Cross-Strait Sea Viaduct to Butterworth',
+      stations: [
+        { no: 19, name: 'Macallum (Island)', tag: 'Sea-Bridge Approach' },
+        { no: 21, name: 'Penang Sentral (Mainland)', tag: 'Mainland Intermodal Hub' },
+      ],
+    },
+  ];
+
+  // 4 Major Multimodal Hubs
+  const INTERCHANGES = [
+    {
+      title: 'KOMTAR Interchange',
+      location: 'George Town (Island)',
+      role: 'Island Central Transit Hub',
+      detail: 'Direct links with Rapid Penang main bus depot and state civic center.',
+    },
+    {
+      title: 'Penang Sentral',
+      location: 'Butterworth (Mainland)',
+      role: 'Mainland Railway & Ferry Gateway',
+      detail: 'Cross-platform transfer to KTM ETS, Komuter, interstate buses, and Penang Ferry.',
+    },
+    {
+      title: 'Penang Int. Airport (PIA)',
+      location: 'Bayan Lepas (Island)',
+      role: 'Aviation Transit Link',
+      detail: 'Seamless direct connection into domestic and international terminal concourses.',
+    },
+    {
+      title: 'Sungai Nibong Terminal',
+      location: 'Sungai Nibong (Island)',
+      role: 'Interstate Coach Terminal',
+      detail: 'Direct connection to long-distance express buses serving Peninsular Malaysia.',
+    },
+  ];
+
+  // Phased Delivery Milestones
   const MILESTONES = [
     {
       year: '2024',
-      quarter: 'Q1 - Q2',
-      title: 'Federal Approval & Final Alignment',
-      description:
-        'Federal Cabinet approves the Mutiara Line project structure under MRT Corp with gazetted 29.5km route alignment.',
-      status: 'completed',
+      status: 'Completed',
+      title: 'Federal Approval & Final Route',
+      desc: 'Project structure and gazetted 29.5 km alignment approved by Federal Government under MRT Corp.',
     },
     {
       year: '2025',
-      quarter: 'Q1 - Q4',
-      title: 'Detailed Engineering Design & Soil Investigation',
-      description:
-        'Soil geotechnical surveys, utility mapping, and structural package awards across island and cross-channel zones.',
-      status: 'completed',
+      status: 'Current Phase',
+      title: 'Utility Relocation & Site Preparation',
+      desc: 'Active geotechnical soil testing, underground utility mapping, and civil contract packages.',
     },
     {
-      year: '2026',
-      quarter: 'Current Phase',
-      title: 'Civil Construction & Viaduct Foundations',
-      description:
-        'Substructure pier construction, pile cap installation, utility diversions, and active community traffic mitigation.',
-      status: 'active',
+      year: '2026 - 2028',
+      status: 'Upcoming',
+      title: 'Viaducts, Stations & Sea Bridge',
+      desc: 'Substructure piling, segmental viaduct launching, elevated station structures, and sea viaduct.',
     },
     {
-      year: '2028',
-      quarter: 'Target',
-      title: 'Trackwork & Station Superstructures',
-      description:
-        'Elevated station construction, architectural fit-out, power sub-stations, and signaling infrastructure deployment.',
-      status: 'upcoming',
-    },
-    {
-      year: '2030',
-      quarter: 'Target',
-      title: 'Testing, Commissioning & Operations',
-      description:
-        'Trial train runs, safety certifications, and commercial revenue passenger operations across the entire 20-station corridor.',
-      status: 'upcoming',
+      year: '2029 - 2031',
+      status: 'Target',
+      title: 'Trackwork, Testing & Operations',
+      desc: 'Automated train delivery, signaling integration, trial operations, and commercial passenger opening.',
     },
   ];
+
+  const currentSector = SECTORS.find((s) => s.id === activeZone) || SECTORS[0];
 
   return (
     <div className="min-h-screen bg-[#F5F7FA]">
       {/* ── Page Header ─────────────────────────────────────────── */}
       <PageHeader
-        title="About Penang LRT Mutiara Line"
-        subtitle="Transforming public mobility and connecting communities between Penang Island and Seberang Perai."
+        title="About LRT Mutiara Line"
+        subtitle="Key project facts, route alignment, and multimodal connectivity for Penang's first light rail transit system."
       >
         <div className="flex items-center gap-2 text-xs text-white/80">
           <Link to="/" className="hover:text-white transition-colors">Home</Link>
@@ -186,17 +232,17 @@ export default function AboutPage() {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-8">
 
         {/* ============================================================
-            1. HERO VISUAL BANNER
+            1. HERO BANNER
             ============================================================ */}
         <div
           className="relative rounded-lg overflow-hidden border border-gray-200"
-          style={{ minHeight: '340px', maxHeight: '440px' }}
+          style={{ minHeight: '340px', maxHeight: '420px' }}
         >
           <img
             src="/images/hero_lrt.png"
             alt="Penang LRT Mutiara Line Elevated Train Simulation"
             className="w-full h-full object-cover object-center"
-            style={{ minHeight: '340px', maxHeight: '440px' }}
+            style={{ minHeight: '340px', maxHeight: '420px' }}
           />
           <div
             className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8"
@@ -205,144 +251,49 @@ export default function AboutPage() {
                 'linear-gradient(180deg, rgba(18,55,91,0.2) 0%, rgba(18,55,91,0.85) 60%, rgba(18,55,91,0.98) 100%)',
             }}
           >
-            <div className="max-w-3xl space-y-2.5">
+            <div className="max-w-2xl space-y-2">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider text-[#12375B] bg-[#F4B942]">
                 <HardHat size={13} />
                 National Rail Infrastructure Project
               </span>
-              <h2
-                className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-white"
-              >
-                A Unified Transit Spine for 1.74 Million Penangites
-              </h2>
-              <p
-                className="text-xs sm:text-sm leading-relaxed text-gray-100 max-w-2xl"
-              >
-                Bridging Penang's high-tech manufacturing corridor in Bayan Lepas, the UNESCO World
-                Heritage city of George Town, and the mainland transportation gateway at Penang Sentral
-                into one seamless transit network.
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                Penang LRT Mutiara Line
+              </h1>
+              <p className="text-xs sm:text-sm leading-relaxed text-gray-100">
+                Developed by <strong>MRT Corp</strong>, the 29.5 km Mutiara Line is Penang’s first light rail transit system,
+                connecting Silicon Island, George Town, and Penang Sentral across 21 stations.
               </p>
             </div>
           </div>
         </div>
 
-        {/* ============================================================
-            2. STRATEGIC PURPOSE & EXECUTIVE OVERVIEW
-            ============================================================ */}
-        <section className="bg-white rounded-lg p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
-          <div className="max-w-3xl">
-            <span className="text-xs font-bold text-[#16A6A1] uppercase tracking-wider">
-              Project Purpose & Strategic Role
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#12375B] mt-1 tracking-tight">
-              Solving Critical Traffic Chokepoints with Rapid Transit
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-gray-600 leading-relaxed">
-            <div className="space-y-4">
-              <p>
-                The <strong>LRT Mutiara Line</strong> represents Penang’s flagship light rapid transit
-                initiative under the National Transport Policy. Developed by{' '}
-                <strong>Mass Rapid Transit Corporation Sdn Bhd (MRT Corp)</strong> in collaboration with
-                the Penang State Government, the project delivers modern, climate-resilient passenger
-                rail along the state’s most congested travel corridors.
-              </p>
-              <p>
-                Spanning <strong>29.5 kilometres</strong> with 20 stations, the Mutiara Line addresses
-                decades-long traffic congestion across the Bayan Lepas industrial belt, George Town’s
-                heritage center, and the two road bridges linking the island and mainland.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <p>
-                Crucially, the line incorporates an iconic <strong>sea-crossing rail alignment</strong>{' '}
-                spanning the Penang Strait. This ensures direct rail connectivity between the island’s
-                central terminal at KOMTAR and the mainland railway hub at Penang Sentral in Butterworth.
-              </p>
-              <div className="p-4 bg-white rounded-lg border border-gray-200 border-l-4 border-l-[#16A6A1] space-y-1">
-                <p className="font-semibold text-xs text-[#12375B]">Key Project Beneficiaries:</p>
-                <p className="text-xs text-gray-600">
-                  Over 100,000 daily industrial commuters in Bayan Lepas, regional tourists arriving via
-                  Penang International Airport, students at USM, and interstate travelers transferring at
-                  Penang Sentral.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* 3 Strategic Pillars */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-gray-100">
-            <div className="flex items-start gap-3.5 p-4 rounded-lg bg-[#F5F7FA] border border-gray-200">
-              <div className="p-2 rounded-md bg-teal-50 text-[#16A6A1] flex-shrink-0">
-                <Compass size={20} />
-              </div>
-              <div>
-                <h4 className="font-bold text-sm text-[#12375B]">Cross-Channel Link</h4>
-                <p className="text-xs text-gray-600 mt-0.5">
-                  Direct sea-crossing rail viaduct providing all-weather connection between Island &amp; Mainland.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5 p-4 rounded-lg bg-[#F5F7FA] border border-gray-200">
-              <div className="p-2 rounded-md bg-amber-50 text-[#B45309] flex-shrink-0">
-                <Plane size={20} />
-              </div>
-              <div>
-                <h4 className="font-bold text-sm text-[#12375B]">Airport Connection</h4>
-                <p className="text-xs text-gray-600 mt-0.5">
-                  Direct integrated airport station at Penang International Airport (PIA) terminal.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5 p-4 rounded-lg bg-[#F5F7FA] border border-gray-200">
-              <div className="p-2 rounded-md bg-blue-50 text-[#12375B] flex-shrink-0">
-                <Shield size={20} />
-              </div>
-              <div>
-                <h4 className="font-bold text-sm text-[#12375B]">Green &amp; Sustainable</h4>
-                <p className="text-xs text-gray-600 mt-0.5">
-                  Zero local emissions, expected to eliminate thousands of private vehicular trips daily.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ============================================================
-            3. KEY PROJECT METRICS (Visual Cards)
+            3. KEY PROJECT METRICS (Quick Facts)
             ============================================================ */}
-        <section className="space-y-4">
-          <div>
-            <span className="text-xs font-bold text-[#16A6A1] uppercase tracking-wider">
-              Technical Specifications
-            </span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] mt-1 tracking-tight">
-              Project Key Metrics at a Glance
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <section className="space-y-3">
+          <h2 className="text-lg sm:text-xl font-extrabold text-[#12375B] tracking-tight">
+            Key Project Facts
+          </h2>
+          <div className="grid grid-cols-2 lg:grid-cols-6 gap-3">
             {KEY_METRICS.map((metric) => {
               const IconComp = metric.icon;
               return (
                 <div
                   key={metric.label}
-                  className="bg-white rounded-lg p-5 border border-gray-200 shadow-sm flex flex-col justify-between"
+                  className="bg-white rounded-lg p-4 border border-gray-200 shadow-xs flex flex-col justify-between"
                 >
-                  <div className="p-2.5 w-fit rounded-md bg-teal-50 text-[#16A6A1] border border-teal-100 mb-3">
-                    <IconComp size={22} />
+                  <div className="p-2 w-fit rounded-md bg-teal-50 text-[#16A6A1] mb-2">
+                    <IconComp size={18} />
                   </div>
                   <div>
-                    <p className="text-2xl sm:text-3xl font-extrabold text-[#12375B] tracking-tight">
+                    <p className="text-xl sm:text-2xl font-extrabold text-[#12375B] tracking-tight">
                       {metric.value}
                     </p>
-                    <p className="text-xs font-bold text-gray-700 mt-1 uppercase tracking-wide">
+                    <p className="text-[11px] font-bold text-gray-700 uppercase tracking-wide mt-0.5">
                       {metric.label}
                     </p>
-                    <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                    <p className="text-[11px] text-gray-500 mt-1 leading-snug">
                       {metric.detail}
                     </p>
                   </div>
@@ -353,283 +304,187 @@ export default function AboutPage() {
         </section>
 
         {/* ============================================================
-            4. ROUTE ALIGNMENT & INTERACTIVE ZONE EXPLORER
+            4. EXECUTIVE OVERVIEW (Concise & Focused)
             ============================================================ */}
-        <section className="bg-white rounded-lg p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-            <div>
-              <span className="text-xs font-bold text-[#16A6A1] uppercase tracking-wider">
-                Alignment &amp; Stations
-              </span>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] mt-1 tracking-tight">
-                20 Stations Along 4 Transit Corridors
-              </h2>
-            </div>
-            <p className="text-xs text-gray-600 max-w-sm">
-              Select a zone below to examine station locations and interchange connectivity.
+        <section className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm space-y-4">
+          <h2 className="text-lg sm:text-xl font-extrabold text-[#12375B] tracking-tight">
+            Project Overview &amp; Objectives
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-gray-600 leading-relaxed">
+            <p>
+              The <strong>LRT Mutiara Line</strong> is the transit spine under the{' '}
+              <strong>Penang Transport Master Plan (PTMP)</strong>. Built and owned by{' '}
+              <strong>MRT Corp</strong>, it is the first light rail transit system developed in Malaysia
+              outside the Klang Valley.
+            </p>
+            <p>
+              The line provides an all-weather, predictable alternative to chronic traffic on Tun Dr Lim Chong Eu
+              Expressway and Jalan Sultan Azlan Shah, featuring a direct <strong>sea-crossing rail bridge</strong>{' '}
+              linking Penang Island to Seberang Perai.
             </p>
           </div>
 
-          {/* Zone Selector Tabs */}
-          <div role="tablist" aria-label="LRT Route Zones" className="flex flex-wrap gap-2 border-b border-gray-200 pb-3">
-            {ZONES.map((zone) => (
+          {/* 3 Core Highlights */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-gray-100">
+            <div className="flex items-start gap-3 p-3 rounded-md bg-[#F5F7FA]">
+              <Car size={18} className="text-[#12375B] flex-shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-bold text-xs text-[#12375B]">Traffic Decongestion</h4>
+                <p className="text-[11px] text-gray-600 mt-0.5">Bypasses peak-hour gridlocks across major road corridors.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 rounded-md bg-[#F5F7FA]">
+              <Compass size={18} className="text-[#16A6A1] flex-shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-bold text-xs text-[#12375B]">Cross-Channel Rail Link</h4>
+                <p className="text-[11px] text-gray-600 mt-0.5">Direct sea viaduct connecting island to mainland railway network.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 rounded-md bg-[#F5F7FA]">
+              <ShieldCheck size={18} className="text-[#047857] flex-shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-bold text-xs text-[#12375B]">Clean Electric Transit</h4>
+                <p className="text-[11px] text-gray-600 mt-0.5">Zero direct emissions supporting Penang’s green mobility targets.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            5. ROUTE ALIGNMENT & 21 STATIONS
+            ============================================================ */}
+        <section className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h2 className="text-lg sm:text-xl font-extrabold text-[#12375B] tracking-tight">
+                21 Stations &amp; Alignment Corridor
+              </h2>
+              <p className="text-xs text-gray-600 mt-0.5">
+                Sequential station list along the 29.5 km transit line.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-[#16A6A1] bg-teal-50 px-2.5 py-1 rounded w-fit">
+              {currentSector.stations.length} Stations in View
+            </span>
+          </div>
+
+          {/* Sector Filter Tabs */}
+          <div role="tablist" className="flex flex-wrap gap-1.5 border-b border-gray-200 pb-2.5">
+            {SECTORS.map((sector) => (
               <button
-                key={zone.id}
+                key={sector.id}
                 role="tab"
-                id={`zone-tab-${zone.id}`}
-                aria-selected={activeZone === zone.id}
-                aria-controls={`zone-panel-${zone.id}`}
-                onClick={() => setActiveZone(zone.id)}
-                className={`px-3.5 py-2 rounded-md text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-[#16A6A1] focus:ring-offset-2 ${
-                  activeZone === zone.id
-                    ? 'bg-[#12375B] text-white shadow-sm'
+                aria-selected={activeZone === sector.id}
+                onClick={() => setActiveZone(sector.id)}
+                className={`px-3 py-1.5 rounded-md text-xs font-bold transition-colors ${
+                  activeZone === sector.id
+                    ? 'bg-[#12375B] text-white shadow-xs'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                {zone.title.split(':')[0]}
+                {sector.shortTitle}
               </button>
             ))}
           </div>
 
-          {/* Active Zone Content Card */}
-          {(() => {
-            const currentZone = ZONES.find((z) => z.id === activeZone) || ZONES[0];
-            return (
+          {/* Station Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 pt-1">
+            {currentSector.stations.map((stn) => (
               <div
-                role="tabpanel"
-                id={`zone-panel-${currentZone.id}`}
-                aria-labelledby={`zone-tab-${currentZone.id}`}
-                className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-4"
+                key={stn.no}
+                className="flex items-center gap-3 p-3 bg-[#F5F7FA] rounded-md border border-gray-200 hover:border-gray-300 transition-colors"
               >
-                <div>
-                  <h3 className="text-base sm:text-lg font-extrabold text-[#12375B]">
-                    {currentZone.title}
-                  </h3>
-                  <p className="text-xs font-semibold text-[#16A6A1]">
-                    {currentZone.subtitle}
-                  </p>
-                  <p className="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed">
-                    {currentZone.description}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                    Key Stations in this Sector:
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {currentZone.stations.map((stn, idx) => (
-                      <div
-                        key={stn}
-                        className="flex items-center gap-2 bg-white px-3 py-2 rounded-md text-xs font-semibold text-gray-700 border border-gray-200"
-                      >
-                        <span className="w-5 h-5 rounded bg-[#16A6A1]/15 text-[#16A6A1] flex items-center justify-center text-[10px] font-bold">
-                          {idx + 1}
-                        </span>
-                        <span>{stn}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-2 border-t border-gray-200 text-xs text-gray-600 flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-[#16A6A1] flex-shrink-0" />
-                  <span><strong>Highlight:</strong> {currentZone.highlights}</span>
+                <span className="w-6 h-6 rounded bg-[#16A6A1] text-white flex items-center justify-center text-xs font-bold flex-shrink-0">
+                  {stn.no}
+                </span>
+                <div className="min-w-0">
+                  <h4 className="font-bold text-xs text-[#12375B] truncate">
+                    {stn.name}
+                  </h4>
+                  <span className="text-[10px] text-gray-500 font-medium">
+                    {stn.tag}
+                  </span>
                 </div>
               </div>
-            );
-          })()}
-
-          {/* 3 Landmark Interchanges */}
-          <div className="pt-4">
-            <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">
-              Strategic Multimodal Interchanges
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-lg border border-gray-200 bg-[#F5F7FA] space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#0f7a76] bg-teal-100/70 px-2 py-0.5 rounded-md">
-                  Island Central Hub
-                </span>
-                <h5 className="font-bold text-sm text-[#12375B]">KOMTAR Interchange</h5>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  Direct connection with Rapid Penang central bus depot, Komtar pedestrian mall, and
-                  state administrative headquarters.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-lg border border-gray-200 bg-[#F5F7FA] space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#92400e] bg-amber-100/80 px-2 py-0.5 rounded-md">
-                  Mainland Railway Hub
-                </span>
-                <h5 className="font-bold text-sm text-[#12375B]">Penang Sentral (Butterworth)</h5>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  Seamless intermodal link to KTM Electric Train Service (ETS), KTM Komuter, interstate
-                  bus services, and the Penang Ferry.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-lg border border-gray-200 bg-[#F5F7FA] space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#1d4ed8] bg-blue-100/70 px-2 py-0.5 rounded-md">
-                  Aviation Gateway
-                </span>
-                <h5 className="font-bold text-sm text-[#12375B]">Penang International Airport</h5>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  Direct terminal baggage concourse connection supporting international flight passengers
-                  and airport employment precinct.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
         {/* ============================================================
-            5. COMMUNITY FIRST: ROLE OF THIS PLATFORM
+            6. STRATEGIC MULTIMODAL INTERCHANGES
             ============================================================ */}
-        <section className="bg-white rounded-lg p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
-          <div className="max-w-3xl">
-            <span className="text-xs font-bold text-[#16A6A1] uppercase tracking-wider">
-              Community Engagement &amp; Public Transparency
-            </span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] mt-1 tracking-tight">
-              Why This Community Information Portal Exists
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed">
-              Major urban transit infrastructure inevitably impacts surrounding residential neighborhoods,
-              commercial districts, and local traffic circulation during construction. This portal serves
-              as Penang's centralized communication and civic accountability bridge.
-            </p>
-          </div>
+        <section className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm space-y-4">
+          <h2 className="text-lg sm:text-xl font-extrabold text-[#12375B] tracking-tight">
+            4 Major Multimodal Interchanges
+          </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-2">
-            <div className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-3">
-              <div className="p-2 w-fit rounded-md bg-white text-[#12375B] border border-gray-200">
-                <Info size={18} />
-              </div>
-              <h4 className="font-bold text-sm text-[#12375B]">Verified Construction Updates</h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Stay updated with official, engineer-verified work progress, piling schedules, and night-work
-                advisories across all 20 station packages.
-              </p>
-              <Link
-                to="/announcements"
-                className="text-xs font-bold text-[#16A6A1] hover:underline inline-flex items-center gap-1"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {INTERCHANGES.map((item) => (
+              <div
+                key={item.title}
+                className="p-4 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-1.5"
               >
-                <span>Browse Announcements</span>
-                <ArrowRight size={12} />
-              </Link>
-            </div>
-
-            <div className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-3">
-              <div className="p-2 w-fit rounded-md bg-white text-[#B45309] border border-gray-200">
-                <AlertTriangle size={18} />
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#0f7a76] bg-teal-100/70 px-2 py-0.5 rounded">
+                  {item.location}
+                </span>
+                <h3 className="font-bold text-xs sm:text-sm text-[#12375B]">
+                  {item.title}
+                </h3>
+                <p className="text-[11px] text-gray-600 leading-snug">
+                  {item.detail}
+                </p>
               </div>
-              <h4 className="font-bold text-sm text-[#12375B]">Real-Time Traffic Advisories</h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Check scheduled road closures, contraflow lanes, detour route maps, and peak-hour traffic
-                marshaling before planning your commute.
-              </p>
-              <Link
-                to="/road-closures"
-                className="text-xs font-bold text-[#16A6A1] hover:underline inline-flex items-center gap-1"
-              >
-                <span>View Road Closures</span>
-                <ArrowRight size={12} />
-              </Link>
-            </div>
-
-            <div className="p-5 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-3">
-              <div className="p-2 w-fit rounded-md bg-white text-[#16A6A1] border border-gray-200">
-                <MessageSquare size={18} />
-              </div>
-              <h4 className="font-bold text-sm text-[#12375B]">Direct Community Feedback</h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Report noise exceedances, vibration, dust pollution, or pedestrian detours directly to
-                community liaison officers with tracking ticket numbers.
-              </p>
-              <Link
-                to="/feedback/new"
-                className="text-xs font-bold text-[#16A6A1] hover:underline inline-flex items-center gap-1"
-              >
-                <span>Submit Feedback</span>
-                <ArrowRight size={12} />
-              </Link>
-            </div>
+            ))}
           </div>
         </section>
 
         {/* ============================================================
-            6. PROJECT DELIVERY MILESTONES
+            7. PROJECT TIMELINE (4 Steps)
             ============================================================ */}
-        <section className="bg-white rounded-lg p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
-          <div>
-            <span className="text-xs font-bold text-[#16A6A1] uppercase tracking-wider">
-              Project Timeline
-            </span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] mt-1 tracking-tight">
-              Project Delivery Phases (2024 to 2030)
-            </h2>
-          </div>
+        <section className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm space-y-4">
+          <h2 className="text-lg sm:text-xl font-extrabold text-[#12375B] tracking-tight">
+            Implementation Timeline
+          </h2>
 
-          <div className="space-y-3">
-            {MILESTONES.map((item) => {
-              const isCompleted = item.status === 'completed';
-              const isActive = item.status === 'active';
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {MILESTONES.map((step) => {
+              const isCurrent = step.status === 'Current Phase';
+              const isDone = step.status === 'Completed';
               return (
                 <div
-                  key={item.year + item.quarter}
-                  className={`p-4 rounded-lg border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
-                    isActive
-                      ? 'bg-teal-50/40 border-[#16A6A1]'
-                      : isCompleted
+                  key={step.year}
+                  className={`p-4 rounded-lg border space-y-2 ${
+                    isCurrent
+                      ? 'bg-teal-50/50 border-[#16A6A1]'
+                      : isDone
                       ? 'bg-[#F5F7FA] border-gray-200'
                       : 'bg-white border-gray-200'
                   }`}
                 >
-                  <div className="flex items-start sm:items-center gap-3.5">
-                    <div
-                      className={`w-11 h-11 rounded-md flex flex-col items-center justify-center font-extrabold text-xs flex-shrink-0 ${
-                        isActive
-                          ? 'bg-[#16A6A1] text-white'
-                          : isCompleted
-                          ? 'bg-[#12375B] text-white'
-                          : 'bg-gray-100 text-gray-400'
+                  <div className="flex items-center justify-between">
+                    <span className="font-extrabold text-sm text-[#12375B]">
+                      {step.year}
+                    </span>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                        isCurrent
+                          ? 'bg-[#F4B942] text-[#12375B]'
+                          : isDone
+                          ? 'bg-teal-100 text-[#0f7a76]'
+                          : 'bg-gray-100 text-gray-500'
                       }`}
                     >
-                      <span className="text-[9px] leading-tight font-medium opacity-90">
-                        {item.quarter}
-                      </span>
-                      <span className="text-xs leading-tight">{item.year}</span>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-sm text-[#12375B]">{item.title}</h4>
-                        {isActive && (
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#F4B942] text-[#12375B] uppercase tracking-wider">
-                            Active Phase
-                          </span>
-                        )}
-                        {isCompleted && (
-                          <CheckCircle2 size={14} className="text-[#10B981]" />
-                        )}
-                      </div>
-                      <p className="text-xs text-gray-600 mt-0.5 leading-relaxed max-w-2xl">
-                        {item.description}
-                      </p>
-                    </div>
+                      {step.status}
+                    </span>
                   </div>
-
-                  <span
-                    className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md w-fit ${
-                      isActive
-                        ? 'text-[#0f7a76] bg-teal-100'
-                        : isCompleted
-                        ? 'text-gray-700 bg-gray-200'
-                        : 'text-gray-600 bg-gray-100'
-                    }`}
-                  >
-                    {item.status}
-                  </span>
+                  <h4 className="font-bold text-xs text-[#12375B] leading-snug">
+                    {step.title}
+                  </h4>
+                  <p className="text-[11px] text-gray-600 leading-relaxed">
+                    {step.desc}
+                  </p>
                 </div>
               );
             })}
@@ -637,56 +492,44 @@ export default function AboutPage() {
         </section>
 
         {/* ============================================================
-            7. CALL TO ACTION BANNER
+            8. CALL TO ACTION BANNER
             ============================================================ */}
         <section
-          className="rounded-lg p-6 sm:p-8 text-white relative overflow-hidden shadow-sm"
+          className="rounded-lg p-6 sm:p-7 text-white relative overflow-hidden shadow-sm"
           style={{ backgroundColor: '#12375B' }}
         >
-          <div className="relative z-10 max-w-2xl space-y-3">
+          <div className="relative z-10 max-w-xl space-y-2.5">
             <span className="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-white/10 text-[#F4B942] border border-white/20">
-              Public Engagement
+              Community Portal
             </span>
-            <h2
-              className="text-xl sm:text-2xl font-extrabold tracking-tight leading-tight text-white"
-            >
-              Have Questions or Feedback Concerning Construction in Your Area?
+            <h2 className="text-lg sm:text-xl font-extrabold tracking-tight leading-tight text-white">
+              Questions or Inquiries Concerning Construction?
             </h2>
-            <p
-              className="text-xs sm:text-sm leading-relaxed text-gray-200"
-            >
-              Our community liaison team responds to resident inquiries within 48 business hours.
-              Help ensure safety and clear traffic flow across the corridor.
+            <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
+              Submit feedback tickets directly to community liaison officers or check the latest traffic advisories.
             </p>
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-2.5 pt-1">
               <Link
                 to="/feedback/new"
-                className="text-xs sm:text-sm font-bold px-5 py-2.5 rounded-md inline-flex items-center gap-1.5 bg-[#F4B942] hover:bg-[#d9992a] text-[#12375B] transition-colors shadow-sm"
+                className="text-xs font-bold px-4 py-2 rounded-md inline-flex items-center gap-1.5 bg-[#F4B942] hover:bg-[#d9992a] text-[#12375B] transition-colors shadow-xs"
               >
-                <span>Submit Feedback Ticket</span>
-                <ArrowRight size={14} />
+                <span>Submit Feedback</span>
+                <ArrowRight size={13} />
+              </Link>
+              <Link
+                to="/road-closures"
+                className="text-xs font-semibold px-4 py-2 rounded-md inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 transition-colors"
+              >
+                <span>Traffic Advisories</span>
               </Link>
               <Link
                 to="/announcements"
-                className="text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-md inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 transition-colors"
+                className="text-xs font-semibold px-4 py-2 rounded-md inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 transition-colors"
               >
-                <span>View Construction Notices</span>
+                <span>Notices</span>
               </Link>
             </div>
           </div>
-        </section>
-
-        {/* ============================================================
-            8. ACADEMIC DISCLAIMER (CMT322)
-            ============================================================ */}
-        <section className="bg-white rounded-lg p-5 border border-gray-200 text-xs text-gray-600 space-y-2">
-          <div className="flex items-center gap-2 text-[#12375B] font-bold">
-            <Info size={16} className="text-[#16A6A1] flex-shrink-0" />
-            <span>Academic Project Notice (CMT322)</span>
-          </div>
-          <p className="leading-relaxed">
-            This platform is an educational prototype developed for course CMT322 at Universiti Sains Malaysia (USM). It models a civic engagement and community information system for the Penang LRT Mutiara Line infrastructure initiative. All route alignments, station details, and timelines are based on publicly gazetted federal and state announcements.
-          </p>
         </section>
 
       </div>
