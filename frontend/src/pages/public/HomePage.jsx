@@ -4,8 +4,7 @@
  *
  * Redesigned to match the official Laluan Mutiara website structure:
  *   1. Hero: large rounded-corner image container + headline + scroll indicator below
- *   2. Penang cityscape / video-style banner (large rounded container)
- *   3. Three Quick Access Service Cards
+ *   2. Three Quick Access Service Cards
  *   4. Construction Updates & Announcements (3 editorial cards)
  *   5. Road Closures & Traffic Advisories
  *   6. Share Your Concerns in 3 Simple Steps
@@ -85,132 +84,77 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#EEF2F7' }}>
 
       {/* ============================================================
-          1. HERO: Civic Public Transit Announcement Header
+          1. HERO: Civic Public Transit Announcement Header with LRT Photo & Overlay Title
           ============================================================ */}
-      <section className="px-4 sm:px-6 pt-3 pb-0">
+      <section className="px-4 sm:px-6 pt-3 pb-2">
         <div
-          className="relative w-full overflow-hidden border border-gray-200"
-          style={{ borderRadius: '12px', minHeight: '380px', maxHeight: '500px' }}
+          className="relative w-full overflow-hidden border border-gray-200 flex items-center"
+          style={{ borderRadius: '12px', minHeight: '420px', maxHeight: '540px' }}
         >
           {/* Hero Image */}
           <img
-            src="/images/hero_community.jpg"
-            alt="Penang LRT Mutiara Line Community, residents of George Town"
-            className="w-full h-full object-cover object-center"
-            style={{ minHeight: '380px', maxHeight: '500px' }}
+            src="/images/hero_lrt.jpg"
+            alt="Penang LRT Mutiara Line elevated rapid transit train"
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
 
-          {/* Contrast scrim */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: 'linear-gradient(180deg, rgba(18, 55, 91, 0.25) 0%, rgba(18, 55, 91, 0.4) 100%)' }}
-          />
-        </div>
-      </section>
-
-      {/* ============================================================
-          HEADLINE SECTION: Civic transit identity
-          ============================================================ */}
-      <section
-        className="px-4 sm:px-6 py-8"
-        style={{ backgroundColor: '#F5F7FA' }}
-      >
-        <div className="max-w-[850px] mx-auto text-center">
-          <h1
-            className="font-extrabold tracking-tight leading-tight mb-2"
-            style={{ color: '#12375B', fontSize: 'clamp(2rem, 4.5vw, 3rem)' }}
-          >
-            Penang LRT Mutiara Line
-          </h1>
-          <p
-            className="font-bold leading-tight mb-4"
-            style={{ color: '#16A6A1', fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)' }}
-          >
-            Community Information and Public Feedback Portal
-          </p>
-          <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-xl mx-auto mb-6">
-            Official public notices, scheduled road closures, and neighbourhood traffic advisories.
-            Submit inquiries directly to the project team and track resolution progress.
-          </p>
-
-          {/* Primary Action Buttons */}
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              to="/announcements"
-              id="hero-view-updates-cta"
-              className="inline-flex items-center gap-2 bg-[#12375B] hover:bg-[#0c2640] text-white font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16A6A1]"
-            >
-              <span>View Construction Notices</span>
-            </Link>
-            <Link
-              to="/road-closures"
-              id="hero-check-closures-cta"
-              className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-[#12375B] border border-gray-300 font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16A6A1]"
-            >
-              <span>Traffic Advisories & Detours</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          2. PROJECT BANNER: Transit Corridor Overview
-          ============================================================ */}
-      <section ref={belowHeroRef} className="px-4 sm:px-6 py-4">
-        <div
-          className="relative w-full overflow-hidden border border-gray-200"
-          style={{ borderRadius: '12px', minHeight: '320px', maxHeight: '420px' }}
-        >
-          <img
-            src="/images/penang_cityscape.jpg"
-            alt="Aerial view of George Town Penang showing the alignment corridor"
-            className="w-full h-full object-cover object-center"
-            style={{ minHeight: '320px', maxHeight: '420px' }}
-          />
-          {/* Contrast scrim for clear text legibility */}
+          {/* Contrast scrim & gradient overlay for optimal legibility */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to right, rgba(18, 55, 91, 0.94) 0%, rgba(18, 55, 91, 0.82) 50%, rgba(18, 55, 91, 0.35) 100%)',
+                'linear-gradient(to right, rgba(18, 55, 91, 0.92) 0%, rgba(18, 55, 91, 0.8) 55%, rgba(18, 55, 91, 0.45) 100%)',
             }}
           />
-          <div className="absolute inset-0 flex items-center">
-            <div className="px-6 sm:px-12 max-w-xl">
-              <span
-                className="text-xs font-bold uppercase tracking-wider block mb-2 text-[#F4B942]"
+
+          {/* Hero Content Overlay */}
+          <div className="relative z-10 px-6 sm:px-12 py-10 max-w-2xl text-left">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider text-[#12375B] bg-[#F4B942] mb-3">
+              <Train size={13} />
+              Penang Public Transit Infrastructure
+            </span>
+            <h1
+              className="font-extrabold tracking-tight leading-tight mb-2 text-white"
+              style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)' }}
+            >
+              Penang LRT Mutiara Line
+            </h1>
+            <p
+              className="font-semibold leading-snug mb-3 text-[#16A6A1]"
+              style={{ fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)' }}
+            >
+              Community Information & Public Feedback Portal
+            </p>
+            <p className="text-sm sm:text-base text-gray-200 leading-relaxed mb-6 max-w-xl">
+              Official public notices, scheduled road closures, and neighbourhood traffic advisories.
+              Submit inquiries directly to the project team and track resolution progress.
+            </p>
+
+            {/* Primary Action Buttons */}
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/announcements"
+                id="hero-view-updates-cta"
+                className="inline-flex items-center gap-2 bg-[#16A6A1] hover:bg-[#128a86] text-white font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
               >
-                PUBLIC INFRASTRUCTURE
-              </span>
-              <h2
-                className="font-extrabold leading-tight mb-3 text-white"
-                style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.25rem)' }}
+                <span>View Construction Notices</span>
+              </Link>
+              <Link
+                to="/road-closures"
+                id="hero-check-closures-cta"
+                className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-[#12375B] font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16A6A1]"
               >
-                Connecting Penang Communities
-              </h2>
-              <p
-                className="text-sm sm:text-base leading-relaxed mb-6 max-w-md text-gray-100"
-              >
-                Linking George Town, Bayan Lepas, and Butterworth via Penang Sentral.
-                Structured notifications ensure daily commuters and residents navigate construction smoothly.
-              </p>
-              <div>
-                <Link
-                  to="/about"
-                  className="inline-flex items-center gap-2 bg-[#F4B942] hover:bg-[#d9992a] font-bold text-sm px-5 py-2.5 rounded-md text-[#12375B] transition-colors shadow-sm"
-                >
-                  <span>Explore Route Alignment</span>
-                </Link>
-              </div>
+                <span>Traffic Advisories & Detours</span>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* ============================================================
-          3. KEY PUBLIC SERVICES
+          2. KEY PUBLIC SERVICES
           ============================================================ */}
-      <section className="px-4 sm:px-6 py-6">
+      <section ref={belowHeroRef} className="px-4 sm:px-6 py-6">
         <div className="max-w-[1200px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Service 1: Construction Notices */}
