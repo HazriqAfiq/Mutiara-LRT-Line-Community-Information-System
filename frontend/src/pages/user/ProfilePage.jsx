@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   User,
+  Users,
   Mail,
   Phone,
   Shield,
@@ -40,6 +41,7 @@ export default function ProfilePage() {
   const [formData, setFormData]   = useState({
     name: user?.name || '',
     phone: user?.phone || '',
+    communityType: user?.communityType || 'Resident',
   });
 
   const [errors, setErrors]             = useState({});
@@ -51,6 +53,7 @@ export default function ProfilePage() {
     setFormData({
       name: user?.name || '',
       phone: user?.phone || '',
+      communityType: user?.communityType || 'Resident',
     });
     setErrors({});
     setSuccessMessage(null);
@@ -62,6 +65,7 @@ export default function ProfilePage() {
     setFormData({
       name: user?.name || '',
       phone: user?.phone || '',
+      communityType: user?.communityType || 'Resident',
     });
     setErrors({});
     setIsEditing(false);
@@ -92,9 +96,10 @@ export default function ProfilePage() {
       const res = await updateProfile({
         name: formData.name,
         phone: formData.phone,
+        communityType: formData.communityType,
       });
 
-      // Update state in AuthContext so Navbar and Dashboard reflect new name
+      // Update state in AuthContext so Navbar and Dashboard reflect changes
       updateUser(res.data);
 
       setSuccessMessage('Profile updated successfully! Changes are now active.');
@@ -274,7 +279,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Account Role & Registration Date Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1">
                   Account Role
@@ -282,14 +287,45 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 border border-gray-100 text-sm">
                   <Shield size={16} className="text-teal-600" />
                   <span className="font-semibold text-gray-800 capitalize">
-                    {user?.role === 'admin' ? 'Project Administrator' : 'Registered Resident'}
+                    {user?.role === 'admin' ? 'Project Administrator' : 'Community User'}
                   </span>
                 </div>
               </div>
 
               <div>
+                <label
+                  htmlFor="profile-community-type"
+                  className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
+                >
+                  Stakeholder Category
+                </label>
+                {isEditing && user?.role !== 'admin' ? (
+                  <div className="relative">
+                    <select
+                      id="profile-community-type"
+                      value={formData.communityType}
+                      onChange={(e) => setFormData({ ...formData, communityType: e.target.value })}
+                      className="form-select text-xs py-2.5 focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20 bg-white w-full rounded-xl border-gray-200"
+                    >
+                      <option value="Resident">Local Resident</option>
+                      <option value="Pedestrian">Pedestrian / Transit Commuter</option>
+                      <option value="Commuter">Daily Commuter / Motorist</option>
+                      <option value="Business Owner">Commercial Business Owner</option>
+                    </select>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-teal-50/50 border border-teal-100 text-sm">
+                    <Users size={16} className="text-teal-600" />
+                    <span className="font-semibold text-teal-900">
+                      {user?.communityType || (user?.role === 'admin' ? 'Liaison Official' : 'Local Resident')}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1">
-                  Member Registration Date
+                  Registration Date
                 </label>
                 <div className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 border border-gray-100 text-sm">
                   <Calendar size={16} className="text-teal-600" />

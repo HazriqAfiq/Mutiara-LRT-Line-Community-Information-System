@@ -16,6 +16,7 @@ import {
   ArrowLeft,
   AlertCircle,
   User,
+  Users,
   Mail,
   Phone,
   Lock,
@@ -32,6 +33,7 @@ export default function RegisterPage() {
     name: '',
     email: '',
     phone: '',
+    communityType: 'Resident',
     password: '',
     confirmPassword: '',
   });
@@ -90,6 +92,7 @@ export default function RegisterPage() {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
+        communityType: formData.communityType,
         password: formData.password,
       });
 
@@ -242,6 +245,36 @@ export default function RegisterPage() {
               placeholder="e.g. 012-3456789"
             />
           </div>
+        </div>
+
+        {/* Community Stakeholder Classification (UML: CommunityUser.communityType) */}
+        <div>
+          <label
+            htmlFor="reg-community-type"
+            className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
+          >
+            Community Stakeholder Category <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <Users
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+            />
+            <select
+              id="reg-community-type"
+              value={formData.communityType}
+              onChange={(e) => setFormData({ ...formData, communityType: e.target.value })}
+              className="form-select pl-10 text-xs py-2.5 focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20 bg-white"
+            >
+              <option value="Resident">Local Resident (Living along alignment)</option>
+              <option value="Pedestrian">Pedestrian / Transit Commuter (Walking & detour corridors)</option>
+              <option value="Commuter">Daily Commuter / Motorist (Road user navigating diversions)</option>
+              <option value="Business Owner">Commercial Business Owner / SME (Shoplot operator)</option>
+            </select>
+          </div>
+          <p className="mt-1 text-[11px] text-slate-400">
+            Helps the project liaison team route your feedback to the appropriate site contractors.
+          </p>
         </div>
 
         {/* Password */}

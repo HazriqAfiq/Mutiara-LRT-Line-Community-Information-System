@@ -14,6 +14,17 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
+  getFeedback,
+  updateFeedbackStatus,
+  addFeedbackResponse,
+  updateFeedbackResponse,
+} from '../../services/feedbackService';
+import { getUser, getUserFeedbackCount } from '../../services/userService';
+import { formatDate } from '../../utils/dateUtils';
+import StatusBadge from '../../components/common/StatusBadge';
+import FeedbackTimeline from '../../components/common/FeedbackTimeline';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
+import {
   ArrowLeft,
   Send,
   CheckCircle2,
@@ -31,18 +42,12 @@ import {
   Check,
   RotateCcw,
   Sparkles,
+  Pencil,
+  Store,
+  Building2,
+  Home,
+  X,
 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
-import {
-  getFeedback,
-  updateFeedbackStatus,
-  addFeedbackResponse,
-} from '../../services/feedbackService';
-import { getUser, getUserFeedbackCount } from '../../services/userService';
-import { formatDate } from '../../utils/dateUtils';
-import StatusBadge from '../../components/common/StatusBadge';
-import FeedbackTimeline from '../../components/common/FeedbackTimeline';
-import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 const QUICK_TEMPLATES = [
   'We have notified the site supervisor and project contractor to investigate this issue immediately.',
@@ -62,11 +67,18 @@ export default function AdminFeedbackDetailsPage() {
   const [error, setError]                   = useState(null);
 
   // Response form state
-  const [responseMsg, setResponseMsg]     = useState('');
-  const [targetStatus, setTargetStatus]   = useState('');
+  const [responseMsg, setResponseMsg]         = useState('');
+  const [actionTakenMsg, setActionTakenMsg]   = useState('');
+  const [targetStatus, setTargetStatus]       = useState('');
   const [submittingReply, setSubmittingReply] = useState(false);
   const [updatingStatus, setUpdatingStatus]   = useState(false);
-  const [bannerNotice, setBannerNotice]   = useState(null);
+  const [bannerNotice, setBannerNotice]       = useState(null);
+
+  // Response inline edit state (FeedbackResponse.updateResponse)
+  const [editingResponseId, setEditingResponseId] = useState(null);
+  const [editMessage, setEditMessage]             = useState('');
+  const [editActionTaken, setEditActionTaken]     = useState('');
+  const [savingEdit, setSavingEdit]               = useState(false);
 
   const loadData = async () => {
     try {
@@ -128,7 +140,7 @@ export default function AdminFeedbackDetailsPage() {
     }
   };
 
-  // Handle post liaison response
+  // Handle post liaison response (FeedbackResponse.addResponse)
   const handleSubmitResponse = async (e) => {
     e.preventDefault();
     if (!responseMsg.trim()) return;
@@ -142,8 +154,8 @@ export default function AdminFeedbackDetailsPage() {
         name: currentAdmin?.name || 'Community Liaison Officer',
       };
 
-      // 1. Post the response
-      await addFeedbackResponse(id, responseMsg.trim(), adminIdentity);
+      // 1. Post the response with actionTaken
+      await addFeedbackResponse(id, responseMsg.trim(), adminIdentity, actionTakenMsg.trim());
 
       // 2. If status was changed in the dropdown during reply
       if (targetStatus && targetStatus !== feedback.status) {
@@ -151,6 +163,7 @@ export default function AdminFeedbackDetailsPage() {
       }
 
       setResponseMsg('');
+      setActionTakenMsg('');
       setBannerNotice({
         type: 'success',
         text: 'Official liaison response posted and logged to ticket.',
@@ -166,6 +179,39 @@ export default function AdminFeedbackDetailsPage() {
       });
     } finally {
       setSubmittingReply(false);
+    }
+  };
+
+  // Handle inline response edit (FeedbackResponse.updateResponse)
+  const handleStartEditResponse = (resp) => {
+    setEditingResponseId(resp.id || resp.responseId);
+    setEditMessage(resp.message || resp.responseMessage || '');
+    setEditActionTaken(resp.actionTaken || '');
+  };
+
+  const handleSaveResponseEdit = async (respId) => {
+    if (!editMessage.trim()) return;
+    setSavingEdit(true);
+    setBannerNotice(null);
+    try {
+      await updateFeedbackResponse(respId, {
+        message: editMessage.trim(),
+        actionTaken: editActionTaken.trim(),
+      });
+      setBannerNotice({
+        type: 'success',
+        text: 'Official response and mitigation action updated successfully.',
+      });
+      setEditingResponseId(null);
+      await loadData();
+    } catch (err) {
+      console.error('Failed to update response:', err);
+      setBannerNotice({
+        type: 'error',
+        text: 'Failed to update response. Please try again.',
+      });
+    } finally {
+      setSavingEdit(false);
     }
   };
 
@@ -260,15 +306,58 @@ export default function AdminFeedbackDetailsPage() {
           {/* Complaint Details Card */}
           <div className="card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-3">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full">
-                <Tag size={12} /> {feedback.category}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full">
+                  <Tag size={12} /> {feedback.category}
+                </span>
+
+                {feedback.feedbackType === 'business' || feedback.businessName ? (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-800 bg-blue-100 px-2.5 py-0.5 rounded-full">
+                    <Store size={12} /> Business Disruption
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+                    <Home size={12} /> Community Complaint
+                  </span>
+                )}
+              </div>
 
               <span className="inline-flex items-center gap-1 text-xs text-gray-500">
                 <MapPin size={12} className="text-gray-400" />
                 <span className="font-semibold text-gray-700">{feedback.location}</span>
               </span>
             </div>
+
+            {/* Specialized Subclass Meta Card */}
+            {(feedback.feedbackType === 'business' || feedback.businessName) && (
+              <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200/80 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700 flex items-center gap-1.5">
+                    <Store size={14} /> Commercial Entity Information
+                  </span>
+                  <span className="text-xs font-semibold px-2.5 py-0.5 bg-blue-100 text-blue-800 rounded-md">
+                    {feedback.disruptionType || 'Commercial Access Disruption'}
+                  </span>
+                </div>
+                <div className="text-sm font-bold text-blue-950">
+                  Business Name: <span className="font-normal text-blue-900">{feedback.businessName}</span>
+                </div>
+                {feedback.disruptionType && (
+                  <div className="text-xs text-blue-800">
+                    Disruption Type: <span className="font-semibold">{feedback.disruptionType}</span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {feedback.complaintCategory && feedback.feedbackType !== 'business' && (
+              <div className="p-3 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                <span className="text-xs text-gray-600 font-medium">Specific Complaint Category:</span>
+                <span className="text-xs font-bold text-teal-800 bg-white px-2.5 py-1 rounded-md border border-gray-200">
+                  {feedback.complaintCategory}
+                </span>
+              </div>
+            )}
 
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
@@ -283,7 +372,7 @@ export default function AdminFeedbackDetailsPage() {
             {feedback.attachment_url && (
               <div className="pt-2">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2 flex items-center gap-1.5">
-                  <ImageIcon size={13} /> Photographic Evidence Attached by Resident
+                  <ImageIcon size={13} /> Photographic Evidence Attached (SupportingPhoto)
                 </h4>
                 <div className="rounded-xl overflow-hidden border border-gray-200 max-w-md bg-gray-900 group relative">
                   <img
@@ -314,7 +403,7 @@ export default function AdminFeedbackDetailsPage() {
             </h4>
             <FeedbackTimeline
               status={feedback.status}
-              createdAt={feedback.created_at}
+              createdAt={feedback.created_at || feedback.submittedDate}
               updatedAt={feedback.updated_at}
             />
           </div>
@@ -340,37 +429,117 @@ export default function AdminFeedbackDetailsPage() {
               </div>
             ) : (
               <div className="space-y-4">
-                {feedback.responses.map((resp) => (
-                  <div
-                    key={resp.id}
-                    className="p-4 rounded-xl bg-teal-50/30 border border-teal-100 space-y-2"
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-teal-600 text-white text-[10px] font-bold flex items-center justify-center">
-                          PL
-                        </div>
-                        <span className="text-xs font-bold text-gray-900">
-                          {resp.admin_name || 'Penang LRT Liaison Officer'}
-                        </span>
-                        <span className="text-[10px] uppercase font-bold text-teal-700 bg-teal-100 px-1.5 py-0.5 rounded">
-                          Official Reply
-                        </span>
-                      </div>
-                      <span className="text-[11px] text-gray-400">
-                        {formatDate(resp.created_at)}
-                      </span>
-                    </div>
+                {feedback.responses.map((resp) => {
+                  const respId = resp.id || resp.responseId;
+                  const isEditing = editingResponseId === respId;
 
-                    <p className="text-xs text-gray-700 whitespace-pre-line leading-relaxed pl-8">
-                      {resp.message}
-                    </p>
-                  </div>
-                ))}
+                  return (
+                    <div
+                      key={respId}
+                      className="p-4 rounded-xl bg-teal-50/30 border border-teal-100 space-y-2 transition-all"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full bg-teal-600 text-white text-[10px] font-bold flex items-center justify-center">
+                            PL
+                          </div>
+                          <span className="text-xs font-bold text-gray-900">
+                            {resp.admin_name || 'Penang LRT Liaison Officer'}
+                          </span>
+                          <span className="text-[10px] uppercase font-bold text-teal-700 bg-teal-100 px-1.5 py-0.5 rounded">
+                            Official Reply
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <span className="text-[11px] text-gray-400">
+                            {formatDate(resp.created_at || resp.responseDate)}
+                          </span>
+
+                          {!isEditing && (
+                            <button
+                              type="button"
+                              onClick={() => handleStartEditResponse(resp)}
+                              className="p-1 text-gray-400 hover:text-teal-700 hover:bg-teal-100/60 rounded transition-colors"
+                              title="Edit response"
+                            >
+                              <Pencil size={13} />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Display or Inline Edit Form */}
+                      {isEditing ? (
+                        <div className="space-y-3 pt-2">
+                          <div>
+                            <label className="block text-[11px] font-bold text-gray-600 mb-1">
+                              Response Message (responseMessage)
+                            </label>
+                            <textarea
+                              rows={3}
+                              value={editMessage}
+                              onChange={(e) => setEditMessage(e.target.value)}
+                              className="form-input text-xs w-full bg-white"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-[11px] font-bold text-gray-600 mb-1">
+                              Action Taken / Mitigation Applied (actionTaken)
+                            </label>
+                            <input
+                              type="text"
+                              value={editActionTaken}
+                              onChange={(e) => setEditActionTaken(e.target.value)}
+                              placeholder="e.g. Contractor issued warning; acoustic barriers installed."
+                              className="form-input text-xs w-full bg-white"
+                            />
+                          </div>
+
+                          <div className="flex items-center gap-2 justify-end">
+                            <button
+                              type="button"
+                              onClick={() => setEditingResponseId(null)}
+                              className="btn btn-ghost btn-sm text-xs py-1"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="button"
+                              disabled={savingEdit || !editMessage.trim()}
+                              onClick={() => handleSaveResponseEdit(respId)}
+                              className="btn btn-primary btn-sm text-xs py-1 px-3 flex items-center gap-1 font-bold"
+                            >
+                              {savingEdit ? 'Saving...' : 'Save Changes'}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <p className="text-xs text-gray-700 whitespace-pre-line leading-relaxed pl-8">
+                            {resp.message || resp.responseMessage}
+                          </p>
+
+                          {/* Action Taken Display */}
+                          {resp.actionTaken && (
+                            <div className="ml-8 mt-2 p-2.5 rounded-lg bg-emerald-50 border border-emerald-100 flex items-start gap-2 text-xs text-emerald-900">
+                              <CheckCircle2 size={14} className="text-emerald-600 mt-0.5 flex-shrink-0" />
+                              <div>
+                                <span className="font-bold">Action Taken (actionTaken): </span>
+                                <span>{resp.actionTaken}</span>
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
 
-            {/* Post Liaison Response Form */}
+            {/* Post Liaison Response Form (FeedbackResponse.addResponse) */}
             <form onSubmit={handleSubmitResponse} className="pt-4 border-t border-gray-100 space-y-3">
               <label
                 htmlFor="admin-reply-box"
@@ -400,12 +569,30 @@ export default function AdminFeedbackDetailsPage() {
 
               <textarea
                 id="admin-reply-box"
-                rows={4}
+                rows={3}
                 value={responseMsg}
                 onChange={(e) => setResponseMsg(e.target.value)}
                 placeholder="Compose official liaison update to the resident..."
                 className="form-input text-xs resize-y"
               />
+
+              {/* Action Taken Input Field */}
+              <div>
+                <label
+                  htmlFor="admin-action-taken"
+                  className="block text-[11px] font-bold uppercase tracking-wider text-gray-600 mb-1"
+                >
+                  Action Taken / Contractor Mitigation (actionTaken)
+                </label>
+                <input
+                  id="admin-action-taken"
+                  type="text"
+                  value={actionTakenMsg}
+                  onChange={(e) => setActionTakenMsg(e.target.value)}
+                  placeholder="e.g. Warning letter issued; flagger deployed; acoustic sheets erected."
+                  className="form-input text-xs"
+                />
+              </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
                 <div className="flex items-center gap-2 text-xs">

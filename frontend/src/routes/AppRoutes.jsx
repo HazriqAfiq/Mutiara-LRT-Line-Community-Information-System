@@ -97,6 +97,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       >
+        <Route path="/admin"                        element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/dashboard"              element={<AdminDashboard />} />
         <Route path="/admin/announcements"          element={<ManageAnnouncementsPage />} />
         <Route path="/admin/announcements/new"      element={<AnnouncementFormPage />} />

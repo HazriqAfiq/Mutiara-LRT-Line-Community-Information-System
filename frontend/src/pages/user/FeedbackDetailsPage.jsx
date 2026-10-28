@@ -27,6 +27,8 @@ import {
   ExternalLink,
   AlertCircle,
   ShieldCheck,
+  Store,
+  Home,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { getFeedback } from '../../services/feedbackService';
@@ -201,17 +203,42 @@ export default function FeedbackDetailsPage() {
                     >
                       <Tag size={12} /> {feedback.category}
                     </span>
+
+                    {feedback.feedbackType === 'business' || feedback.businessName ? (
+                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+                        <Store size={12} /> Business Disruption
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">
+                        <Home size={12} /> Community Complaint
+                      </span>
+                    )}
                   </div>
 
                   <StatusBadge status={feedback.status} type="feedback" />
                 </div>
 
                 <h1
-                  className="text-2xl sm:text-3xl font-extrabold leading-snug mb-4"
+                  className="text-2xl sm:text-3xl font-extrabold leading-snug mb-3"
                   style={{ color: 'var(--color-navy)' }}
                 >
                   {feedback.title}
                 </h1>
+
+                {/* Business Information Card if BusinessFeedback */}
+                {(feedback.feedbackType === 'business' || feedback.businessName) && (
+                  <div className="mb-4 p-3.5 rounded-xl bg-blue-50/70 border border-blue-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-blue-600 block">Affected Business Entity:</span>
+                      <span className="font-bold text-sm text-blue-900">{feedback.businessName}</span>
+                    </div>
+                    {feedback.disruptionType && (
+                      <span className="px-2.5 py-1 bg-white text-blue-800 font-semibold rounded-lg border border-blue-200">
+                        Disruption: {feedback.disruptionType}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 {/* Metadata Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-gray-200/70 text-xs text-gray-600">
@@ -342,8 +369,18 @@ export default function FeedbackDetailsPage() {
                       </div>
 
                       <p className="text-sm text-gray-800 leading-relaxed whitespace-pre-line pl-5 border-l-2 border-teal-400">
-                        {resp.message}
+                        {resp.message || resp.responseMessage}
                       </p>
+
+                      {resp.actionTaken && (
+                        <div className="ml-5 mt-2 p-2.5 rounded-lg bg-emerald-50 border border-emerald-100 flex items-start gap-2 text-xs text-emerald-900">
+                          <CheckCircle2 size={14} className="text-emerald-600 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="font-bold">Mitigation Action Taken: </span>
+                            <span>{resp.actionTaken}</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

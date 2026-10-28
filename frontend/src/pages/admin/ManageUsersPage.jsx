@@ -34,7 +34,7 @@ import {
   Check,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { getUsers, updateProfile, getUserFeedbackCount } from '../../services/userService';
+import { getUsers, updateProfile, getUserFeedbackCount, assignRole } from '../../services/userService';
 import { getAllFeedback } from '../../services/feedbackService';
 import { formatDate } from '../../utils/dateUtils';
 import SearchBar from '../../components/common/SearchBar';
@@ -74,6 +74,10 @@ export default function ManageUsersPage() {
   const [selectedUser, setSelectedUser]         = useState(null);
   const [toggleTarget, setToggleTarget]         = useState(null);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+
+  // Role Assignment state (UML: Role.assignRole)
+  const [roleTarget, setRoleTarget]             = useState(null);
+  const [isUpdatingRole, setIsUpdatingRole]     = useState(false);
 
   const fetchUsersData = async () => {
     setLoading(true);
@@ -170,6 +174,43 @@ export default function ManageUsersPage() {
       });
     } finally {
       setIsUpdatingStatus(false);
+    }
+  };
+
+  // Handle assigning/changing user role (UML: Role.assignRole)
+  const handleConfirmRoleChange = async () => {
+    if (!roleTarget) return;
+
+    // Guard: Prevent removing admin role from active session user
+    if (roleTarget.user.id === currentAdmin?.id && roleTarget.newRole !== 'admin') {
+      setSuccessBanner({
+        type: 'error',
+        text: 'Action Prohibited: You cannot remove administrator privileges from your own active session.',
+      });
+      setRoleTarget(null);
+      return;
+    }
+
+    setIsUpdatingRole(true);
+    try {
+      await assignRole(roleTarget.user.id, roleTarget.newRole);
+      setSuccessBanner({
+        type: 'success',
+        text: `Role for ${roleTarget.user.name} successfully updated to "${roleTarget.newRole === 'admin' ? 'Administrator' : 'Community User'}".`,
+      });
+      setRoleTarget(null);
+      if (selectedUser?.id === roleTarget.user.id) {
+        setSelectedUser((prev) => ({ ...prev, role: roleTarget.newRole }));
+      }
+      await fetchUsersData();
+    } catch (err) {
+      console.error('Failed to assign role:', err);
+      setSuccessBanner({
+        type: 'error',
+        text: 'Failed to assign role. Please try again.',
+      });
+    } finally {
+      setIsUpdatingRole(false);
     }
   };
 
@@ -424,16 +465,24 @@ export default function ManageUsersPage() {
                         </div>
                       </td>
 
-                      {/* System Role */}
+                      {/* System Role & Stakeholder */}
                       <td className="px-5 py-3.5 whitespace-nowrap">
                         {userItem.role === 'admin' ? (
                           <span className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200">
                             <Shield size={11} /> Administrator
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full">
-                            Resident
-                          </span>
+                          <div className="flex flex-col gap-1 items-start">
+                            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full">
+                              Community User
+                            </span>
+                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-teal-800 bg-teal-50 border border-teal-200 px-1.5 py-0.2 rounded">
+                              {userItem.communityType === 'Pedestrian' ? 'Pedestrian' :
+                               userItem.communityType === 'Commuter' ? 'Commuter' :
+                               userItem.communityType === 'Business Owner' ? 'Business' :
+                               'Resident'}
+                            </span>
+                          </div>
                         )}
                       </td>
 
@@ -491,6 +540,34 @@ export default function ManageUsersPage() {
                           <Eye size={14} />
                         </button>
 
+                        {/* Assign Role action (Role.assignRole) */}
+                        <button
+                          type="button"
+                          disabled={isCurrentAdmin}
+                          onClick={() =>
+                            setRoleTarget({
+                              user: userItem,
+                              newRole: userItem.role === 'admin' ? 'user' : 'admin',
+                            })
+                          }
+                          className={`p-1.5 rounded-lg inline-flex items-center transition-colors ${
+                            isCurrentAdmin
+                              ? 'text-gray-300 cursor-not-allowed'
+                              : userItem.role === 'admin'
+                              ? 'text-purple-600 hover:bg-purple-50'
+                              : 'text-gray-500 hover:text-purple-600 hover:bg-purple-50'
+                          }`}
+                          title={
+                            isCurrentAdmin
+                              ? 'Cannot modify own administrator role'
+                              : userItem.role === 'admin'
+                              ? 'Change role to Resident'
+                              : 'Promote to Administrator'
+                          }
+                        >
+                          <Shield size={14} />
+                        </button>
+
                         <button
                           type="button"
                           disabled={isCurrentAdmin}
@@ -521,6 +598,21 @@ export default function ManageUsersPage() {
           </div>
         </div>
       )}
+
+      {/* Confirmation Modal for Role Change (Role.assignRole) */}
+      <ConfirmDialog
+        isOpen={Boolean(roleTarget)}
+        title={roleTarget?.newRole === 'admin' ? 'Promote User to Administrator?' : 'Change User Role to Resident?'}
+        message={
+          roleTarget?.newRole === 'admin'
+            ? `Grant administrator privileges to "${roleTarget?.user?.name}"? They will have full access to manage platform content, investigate complaints, and view all users.`
+            : `Revoke administrator access for "${roleTarget?.user?.name}" and assign Community User role?`
+        }
+        confirmLabel={roleTarget?.newRole === 'admin' ? 'Yes, Assign Admin Role' : 'Yes, Assign Resident Role'}
+        isLoading={isUpdatingRole}
+        onConfirm={handleConfirmRoleChange}
+        onCancel={() => setRoleTarget(null)}
+      />
 
       {/* Confirmation Modal for Toggle Status */}
       <ConfirmDialog
@@ -583,7 +675,16 @@ export default function ManageUsersPage() {
                   System Role
                 </span>
                 <p className="font-bold text-gray-800 capitalize">
-                  {selectedUser.role === 'admin' ? 'Administrator' : 'Community Resident'}
+                  {selectedUser.role === 'admin' ? 'Administrator' : 'Community User'}
+                </p>
+              </div>
+
+              <div className="p-3 bg-teal-50/50 border border-teal-100 rounded-xl space-y-1">
+                <span className="text-[11px] font-semibold text-teal-700 uppercase tracking-wider">
+                  Stakeholder Category
+                </span>
+                <p className="font-bold text-teal-900">
+                  {selectedUser.communityType || (selectedUser.role === 'admin' ? 'Liaison Official' : 'Resident')}
                 </p>
               </div>
 
@@ -627,6 +728,39 @@ export default function ManageUsersPage() {
               <p className="text-gray-700 font-medium">
                 {selectedUser.address || 'No residential address recorded on file.'}
               </p>
+            </div>
+
+            {/* Role Assignment Card */}
+            <div className="p-3.5 bg-purple-50/70 rounded-xl border border-purple-200/80 flex items-center justify-between text-xs">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-purple-700 block">
+                  Role Governance
+                </span>
+                <span className="font-semibold text-gray-900">
+                  Current Role: {selectedUser.role === 'admin' ? 'Administrator' : 'Community User'}
+                </span>
+              </div>
+              <button
+                type="button"
+                disabled={selectedUser.id === currentAdmin?.id}
+                onClick={() => {
+                  const newRole = selectedUser.role === 'admin' ? 'user' : 'admin';
+                  setRoleTarget({ user: selectedUser, newRole });
+                }}
+                className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all ${
+                  selectedUser.id === currentAdmin?.id
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+                    : selectedUser.role === 'admin'
+                    ? 'bg-white text-purple-700 border border-purple-300 hover:bg-purple-100'
+                    : 'bg-purple-700 hover:bg-purple-800 text-white shadow-xs'
+                }`}
+              >
+                {selectedUser.id === currentAdmin?.id
+                  ? 'Your Account'
+                  : selectedUser.role === 'admin'
+                  ? 'Demote to Resident'
+                  : 'Promote to Admin'}
+              </button>
             </div>
 
             {/* Complaint History Section */}
