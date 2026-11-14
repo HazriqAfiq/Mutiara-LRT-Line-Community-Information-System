@@ -16,8 +16,6 @@ import { Link } from 'react-router-dom';
 import {
   MessageSquare,
   ArrowRight,
-  NotepadText,
-  Car,
   ChevronRight,
   Train,
   Route,
@@ -86,10 +84,10 @@ export default function HomePage() {
       {/* ============================================================
           1. HERO: Civic Public Transit Announcement Header with LRT Photo & Overlay Title
           ============================================================ */}
-      <section className="px-4 sm:px-6 pt-3 pb-2">
+      <section className="px-3 sm:px-5 pt-3 pb-2">
         <div
           className="relative w-full overflow-hidden border border-gray-200 flex items-center"
-          style={{ borderRadius: '12px', minHeight: '420px', maxHeight: '540px' }}
+          style={{ borderRadius: '12px', minHeight: '440px', maxHeight: '560px' }}
         >
           {/* Hero Image */}
           <img
@@ -103,130 +101,51 @@ export default function HomePage() {
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to right, rgba(18, 55, 91, 0.92) 0%, rgba(18, 55, 91, 0.8) 55%, rgba(18, 55, 91, 0.45) 100%)',
+                'linear-gradient(to right, rgba(18, 55, 91, 0.94) 0%, rgba(18, 55, 91, 0.82) 48%, rgba(18, 55, 91, 0.4) 100%)',
             }}
           />
 
-          {/* Hero Content Overlay */}
-          <div className="relative z-10 px-6 sm:px-12 py-10 max-w-2xl text-left">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider text-[#12375B] bg-[#F4B942] mb-3">
-              <Train size={13} />
-              Penang Public Transit Infrastructure
-            </span>
-            <h1
-              className="font-extrabold tracking-tight leading-tight mb-2 text-white"
-              style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)' }}
-            >
-              Penang LRT Mutiara Line
-            </h1>
-            <p
-              className="font-semibold leading-snug mb-3 text-[#16A6A1]"
-              style={{ fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)' }}
-            >
-              Community Information & Public Feedback Portal
-            </p>
-            <p className="text-sm sm:text-base text-gray-200 leading-relaxed mb-6 max-w-xl">
-              Official public notices, scheduled road closures, and neighbourhood traffic advisories.
-              Submit inquiries directly to the project team and track resolution progress.
-            </p>
-
-            {/* Primary Action Buttons */}
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to="/announcements"
-                id="hero-view-updates-cta"
-                className="inline-flex items-center gap-2 bg-[#16A6A1] hover:bg-[#128a86] text-white font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
+          {/* Hero Content Overlay: Aligned to max-w-[1200px] mx-auto matching Navbar */}
+          <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-16 text-left">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider text-[#12375B] bg-[#F4B942] mb-3">
+                <Train size={13} />
+                Penang Public Transit Infrastructure
+              </span>
+              <h1
+                className="font-extrabold tracking-tight leading-tight mb-2 text-white"
+                style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)' }}
               >
-                <span>View Construction Notices</span>
-              </Link>
-              <Link
-                to="/road-closures"
-                id="hero-check-closures-cta"
-                className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-[#12375B] font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16A6A1]"
+                Penang LRT Mutiara Line
+              </h1>
+              <p
+                className="font-semibold leading-snug mb-3 text-[#16A6A1]"
+                style={{ fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)' }}
               >
-                <span>Traffic Advisories & Detours</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+                Community Information & Public Feedback Portal
+              </p>
+              <p className="text-sm sm:text-base text-gray-200 leading-relaxed mb-6 max-w-xl">
+                Official public notices, scheduled road closures, and neighbourhood traffic advisories.
+                Submit inquiries directly to the project team and track resolution progress.
+              </p>
 
-      {/* ============================================================
-          2. KEY PUBLIC SERVICES
-          ============================================================ */}
-      <section ref={belowHeroRef} className="px-4 sm:px-6 py-6">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* Service 1: Construction Notices */}
-            <div
-              className="bg-white p-6 flex flex-col justify-between border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
-            >
-              <div>
-                <div className="w-10 h-10 flex items-center justify-center rounded bg-[#E0F2FE] text-[#0284C7] mb-4">
-                  <NotepadText size={20} />
-                </div>
-                <h3 className="font-bold text-[#12375B] text-base mb-2">
-                  Construction Updates
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
-                  Regular progress reports on station piling, viaduct segmental launch, and safety procedures.
-                </p>
+              {/* Primary Action Buttons */}
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/announcements"
+                  id="hero-view-updates-cta"
+                  className="inline-flex items-center gap-2 bg-[#16A6A1] hover:bg-[#128a86] text-white font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
+                >
+                  <span>View Construction Notices</span>
+                </Link>
+                <Link
+                  to="/road-closures"
+                  id="hero-check-closures-cta"
+                  className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-[#12375B] font-semibold text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#16A6A1]"
+                >
+                  <span>Traffic Advisories & Detours</span>
+                </Link>
               </div>
-              <Link
-                to="/announcements"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] focus:outline-none focus:underline"
-              >
-                <span>Browse Announcements</span>
-                <ChevronRight size={14} />
-              </Link>
-            </div>
-
-            {/* Service 2: Traffic Detours */}
-            <div
-              className="bg-white p-6 flex flex-col justify-between border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
-            >
-              <div>
-                <div className="w-10 h-10 flex items-center justify-center rounded bg-[#FEF3C7] text-[#D97706] mb-4">
-                  <Car size={20} />
-                </div>
-                <h3 className="font-bold text-[#12375B] text-base mb-2">
-                  Road Closures & Detours
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
-                  Scheduled lane closures, night-time diversions, and alternative arterial routes across Penang.
-                </p>
-              </div>
-              <Link
-                to="/road-closures"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] focus:outline-none focus:underline"
-              >
-                <span>View Traffic Map & Notices</span>
-                <ChevronRight size={14} />
-              </Link>
-            </div>
-
-            {/* Service 3: Public Feedback */}
-            <div
-              className="bg-white p-6 flex flex-col justify-between border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
-            >
-              <div>
-                <div className="w-10 h-10 flex items-center justify-center rounded bg-[#D1FAE5] text-[#059669] mb-4">
-                  <MessageSquare size={20} />
-                </div>
-                <h3 className="font-bold text-[#12375B] text-base mb-2">
-                  Public Feedback System
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-4">
-                  Log concerns regarding noise, dust, vibration, or accessibility directly to project liaison officers.
-                </p>
-              </div>
-              <Link
-                to={isAuthenticated ? (isAdmin ? '/admin/feedback' : '/feedback/new') : '/feedback/new'}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16A6A1] hover:text-[#0f7a76] focus:outline-none focus:underline"
-              >
-                <span>Submit Inquiries or Complaints</span>
-                <ChevronRight size={14} />
-              </Link>
             </div>
           </div>
         </div>
@@ -235,7 +154,9 @@ export default function HomePage() {
       {/* ============================================================
           INTERACTIVE LRT CONSTRUCTION & TRAFFIC INFORMATION MAP
           ============================================================ */}
-      <LRTMapSection />
+      <div ref={belowHeroRef}>
+        <LRTMapSection />
+      </div>
 
       {/* ============================================================
           4. CONSTRUCTION UPDATES & ANNOUNCEMENTS

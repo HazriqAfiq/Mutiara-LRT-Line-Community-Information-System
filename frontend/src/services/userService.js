@@ -113,6 +113,40 @@ export async function updateProfile(userId, data) {
 }
 
 /**
+ * Assign or reassign a user's role (admin action).
+ * Directly implements UML Class Diagram: Role.assignRole()
+ *
+ * @param {number|string} userId
+ * @param {'admin'|'user'} newRole
+ * @returns {Promise<{ data: object }>}
+ */
+export async function assignRole(userId, newRole) {
+  await delay(350);
+  const users = getStoredUsers();
+  const idx = users.findIndex((u) => u.id === Number(userId));
+
+  if (idx === -1) {
+    throw { response: { data: { message: 'User not found.' }, status: 404 } };
+  }
+
+  const roleName = newRole === 'admin' ? 'Administrator' : 'Community User';
+  const roleId = newRole === 'admin' ? 1 : 2;
+
+  users[idx] = {
+    ...users[idx],
+    role: newRole,
+    roleId,
+    roleName,
+    adminRole: newRole === 'admin' ? 'Project Liaison Officer' : null,
+    updated_at: new Date().toISOString(),
+  };
+
+  saveStoredUsers(users);
+  const { password: _pw, ...safeUser } = users[idx];
+  return { data: safeUser };
+}
+
+/**
  * Get the total number of feedback complaints logged by a specific user.
  *
  * @param {number|string} userId

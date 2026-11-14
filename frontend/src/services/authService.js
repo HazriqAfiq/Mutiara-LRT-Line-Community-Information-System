@@ -128,12 +128,18 @@ export async function register(data) {
     };
   }
 
+  const nextId = Math.max(...users.map((u) => u.id || u.userId || 0), 0) + 1;
   const newUser = {
-    id: Math.max(...users.map((u) => u.id), 0) + 1,
+    id: nextId,
+    userId: nextId, // UML attribute alignment
     name: data.name.trim(),
     email: data.email.trim(),
     password: data.password, // Demo simulation only
+    passwordHash: '$2y$10$hashSimulation_' + Math.random().toString(36).substring(7), // UML attribute alignment
     role: email.includes('admin') ? 'admin' : 'user', // Automatically grant admin role if email contains 'admin'
+    roleId: email.includes('admin') ? 1 : 2, // UML attribute alignment
+    roleName: email.includes('admin') ? 'Administrator' : 'Community User', // UML attribute alignment
+    communityType: data.communityType || 'Resident', // UML attribute alignment (CommunityUser.communityType)
     phone: data.phone?.trim() || null,
     address: null,
     is_active: true,
@@ -212,6 +218,7 @@ export async function updateProfile(profileData) {
     ...users[idx],
     name: profileData.name.trim(),
     phone: profileData.phone ? profileData.phone.trim() : null,
+    communityType: profileData.communityType !== undefined ? profileData.communityType : (users[idx].communityType || 'Resident'),
     updated_at: new Date().toISOString(),
   };
 

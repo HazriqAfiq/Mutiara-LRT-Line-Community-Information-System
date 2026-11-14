@@ -182,7 +182,7 @@ export async function getFeedbackResponses(feedbackId) {
 }
 
 /**
- * Submit a new feedback complaint.
+ * Submit a new feedback complaint (base Feedback method).
  *
  * @param {{
  *   title: string,
@@ -190,7 +190,11 @@ export async function getFeedbackResponses(feedbackId) {
  *   location: string,
  *   description: string,
  *   attachment_url?: string|null,
- *   user_id?: number
+ *   user_id?: number,
+ *   feedbackType?: 'complaint'|'business',
+ *   complaintCategory?: string|null,
+ *   businessName?: string|null,
+ *   disruptionType?: string|null,
  * }} data
  * @returns {Promise<{ data: object }>}
  */
@@ -205,20 +209,30 @@ export async function createFeedback(data) {
   }
 
   const list = getStoredFeedback();
-  const nextId = Math.max(...list.map((f) => f.id), 0) + 1;
+  const nextId = Math.max(...list.map((f) => f.id || f.feedbackId || 0), 0) + 1;
   const refNumber = generateRefNumber(list);
+
+  const isBusiness = data.feedbackType === 'business' || Boolean(data.businessName);
+  const feedbackType = isBusiness ? 'business' : 'complaint';
 
   const newRecord = {
     id: nextId,
+    feedbackId: nextId, // UML attribute alignment
     reference_number: refNumber,
     user_id: Number(userId),
+    userId: Number(userId),
     title: data.title.trim(),
-    category: data.category,
+    category: data.category || (isBusiness ? 'Business Access' : data.complaintCategory || 'Other'),
+    feedbackType,
+    complaintCategory: isBusiness ? null : (data.complaintCategory || data.category || 'Construction Noise'),
+    businessName: isBusiness ? (data.businessName?.trim() || null) : null,
+    disruptionType: isBusiness ? (data.disruptionType?.trim() || null) : null,
     location: data.location.trim(),
     description: data.description.trim(),
     attachment_url: data.attachment_url || null,
     status: 'pending',
     created_at: new Date().toISOString(),
+    submittedDate: new Date().toISOString(), // UML attribute alignment
     updated_at: new Date().toISOString(),
   };
 
@@ -226,6 +240,38 @@ export async function createFeedback(data) {
   saveStoredFeedback(list);
 
   return { data: newRecord };
+}
+
+/**
+ * Specialized Subclass Method: BusinessFeedback.reportBusinessDisruption()
+ * Handles commercial disruption lodging by shop owners and SMEs.
+ *
+ * @param {object} data
+ * @returns {Promise<{ data: object }>}
+ */
+export async function reportBusinessDisruption(data) {
+  return createFeedback({
+    ...data,
+    feedbackType: 'business',
+    category: 'Business Access',
+    businessName: data.businessName,
+    disruptionType: data.disruptionType,
+  });
+}
+
+/**
+ * Specialized Subclass Method: ConstructionComplaint.reportComplaint()
+ * Handles resident and commuter disturbance lodging.
+ *
+ * @param {object} data
+ * @returns {Promise<{ data: object }>}
+ */
+export async function reportComplaint(data) {
+  return createFeedback({
+    ...data,
+    feedbackType: 'complaint',
+    complaintCategory: data.complaintCategory || data.category,
+  });
 }
 
 /**
@@ -239,7 +285,7 @@ export async function updateFeedbackStatus(id, status) {
   await delay(350);
 
   const list = getStoredFeedback();
-  const index = list.findIndex((f) => f.id === Number(id));
+  const index = list.findIndex((f) => f.id === Number(id) || f.feedbackId === Number(id));
 
   if (index === -1) {
     throw { response: { data: { message: 'Complaint record not found.' }, status: 404 } };
@@ -256,33 +302,75 @@ export async function updateFeedbackStatus(id, status) {
 }
 
 /**
- * Add an admin response to a complaint.
+ * Add an admin response to a complaint (FeedbackResponse.addResponse).
  *
  * @param {number|string} feedbackId
  * @param {string} message
  * @param {{ id: number, name: string }} admin
+ * @param {string} [actionTaken='']
  * @returns {Promise<{ data: object }>}
  */
-export async function addFeedbackResponse(feedbackId, message, admin) {
+export async function addFeedbackResponse(feedbackId, message, admin, actionTaken = '') {
   await delay(400);
 
   const responses = getStoredResponses();
-  const nextId = Math.max(...responses.map((r) => r.id), 0) + 1;
+  const nextId = Math.max(...responses.map((r) => r.id || r.responseId || 0), 0) + 1;
 
+  const now = new Date().toISOString();
   const newResponse = {
     id: nextId,
+    responseId: nextId, // UML attribute alignment
     feedback_id: Number(feedbackId),
+    feedbackId: Number(feedbackId), // UML attribute alignment
     responder_id: admin.id,
     admin_id: admin.id,
     admin_name: admin.name,
     message: message.trim(),
-    created_at: new Date().toISOString(),
+    responseMessage: message.trim(), // UML attribute alignment
+    actionTaken: actionTaken?.trim() || '', // UML attribute alignment
+    created_at: now,
+    responseDate: now, // UML attribute alignment
   };
 
   responses.push(newResponse);
   saveStoredResponses(responses);
 
   return { data: newResponse };
+}
+
+/**
+ * Update an existing admin response (FeedbackResponse.updateResponse).
+ *
+ * @param {number|string} responseId
+ * @param {{ message?: string, responseMessage?: string, actionTaken?: string }} updateData
+ * @returns {Promise<{ data: object }>}
+ */
+export async function updateFeedbackResponse(responseId, updateData) {
+  await delay(350);
+
+  const responses = getStoredResponses();
+  const index = responses.findIndex(
+    (r) => r.id === Number(responseId) || r.responseId === Number(responseId)
+  );
+
+  if (index === -1) {
+    throw { response: { data: { message: 'Response record not found.' }, status: 404 } };
+  }
+
+  const existing = responses[index];
+  const newMsg = updateData.message ?? updateData.responseMessage ?? existing.message;
+  const newAction = updateData.actionTaken ?? existing.actionTaken ?? '';
+
+  responses[index] = {
+    ...existing,
+    message: newMsg.trim(),
+    responseMessage: newMsg.trim(),
+    actionTaken: newAction.trim(),
+    updated_at: new Date().toISOString(),
+  };
+
+  saveStoredResponses(responses);
+  return { data: responses[index] };
 }
 
 /**

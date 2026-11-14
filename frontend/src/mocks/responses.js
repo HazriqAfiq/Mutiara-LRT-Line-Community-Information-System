@@ -8,38 +8,62 @@
 export const MOCK_RESPONSES = [
   {
     id: 1,
+    responseId: 1,
     feedback_id: 1,
+    feedbackId: 1,
     admin_id: 1,
     admin_name: 'Admin User',
     message:
       'Thank you for your report. We have reviewed the construction schedule for the George Town Station site. Noise-intensive works such as pile driving are scheduled between 9:00 AM and 5:00 PM on weekdays. We have reminded the contractor to adhere strictly to approved working hours. If excessive noise continues outside approved hours, please contact our hotline at 1800-88-5678.',
+    responseMessage:
+      'Thank you for your report. We have reviewed the construction schedule for the George Town Station site. Noise-intensive works such as pile driving are scheduled between 9:00 AM and 5:00 PM on weekdays. We have reminded the contractor to adhere strictly to approved working hours. If excessive noise continues outside approved hours, please contact our hotline at 1800-88-5678.',
+    actionTaken: 'Contractor issued formal warning to halt piling by 5:00 PM; acoustic curtains deployed.',
     created_at: '2026-10-17T14:30:00+08:00',
+    responseDate: '2026-10-17T14:30:00+08:00',
   },
   {
     id: 2,
+    responseId: 2,
     feedback_id: 3,
+    feedbackId: 3,
     admin_id: 1,
     admin_name: 'Admin User',
     message:
       'Thank you for raising this concern about pedestrian access near Komtar. We have inspected the site and confirmed that the temporary pedestrian walkway signage requires improvement. Additional directional signs will be installed by end of this week. A safety marshal will be stationed at the crossing point during morning and evening peak hours.',
+    responseMessage:
+      'Thank you for raising this concern about pedestrian access near Komtar. We have inspected the site and confirmed that the temporary pedestrian walkway signage requires improvement. Additional directional signs will be installed by end of this week. A safety marshal will be stationed at the crossing point during morning and evening peak hours.',
+    actionTaken: 'Installed 4 illuminated detour directional signs and stationed safety marshal at Komtar crossing.',
     created_at: '2026-10-19T10:15:00+08:00',
+    responseDate: '2026-10-19T10:15:00+08:00',
   },
   {
     id: 3,
+    responseId: 3,
     feedback_id: 5,
+    feedbackId: 5,
     admin_id: 1,
     admin_name: 'Admin User',
     message:
       'We have received your complaint regarding traffic congestion at Jalan Utama. The traffic management plan for this section has been reviewed with the contractor. Additional traffic cones and a traffic marshal will be deployed during the morning peak period. The traffic management plan will be updated and shared with MPPP.',
+    responseMessage:
+      'We have received your complaint regarding traffic congestion at Jalan Utama. The traffic management plan for this section has been reviewed with the contractor. Additional traffic cones and a traffic marshal will be deployed during the morning peak period. The traffic management plan will be updated and shared with MPPP.',
+    actionTaken: 'Revised Traffic Management Plan submitted to MPPP; peak-hour traffic flagger deployed.',
     created_at: '2026-10-18T16:00:00+08:00',
+    responseDate: '2026-10-18T16:00:00+08:00',
   },
   {
     id: 4,
+    responseId: 4,
     feedback_id: 7,
+    feedbackId: 7,
     admin_id: 1,
     admin_name: 'Admin User',
     message:
       'Thank you for contacting us regarding access to your business premises. We have arranged for a dedicated loading and unloading bay on Jalan Tengah which will be available from 6:00 AM to 10:00 AM daily. Our on-site coordinator will contact you directly within two working days to discuss your specific access requirements.',
+    responseMessage:
+      'Thank you for contacting us regarding access to your business premises. We have arranged for a dedicated loading and unloading bay on Jalan Tengah which will be available from 6:00 AM to 10:00 AM daily. Our on-site coordinator will contact you directly within two working days to discuss your specific access requirements.',
+    actionTaken: 'Dedicated commercial loading bay demarcated at Jalan Tengah with daily 6-10 AM priority slots.',
     created_at: '2026-10-15T11:00:00+08:00',
+    responseDate: '2026-10-15T11:00:00+08:00',
   },
 ];

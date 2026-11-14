@@ -27,11 +27,17 @@ import {
   ArrowRight,
   Eye,
   ExternalLink,
-  PieChart as PieIcon,
   BarChart3,
   Calendar,
   Tag,
+  FileText,
+  Download,
+  Printer,
+  X,
+  FileCheck2,
+  PieChart as PieChartIcon,
 } from 'lucide-react';
+import { generateReport, getReports, exportReportCSV } from '../../services/reportService';
 import {
   ResponsiveContainer,
   PieChart,
@@ -63,6 +69,26 @@ export default function AdminDashboard() {
   const [usersMap, setUsersMap] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState(null);
+
+  // FeedbackReport state (UML: FeedbackReport.generateReport & viewReport)
+  const [currentReport, setCurrentReport]     = useState(null);
+  const [generatingReport, setGeneratingReport] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
+
+  const handleGenerateReport = async () => {
+    setGeneratingReport(true);
+    try {
+      const res = await generateReport({
+        title: `LRT Mutiara Line Community Grievance Audit Snapshot`,
+      });
+      setCurrentReport(res.data);
+      setShowReportModal(true);
+    } catch (err) {
+      console.error('Failed to generate report:', err);
+    } finally {
+      setGeneratingReport(false);
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -138,6 +164,26 @@ export default function AdminDashboard() {
           >
             <MessageSquare size={14} /> View All Feedback
           </Link>
+
+          {/* FeedbackReport.generateReport action */}
+          <button
+            type="button"
+            disabled={generatingReport}
+            onClick={handleGenerateReport}
+            className="btn bg-emerald-600 hover:bg-emerald-700 text-white btn-sm flex items-center gap-1.5 font-bold shadow-xs text-xs border-none"
+            title="Generate official audit milestone report"
+          >
+            {generatingReport ? (
+              <>
+                <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                Generating...
+              </>
+            ) : (
+              <>
+                <FileText size={14} /> Generate Report
+              </>
+            )}
+          </button>
         </div>
       </div>
 
@@ -238,7 +284,7 @@ export default function AdminDashboard() {
             <div className="lg:col-span-5 card bg-white p-5 rounded-lg border border-gray-200 shadow-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <PieIcon size={16} className="text-teal-600" />
+                  <PieChartIcon size={16} className="text-teal-600" />
                   <h3 className="text-sm font-bold text-gray-900">
                     Complaint Status Distribution
                   </h3>
@@ -457,6 +503,153 @@ export default function AdminDashboard() {
             </div>
           </div>
         </>
+      )}
+
+      {/* FeedbackReport Viewer Modal (UML: FeedbackReport.viewReport) */}
+      {showReportModal && currentReport && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 max-h-[90vh] overflow-y-auto space-y-6">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-gray-200">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="font-mono text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded">
+                    {currentReport.reportId}
+                  </span>
+                  <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                    Official Grievance Audit Milestone
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
+                  {currentReport.title}
+                </h3>
+                <p className="text-xs text-gray-500 mt-1">
+                  Generated on {formatDate(currentReport.generatedDate)} by {currentReport.generatedBy}
+                </p>
+              </div>
+
+              <button
+                onClick={() => setShowReportModal(false)}
+                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Core Metrics Grid (UML: totalFeedback, resolvedFeedback) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="p-3 bg-gray-50 rounded-xl text-center border border-gray-100">
+                <span className="text-[10px] font-bold uppercase text-gray-400 block">Total Feedback</span>
+                <span className="text-xl font-black text-gray-900">{currentReport.totalFeedback}</span>
+              </div>
+              <div className="p-3 bg-emerald-50 rounded-xl text-center border border-emerald-100">
+                <span className="text-[10px] font-bold uppercase text-emerald-700 block">Resolved</span>
+                <span className="text-xl font-black text-emerald-700">{currentReport.resolvedFeedback}</span>
+              </div>
+              <div className="p-3 bg-blue-50 rounded-xl text-center border border-blue-100">
+                <span className="text-[10px] font-bold uppercase text-blue-700 block">In Progress</span>
+                <span className="text-xl font-black text-blue-700">{currentReport.inProgressFeedback}</span>
+              </div>
+              <div className="p-3 bg-amber-50 rounded-xl text-center border border-amber-100">
+                <span className="text-[10px] font-bold uppercase text-amber-700 block">Pending</span>
+                <span className="text-xl font-black text-amber-700">{currentReport.pendingFeedback}</span>
+              </div>
+            </div>
+
+            {/* Resolution Progress Bar */}
+            <div className="p-4 bg-gray-50 rounded-xl border border-gray-100 space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold text-gray-800">
+                <span>Resolution Progress Efficiency</span>
+                <span className="text-emerald-700">{currentReport.resolutionRate}% Complete</span>
+              </div>
+              <div className="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                <div
+                  className="bg-emerald-500 h-full rounded-full transition-all duration-500"
+                  style={{ width: `${currentReport.resolutionRate}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Disruption Type Classification */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-100 space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">
+                  Commercial Business Stakeholders
+                </span>
+                <div className="text-lg font-black text-blue-950">{currentReport.businessFeedbackCount} Reports</div>
+                <p className="text-[11px] text-blue-800">Shopkeeper access, loading bay, and customer foot traffic complaints.</p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-teal-50/60 border border-teal-100 space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700 block">
+                  Residential & Commuter Concerns
+                </span>
+                <div className="text-lg font-black text-teal-950">{currentReport.residentComplaintCount} Reports</div>
+                <p className="text-[11px] text-teal-800">Late piling noise, dust dispersion, and pedestrian detour safety issues.</p>
+              </div>
+            </div>
+
+            {/* Category Breakdown Table */}
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                Category Distribution Breakdown
+              </h4>
+              <div className="rounded-xl border border-gray-100 overflow-hidden text-xs">
+                <table className="w-full text-left">
+                  <thead className="bg-gray-50 text-gray-500 text-[11px] uppercase font-bold border-b border-gray-100">
+                    <tr>
+                      <th className="px-4 py-2">Category</th>
+                      <th className="px-4 py-2 text-right">Tickets</th>
+                      <th className="px-4 py-2 text-right">% of Total</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {Object.entries(currentReport.categoryCounts || {}).map(([cat, count]) => (
+                      <tr key={cat} className="hover:bg-gray-50">
+                        <td className="px-4 py-2 font-medium text-gray-800">{cat}</td>
+                        <td className="px-4 py-2 text-right font-bold text-gray-900">{count}</td>
+                        <td className="px-4 py-2 text-right text-gray-500">
+                          {Math.round((count / (currentReport.totalFeedback || 1)) * 100)}%
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+              <span className="text-[11px] text-gray-400 font-medium">
+                Official Platform Summary & Resolution Report
+              </span>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => exportReportCSV(currentReport)}
+                  className="btn btn-outline btn-sm text-xs flex items-center gap-1.5 font-bold"
+                >
+                  <Download size={13} /> Export to CSV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="btn btn-secondary btn-sm text-xs flex items-center gap-1.5 font-bold"
+                >
+                  <Printer size={13} /> Print Report
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowReportModal(false)}
+                  className="btn btn-primary btn-sm text-xs px-4"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

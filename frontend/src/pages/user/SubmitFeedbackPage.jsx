@@ -17,7 +17,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Send,
-  ArrowLeft,
   UploadCloud,
   X,
   AlertCircle,
@@ -28,18 +27,35 @@ import {
   Tag,
   FileText,
   Info,
+  Building2,
+  Home,
+  Store,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { createFeedback } from '../../services/feedbackService';
+import {
+  createFeedback,
+  reportBusinessDisruption,
+  reportComplaint,
+} from '../../services/feedbackService';
 import PageHeader from '../../components/common/PageHeader';
 
-const CATEGORIES = [
+const COMPLAINT_CATEGORIES = [
   'Construction Noise',
-  'Road Access',
-  'Pedestrian Safety',
-  'Traffic Disruption',
-  'Business Access',
-  'Other',
+  'Dust & Air Quality',
+  'Pedestrian Safety & Crossings',
+  'Traffic Disruption & Road Access',
+  'Ground Vibration & Shaking',
+  'General Resident Concern',
+];
+
+const BUSINESS_DISRUPTION_TYPES = [
+  'Customer Entrance Blocked / Inaccessible',
+  'Delivery & Loading Bay Obstructed',
+  'Severe Drop in Customer Foot Traffic',
+  'Utility Disruption (Water / Power / Telecom)',
+  'Structural Wall Vibration / Cracks in Commercial Shoplot',
+  'Customer Parking Space Loss',
+  'Other Business Operation Impact',
 ];
 
 const PENANG_LOCATION_SUGGESTIONS = [
@@ -58,9 +74,14 @@ export default function SubmitFeedbackPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  // Mode: 'complaint' (ConstructionComplaint) or 'business' (BusinessFeedback)
+  const [feedbackType, setFeedbackType] = useState('complaint');
+
   const [formData, setFormData] = useState({
     title: '',
-    category: '',
+    complaintCategory: '',
+    businessName: '',
+    disruptionType: '',
     location: '',
     description: '',
   });
@@ -71,7 +92,7 @@ export default function SubmitFeedbackPage() {
   const [submitting, setSubmitting]   = useState(false);
   const [generalError, setGeneralError] = useState(null);
 
-  // Handle image upload and validation
+  // Handle image upload and validation (SupportingPhoto.uploadPhoto)
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -104,6 +125,7 @@ export default function SubmitFeedbackPage() {
     setImagePreview(previewUrl);
   };
 
+  // SupportingPhoto.removePhoto
   const removeImage = () => {
     if (imagePreview) {
       URL.revokeObjectURL(imagePreview);
@@ -118,14 +140,22 @@ export default function SubmitFeedbackPage() {
 
     // Title: Required, max 150 chars
     if (!formData.title.trim()) {
-      newErrors.title = 'Complaint title is required.';
+      newErrors.title = 'Title is required.';
     } else if (formData.title.trim().length > 150) {
       newErrors.title = 'Title cannot exceed 150 characters.';
     }
 
-    // Category: Required
-    if (!formData.category) {
-      newErrors.category = 'Please select a complaint category.';
+    if (feedbackType === 'complaint') {
+      if (!formData.complaintCategory) {
+        newErrors.complaintCategory = 'Please select a complaint category.';
+      }
+    } else {
+      if (!formData.businessName.trim()) {
+        newErrors.businessName = 'Business name is required for commercial disruption reports.';
+      }
+      if (!formData.disruptionType) {
+        newErrors.disruptionType = 'Please select the type of business disruption.';
+      }
     }
 
     // Location: Required
@@ -154,14 +184,30 @@ export default function SubmitFeedbackPage() {
 
     setSubmitting(true);
     try {
-      const response = await createFeedback({
-        title: formData.title,
-        category: formData.category,
-        location: formData.location,
-        description: formData.description,
-        attachment_url: imagePreview || null, // Local demo preview URL
-        user_id: user?.id,
-      });
+      let response;
+
+      if (feedbackType === 'business') {
+        // Calls UML specialized method: BusinessFeedback.reportBusinessDisruption()
+        response = await reportBusinessDisruption({
+          title: formData.title,
+          businessName: formData.businessName,
+          disruptionType: formData.disruptionType,
+          location: formData.location,
+          description: formData.description,
+          attachment_url: imagePreview || null,
+          user_id: user?.id,
+        });
+      } else {
+        // Calls UML specialized method: ConstructionComplaint.reportComplaint()
+        response = await reportComplaint({
+          title: formData.title,
+          complaintCategory: formData.complaintCategory,
+          location: formData.location,
+          description: formData.description,
+          attachment_url: imagePreview || null,
+          user_id: user?.id,
+        });
+      }
 
       const newFeedback = response.data;
 
@@ -188,15 +234,7 @@ export default function SubmitFeedbackPage() {
       <PageHeader
         title="Submit Community Feedback"
         subtitle="Report noise, dust, safety concerns, or traffic access issues along the Mutiara LRT alignment."
-      >
-        <Link
-          to="/my-feedback"
-          className="btn btn-outline-teal btn-sm text-xs flex items-center gap-1.5"
-          style={{ borderColor: 'rgba(255,255,255,0.4)', color: 'white' }}
-        >
-          <ArrowLeft size={14} /> Back to My Feedback
-        </Link>
-      </PageHeader>
+      />
 
       <div className="container max-w-3xl mt-8">
         <div className="card bg-white p-6 sm:p-8 rounded-lg border border-gray-200 shadow-sm">
@@ -213,22 +251,53 @@ export default function SubmitFeedbackPage() {
             </div>
           </div>
 
-          {generalError && (
-            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
-              <AlertCircle size={18} className="text-red-600 mt-0.5 flex-shrink-0" />
-              <p className="text-xs text-red-800 leading-relaxed font-medium">{generalError}</p>
+          {/* Feedback Type Dropdown Selector */}
+          <div className="mb-6">
+            <label
+              htmlFor="fb-type"
+              className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5"
+            >
+              Feedback Type <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <Building2
+                size={16}
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
+              />
+              <select
+                id="fb-type"
+                value={feedbackType}
+                onChange={(e) => {
+                  setFeedbackType(e.target.value);
+                  setErrors((prev) => ({ ...prev, complaintCategory: null, businessName: null, disruptionType: null }));
+                }}
+                className="form-select pl-10 text-xs py-2.5 focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20 bg-white w-full rounded-xl border-gray-300 shadow-xs"
+              >
+                <option value="complaint">
+                  Community Complaint (Residents, Commuters & Pedestrians)
+                </option>
+                <option value="business">
+                  Commercial Business Disruption (Shopkeepers, SMEs & Logistics)
+                </option>
+              </select>
             </div>
-          )}
+            <p className="mt-1 text-[11px] text-gray-400">
+              {feedbackType === 'complaint'
+                ? 'For construction noise, dust, walkway detour safety, vibrations, and traffic disruptions.'
+                : 'For commercial shoplots experiencing customer access blockage, loading bay closures, or utility interruptions.'}
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-            {/* Complaint Title */}
+            {/* Complaint / Disruption Title */}
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label
                   htmlFor="fb-title"
                   className="block text-xs font-bold uppercase tracking-wider text-gray-700"
                 >
-                  Complaint Title <span className="text-red-500">*</span>
+                  {feedbackType === 'business' ? 'Disruption Title' : 'Complaint Title'}{' '}
+                  <span className="text-red-500">*</span>
                 </label>
                 <span className="text-[11px] text-gray-400">
                   {formData.title.length}/150
@@ -249,7 +318,11 @@ export default function SubmitFeedbackPage() {
                     if (errors.title) setErrors({ ...errors, title: null });
                   }}
                   className={`form-input pl-9 ${errors.title ? 'border-red-500 ring-1 ring-red-500' : ''}`}
-                  placeholder="e.g. Excessive piling noise after 10 PM near Jalan Penang"
+                  placeholder={
+                    feedbackType === 'business'
+                      ? 'e.g. Hoardings completely blocking restaurant customer entrance and delivery bay'
+                      : 'e.g. Excessive piling noise after 10 PM near Jalan Penang'
+                  }
                 />
               </div>
               {errors.title && (
@@ -257,72 +330,138 @@ export default function SubmitFeedbackPage() {
               )}
             </div>
 
-            {/* Category & Location Row */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Category */}
+            {/* Specialized Subclass Fields: BusinessFeedback vs ConstructionComplaint */}
+            {feedbackType === 'business' ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-blue-50/50 border border-blue-100">
+                {/* Business Name */}
+                <div>
+                  <label
+                    htmlFor="fb-businessName"
+                    className="block text-xs font-bold uppercase tracking-wider text-blue-900 mb-1"
+                  >
+                    Business / Commercial Name <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <Store
+                      size={16}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-blue-400"
+                    />
+                    <input
+                      id="fb-businessName"
+                      type="text"
+                      value={formData.businessName}
+                      onChange={(e) => {
+                        setFormData({ ...formData, businessName: e.target.value });
+                        if (errors.businessName) setErrors({ ...errors, businessName: null });
+                      }}
+                      className={`form-input pl-9 bg-white ${
+                        errors.businessName ? 'border-red-500 ring-1 ring-red-500' : 'border-blue-200'
+                      }`}
+                      placeholder="e.g. Restoran Rasa Sayang / Kedai Emas"
+                    />
+                  </div>
+                  {errors.businessName && (
+                    <p className="mt-1 text-xs text-red-600 font-medium">{errors.businessName}</p>
+                  )}
+                </div>
+
+                {/* Disruption Type */}
+                <div>
+                  <label
+                    htmlFor="fb-disruptionType"
+                    className="block text-xs font-bold uppercase tracking-wider text-blue-900 mb-1"
+                  >
+                    Disruption Type <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="fb-disruptionType"
+                    value={formData.disruptionType}
+                    onChange={(e) => {
+                      setFormData({ ...formData, disruptionType: e.target.value });
+                      if (errors.disruptionType) setErrors({ ...errors, disruptionType: null });
+                    }}
+                    className={`form-select bg-white ${
+                      errors.disruptionType ? 'border-red-500 ring-1 ring-red-500' : 'border-blue-200'
+                    }`}
+                  >
+                    <option value="">Select disruption type...</option>
+                    {BUSINESS_DISRUPTION_TYPES.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.disruptionType && (
+                    <p className="mt-1 text-xs text-red-600 font-medium">{errors.disruptionType}</p>
+                  )}
+                </div>
+              </div>
+            ) : (
               <div>
                 <label
-                  htmlFor="fb-category"
+                  htmlFor="fb-complaintCategory"
                   className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
                 >
-                  Category <span className="text-red-500">*</span>
+                  Complaint Category <span className="text-red-500">*</span>
                 </label>
                 <select
-                  id="fb-category"
-                  value={formData.category}
+                  id="fb-complaintCategory"
+                  value={formData.complaintCategory}
                   onChange={(e) => {
-                    setFormData({ ...formData, category: e.target.value });
-                    if (errors.category) setErrors({ ...errors, category: null });
+                    setFormData({ ...formData, complaintCategory: e.target.value });
+                    if (errors.complaintCategory) setErrors({ ...errors, complaintCategory: null });
                   }}
-                  className={`form-select ${errors.category ? 'border-red-500 ring-1 ring-red-500' : ''}`}
+                  className={`form-select ${
+                    errors.complaintCategory ? 'border-red-500 ring-1 ring-red-500' : ''
+                  }`}
                 >
                   <option value="">Select a category...</option>
-                  {CATEGORIES.map((cat) => (
+                  {COMPLAINT_CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>
                       {cat}
                     </option>
                   ))}
                 </select>
-                {errors.category && (
-                  <p className="mt-1 text-xs text-red-600 font-medium">{errors.category}</p>
+                {errors.complaintCategory && (
+                  <p className="mt-1 text-xs text-red-600 font-medium">{errors.complaintCategory}</p>
                 )}
               </div>
+            )}
 
-              {/* Location */}
-              <div>
-                <label
-                  htmlFor="fb-location"
-                  className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
-                >
-                  Affected Location <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <MapPin
-                    size={16}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
-                  />
-                  <input
-                    id="fb-location"
-                    type="text"
-                    list="location-suggestions"
-                    value={formData.location}
-                    onChange={(e) => {
-                      setFormData({ ...formData, location: e.target.value });
-                      if (errors.location) setErrors({ ...errors, location: null });
-                    }}
-                    className={`form-input pl-9 ${errors.location ? 'border-red-500 ring-1 ring-red-500' : ''}`}
-                    placeholder="e.g. Lebuh Farquhar, George Town"
-                  />
-                  <datalist id="location-suggestions">
-                    {PENANG_LOCATION_SUGGESTIONS.map((loc) => (
-                      <option key={loc} value={loc} />
-                    ))}
-                  </datalist>
-                </div>
-                {errors.location && (
-                  <p className="mt-1 text-xs text-red-600 font-medium">{errors.location}</p>
-                )}
+            {/* Affected Location */}
+            <div>
+              <label
+                htmlFor="fb-location"
+                className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
+              >
+                Affected Location Along LRT Alignment <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <MapPin
+                  size={16}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
+                />
+                <input
+                  id="fb-location"
+                  type="text"
+                  list="location-suggestions"
+                  value={formData.location}
+                  onChange={(e) => {
+                    setFormData({ ...formData, location: e.target.value });
+                    if (errors.location) setErrors({ ...errors, location: null });
+                  }}
+                  className={`form-input pl-9 ${errors.location ? 'border-red-500 ring-1 ring-red-500' : ''}`}
+                  placeholder="e.g. Lebuh Farquhar / Jalan Penang"
+                />
+                <datalist id="location-suggestions">
+                  {PENANG_LOCATION_SUGGESTIONS.map((loc) => (
+                    <option key={loc} value={loc} />
+                  ))}
+                </datalist>
               </div>
+              {errors.location && (
+                <p className="mt-1 text-xs text-red-600 font-medium">{errors.location}</p>
+              )}
             </div>
 
             {/* Description */}
