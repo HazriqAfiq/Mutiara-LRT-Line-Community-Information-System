@@ -252,6 +252,31 @@ export default function UserDashboard() {
 
               {/* Right Column: Quick Actions & Helpful Info (4 cols) */}
               <div className="lg:col-span-4 space-y-6">
+                {/* Account Details Widget */}
+                <div
+                  className="rounded-lg p-5 border shadow-xs"
+                  style={{
+                    backgroundColor: 'rgba(18, 55, 91, 0.03)',
+                    borderColor: 'var(--color-gray-200)',
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      Account Profile
+                    </span>
+                    <Link
+                      to="/profile"
+                      className="text-xs font-semibold hover:underline"
+                      style={{ color: 'var(--color-teal)' }}
+                    >
+                      Edit Profile
+                    </Link>
+                  </div>
+                  <p className="text-sm font-bold text-gray-800">{user?.name}</p>
+                  <p className="text-xs text-gray-500">{user?.email}</p>
+                  {user?.phone && <p className="text-xs text-gray-500 mt-0.5">{user.phone}</p>}
+                </div>
+
                 <div className="card bg-white p-6 rounded-lg border border-gray-200 shadow-xs">
                   <h2 className="text-base font-bold mb-4" style={{ color: 'var(--color-navy)' }}>
                     Quick Actions
@@ -330,31 +355,6 @@ export default function UserDashboard() {
                       <ArrowRight size={14} className="text-gray-400 group-hover:text-red-700" />
                     </Link>
                   </div>
-                </div>
-
-                {/* Account Details Widget */}
-                <div
-                  className="rounded-lg p-5 border shadow-xs"
-                  style={{
-                    backgroundColor: 'rgba(18, 55, 91, 0.03)',
-                    borderColor: 'var(--color-gray-200)',
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                      Account Profile
-                    </span>
-                    <Link
-                      to="/profile"
-                      className="text-xs font-semibold hover:underline"
-                      style={{ color: 'var(--color-teal)' }}
-                    >
-                      Edit Profile
-                    </Link>
-                  </div>
-                  <p className="text-sm font-bold text-gray-800">{user?.name}</p>
-                  <p className="text-xs text-gray-500">{user?.email}</p>
-                  {user?.phone && <p className="text-xs text-gray-500 mt-0.5">{user.phone}</p>}
                 </div>
               </div>
             </div>

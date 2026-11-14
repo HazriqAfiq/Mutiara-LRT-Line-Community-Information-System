@@ -472,17 +472,9 @@ export default function ManageUsersPage() {
                             <Shield size={11} /> Administrator
                           </span>
                         ) : (
-                          <div className="flex flex-col gap-1 items-start">
-                            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full">
-                              Community User
-                            </span>
-                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-teal-800 bg-teal-50 border border-teal-200 px-1.5 py-0.2 rounded">
-                              {userItem.communityType === 'Pedestrian' ? 'Pedestrian' :
-                               userItem.communityType === 'Commuter' ? 'Commuter' :
-                               userItem.communityType === 'Business Owner' ? 'Business' :
-                               'Resident'}
-                            </span>
-                          </div>
+                          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full">
+                            Community User
+                          </span>
                         )}
                       </td>
 
