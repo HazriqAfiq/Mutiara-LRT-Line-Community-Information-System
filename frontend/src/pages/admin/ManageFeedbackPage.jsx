@@ -144,7 +144,7 @@ export default function ManageFeedbackPage() {
             Community Feedback & Complaints
           </h2>
           <p className="text-xs text-gray-500">
-            Review resident complaints, investigate construction impacts, and coordinate official responses.
+            Review community complaints, investigate construction impacts, and coordinate official responses.
           </p>
         </div>
       </div>
@@ -215,7 +215,7 @@ export default function ManageFeedbackPage() {
             <SearchBar
               value={search}
               onChange={setSearch}
-              placeholder="Search by Ref # (e.g. FB-0001), title, or resident name..."
+              placeholder="Search by Ref # (e.g. FB-0001), title, or complainant name..."
               id="admin-feedback-search"
             />
           </div>
@@ -303,7 +303,7 @@ export default function ManageFeedbackPage() {
                 <tr>
                   <th className="px-5 py-3.5">Ref #</th>
                   <th className="px-5 py-3.5">Complaint Title & Scope</th>
-                  <th className="px-5 py-3.5">Resident</th>
+                  <th className="px-5 py-3.5">Submitted By</th>
                   <th className="px-5 py-3.5">Location</th>
                   <th className="px-5 py-3.5">Submitted</th>
                   <th className="px-5 py-3.5">Status</th>
@@ -339,7 +339,7 @@ export default function ManageFeedbackPage() {
                         <div className="flex items-center gap-1.5">
                           <User size={12} className="text-gray-400 flex-shrink-0" />
                           <span className="font-semibold text-gray-900">
-                            {complainant?.name || 'Resident'}
+                            {complainant?.name || 'Community User'}
                           </span>
                         </div>
                         {complainant?.email && (

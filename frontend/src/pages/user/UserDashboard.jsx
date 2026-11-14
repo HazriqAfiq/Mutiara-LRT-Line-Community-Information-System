@@ -76,7 +76,7 @@ export default function UserDashboard() {
     <div className="min-h-screen pb-16">
       {/* Top Welcome Banner */}
       <div
-        className="text-white pt-28 sm:pt-32 pb-10 px-4 sm:px-6 border-b border-navy-dark"
+        className="text-white py-10 sm:py-12 px-4 sm:px-6 border-b border-navy-dark"
         style={{
           backgroundColor: 'var(--color-navy)',
         }}
@@ -84,11 +84,8 @@ export default function UserDashboard() {
         <div className="container">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-teal-300 block mb-1">
-                Resident Portal
-              </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-white" style={{ color: '#FFFFFF' }}>
-                Welcome back, {user?.name || 'Resident'}
+                Welcome back, {user?.name || 'User'}
               </h1>
               <p className="text-sm text-white/80 mt-1 max-w-xl">
                 Stay informed and manage your construction-related feedback across the Penang LRT Mutiara Line project.

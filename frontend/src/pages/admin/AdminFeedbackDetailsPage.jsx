@@ -283,7 +283,7 @@ export default function AdminFeedbackDetailsPage() {
             {feedback.attachment_url && (
               <div className="pt-2">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2 flex items-center gap-1.5">
-                  <ImageIcon size={13} /> Photographic Evidence Attached by Resident
+                  <ImageIcon size={13} /> Photographic Evidence Attached
                 </h4>
                 <div className="rounded-xl overflow-hidden border border-gray-200 max-w-md bg-gray-900 group relative">
                   <img
@@ -336,7 +336,7 @@ export default function AdminFeedbackDetailsPage() {
             {/* Thread Entries */}
             {(!feedback.responses || feedback.responses.length === 0) ? (
               <div className="text-center py-6 text-gray-400 text-xs bg-gray-50 rounded-xl border border-dashed border-gray-200">
-                No official responses have been published to this resident yet.
+                No official responses have been published for this ticket yet.
               </div>
             ) : (
               <div className="space-y-4">
@@ -403,7 +403,7 @@ export default function AdminFeedbackDetailsPage() {
                 rows={4}
                 value={responseMsg}
                 onChange={(e) => setResponseMsg(e.target.value)}
-                placeholder="Compose official liaison update to the resident..."
+                placeholder="Compose official liaison update to the user..."
                 className="form-input text-xs resize-y"
               />
 
@@ -515,7 +515,7 @@ export default function AdminFeedbackDetailsPage() {
 
               <div className="min-w-0">
                 <h4 className="text-sm font-bold text-gray-900 truncate">
-                  {complainant?.name || 'Registered Resident'}
+                  {complainant?.name || 'Community User'}
                 </h4>
                 <p className="text-xs text-gray-500 truncate flex items-center gap-1 mt-0.5">
                   <Mail size={11} className="text-gray-400" />
@@ -528,7 +528,7 @@ export default function AdminFeedbackDetailsPage() {
               <div className="flex justify-between py-1">
                 <span className="text-gray-500">Account Role</span>
                 <span className="font-semibold capitalize text-gray-800">
-                  {complainant?.role || 'Community Resident'}
+                  {complainant?.role || 'Community User'}
                 </span>
               </div>
 

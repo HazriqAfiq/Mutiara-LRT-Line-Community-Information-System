@@ -1,45 +1,17 @@
 /**
  * components/common/PenangLRTLogo.jsx
  *
- * Official Penang LRT Mutiara Line emblem and wordmark
- * featuring the stylized Penang Bridge suspension cables and rapid rail deck.
- * Supports light (for white navbar) and dark (for navy footer) variants.
+ * Official Penang LRT Mutiara Line logo with transparent background.
+ * Adapts seamlessly across dark navigation bars, footers, and light authentication cards.
  */
-export default function PenangLRTLogo({ variant = 'dark', className = '' }) {
-  const isLight = variant === 'light'; // Light text for dark navy backgrounds
-  const textColor = isLight ? 'text-white' : 'text-[#0F2C59]';
-  const strokeColor = '#009688'; // Vibrant Penang transit teal
-
+export default function PenangLRTLogo({ variant = 'dark', className = '', imgClassName = '' }) {
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
-      {/* Official Mutiara Line Emblem */}
+    <div className={`flex items-center ${className}`}>
       <img
         src="/images/mutiara_lrt_logo.png"
-        alt="Penang LRT Mutiara Line"
-        className="h-10 w-auto object-contain flex-shrink-0 rounded-sm"
+        alt="Penang LRT Mutiara Line Update"
+        className={`h-7 sm:h-8 w-auto object-contain flex-shrink-0 ${imgClassName}`}
       />
-
-      {/* Wordmark */}
-      <div className="flex flex-col text-left">
-        <span
-          className={`text-[16px] font-black tracking-tight leading-none ${textColor}`}
-        >
-          MutiaraLine
-        </span>
-        <div
-          className={`flex justify-between w-full text-[9px] font-black leading-tight uppercase ${
-            isLight ? 'text-[#F4B942]' : 'text-[#16A6A1]'
-          } mt-0.5 select-none`}
-          aria-label="UPDATE"
-        >
-          <span>U</span>
-          <span>P</span>
-          <span>D</span>
-          <span>A</span>
-          <span>T</span>
-          <span>E</span>
-        </div>
-      </div>
     </div>
   );
 }

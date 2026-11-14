@@ -43,8 +43,9 @@ export default function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
+    navigate('/', { replace: true });
     await logout();
-    navigate('/');
+
   };
 
   const sidebarContent = (
@@ -146,7 +147,7 @@ export default function Sidebar({ isOpen, onClose }) {
           className="flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-xs font-medium text-red-300 hover:text-white hover:bg-red-900/30 transition-all text-left"
         >
           <LogOut size={16} />
-          <span>Logout</span>
+          <span>Sign Out</span>
         </button>
       </div>
     </div>

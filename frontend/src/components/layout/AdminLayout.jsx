@@ -31,8 +31,9 @@ export default function AdminLayout() {
   const { user, logout } = useAuth();
 
   const handleLogout = async () => {
+    navigate('/', { replace: true });
     await logout();
-    navigate('/');
+
   };
 
   // Derive title from current path or fall back
@@ -106,8 +107,8 @@ export default function AdminLayout() {
               <button
                 onClick={handleLogout}
                 className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
-                title="Log out"
-                aria-label="Log out"
+                title="Sign Out"
+                aria-label="Sign Out"
               >
                 <LogOut size={16} />
               </button>

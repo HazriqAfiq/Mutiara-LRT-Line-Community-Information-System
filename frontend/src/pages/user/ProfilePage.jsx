@@ -140,9 +140,6 @@ export default function ProfilePage() {
                   <h2 className="text-xl font-bold" style={{ color: 'var(--color-navy)' }}>
                     {user?.name}
                   </h2>
-                  <span className="capitalize text-xs font-bold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800">
-                    {user?.role || 'user'}
-                  </span>
                 </div>
                 <p className="text-xs text-gray-500">{user?.email}</p>
               </div>
@@ -220,26 +217,18 @@ export default function ProfilePage() {
               )}
             </div>
 
-            {/* Email Address (Read-only) */}
+            {/* Email Address */}
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label
-                  htmlFor="profile-email"
-                  className="block text-xs font-bold uppercase tracking-wider text-gray-700"
-                >
-                  Email Address
-                </label>
-                <span className="text-[11px] text-gray-400 flex items-center gap-1">
-                  <Lock size={11} /> Read-only
-                </span>
-              </div>
+              <label
+                htmlFor="profile-email"
+                className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1"
+              >
+                Email Address
+              </label>
               <div className="flex items-center gap-2.5 p-3 rounded-xl bg-gray-100/70 border border-gray-200 text-sm text-gray-600 font-mono">
                 <Mail size={16} className="text-gray-400" />
                 <span>{user?.email}</span>
               </div>
-              <p className="mt-1 text-[11px] text-gray-400 italic">
-                Email addresses are bound to verification credentials in Part A and cannot be modified.
-              </p>
             </div>
 
             {/* Phone Number */}
@@ -273,30 +262,16 @@ export default function ProfilePage() {
               )}
             </div>
 
-            {/* Account Role & Registration Date Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1">
-                  Account Role
-                </label>
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 border border-gray-100 text-sm">
-                  <Shield size={16} className="text-teal-600" />
-                  <span className="font-semibold text-gray-800 capitalize">
-                    {user?.role === 'admin' ? 'Project Administrator' : 'Registered Resident'}
-                  </span>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1">
-                  Member Registration Date
-                </label>
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 border border-gray-100 text-sm">
-                  <Calendar size={16} className="text-teal-600" />
-                  <span className="text-gray-700">
-                    {formatDate(user?.created_at || new Date().toISOString())}
-                  </span>
-                </div>
+            {/* Member Registration Date */}
+            <div className="pt-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1">
+                Member Registration Date
+              </label>
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-gray-50 border border-gray-100 text-sm">
+                <Calendar size={16} className="text-teal-600" />
+                <span className="text-gray-700">
+                  {formatDate(user?.created_at || new Date().toISOString())}
+                </span>
               </div>
             </div>
 

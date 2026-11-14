@@ -169,7 +169,7 @@ export default function AdminDashboard() {
                 value={stats.totalComplaints}
                 icon={<MessageSquare size={19} />}
                 color="navy"
-                subtitle="All submitted resident complaints"
+                subtitle="All submitted community feedback"
                 link="/admin/feedback"
               />
 
@@ -226,7 +226,7 @@ export default function AdminDashboard() {
                 value={stats.totalUsers}
                 icon={<Users size={19} />}
                 color="navy"
-                subtitle="Community resident accounts"
+                subtitle="Registered community user accounts"
                 link="/admin/users"
               />
             </div>
@@ -299,7 +299,7 @@ export default function AdminDashboard() {
                   </h3>
                 </div>
                 <p className="text-xs text-gray-500 mb-4">
-                  Frequency of resident reports by environmental and safety factors
+                  Frequency of community reports by environmental and safety factors
                 </p>
               </div>
 
@@ -328,7 +328,7 @@ export default function AdminDashboard() {
               </div>
 
               <div className="text-[11px] text-gray-400 text-center pt-3 border-t border-gray-100">
-                Data updates automatically as residents file tickets or admins resolve cases.
+                Data updates automatically as users file tickets or admins resolve cases.
               </div>
             </div>
           </div>

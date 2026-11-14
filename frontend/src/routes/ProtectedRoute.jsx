@@ -32,6 +32,10 @@ export default function ProtectedRoute({ children, requiredRole }) {
 
   // Not logged in → redirect to login, preserving the intended destination
   if (!isAuthenticated) {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('mutiara_logging_out')) {
+      sessionStorage.removeItem('mutiara_logging_out');
+      return <Navigate to="/" replace />;
+    }
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

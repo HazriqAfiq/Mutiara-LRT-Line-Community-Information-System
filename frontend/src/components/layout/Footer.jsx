@@ -107,7 +107,7 @@ export default function Footer() {
                   className="text-slate-200 hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-1.5"
                 >
                   <span className="text-[#F4B942] text-[10px]">▸</span>
-                  <span>Resident Login</span>
+                  <span>Login Account</span>
                 </Link>
               </li>
               <li>

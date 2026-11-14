@@ -57,6 +57,9 @@ export function AuthProvider({ children }) {
    * Log out — clears state and localStorage session.
    */
   const logout = useCallback(async () => {
+    try {
+      sessionStorage.setItem('mutiara_logging_out', 'true');
+    } catch {}
     await logoutService();
     setUser(null);
   }, []);

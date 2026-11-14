@@ -26,7 +26,7 @@ import PenangLRTLogo from '../../components/common/PenangLRTLogo';
 
 export default function RegisterPage() {
   const { register } = useAuth();
-  const navigate     = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -37,9 +37,9 @@ export default function RegisterPage() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm]   = useState(false);
-  const [errors, setErrors]             = useState({});
-  const [loading, setLoading]           = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const [generalError, setGeneralError] = useState(null);
 
   const validate = () => {
@@ -58,6 +58,13 @@ export default function RegisterPage() {
       newErrors.email = 'Email address is required.';
     } else if (!emailRegex.test(formData.email.trim())) {
       newErrors.email = 'Please provide a valid email format.';
+    }
+
+    // Phone Number
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required.';
+    } else if (!/^[0-9+\s\-()]{7,15}$/.test(formData.phone.trim())) {
+      newErrors.phone = 'Please provide a valid phone number.';
     }
 
     // Password
@@ -107,6 +114,8 @@ export default function RegisterPage() {
       const apiErrors = err.response?.data?.errors;
       if (apiErrors?.email) {
         setErrors((prev) => ({ ...prev, email: apiErrors.email[0] }));
+      } else if (apiErrors?.phone) {
+        setErrors((prev) => ({ ...prev, phone: apiErrors.phone[0] }));
       } else {
         setGeneralError(
           err.response?.data?.message || 'Unable to register account. Please try again.'
@@ -165,11 +174,10 @@ export default function RegisterPage() {
                 setFormData({ ...formData, name: e.target.value });
                 if (errors.name) setErrors({ ...errors, name: null });
               }}
-              className={`form-input pl-10 ${
-                errors.name
+              className={`form-input pl-10 ${errors.name
                   ? 'border-red-500 ring-2 ring-red-500/20'
                   : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
-              }`}
+                }`}
               placeholder="Full name"
             />
           </div>
@@ -203,11 +211,10 @@ export default function RegisterPage() {
                 setFormData({ ...formData, email: e.target.value });
                 if (errors.email) setErrors({ ...errors, email: null });
               }}
-              className={`form-input pl-10 ${
-                errors.email
+              className={`form-input pl-10 ${errors.email
                   ? 'border-red-500 ring-2 ring-red-500/20'
                   : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
-              }`}
+                }`}
               placeholder="name@example.com"
             />
           </div>
@@ -225,7 +232,7 @@ export default function RegisterPage() {
             htmlFor="reg-phone"
             className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1"
           >
-            Phone Number <span className="text-[11px] text-slate-400 font-normal lowercase">(optional)</span>
+            Phone Number <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <Phone
@@ -237,11 +244,23 @@ export default function RegisterPage() {
               type="tel"
               autoComplete="tel"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="form-input pl-10 focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20"
+              onChange={(e) => {
+                setFormData({ ...formData, phone: e.target.value });
+                if (errors.phone) setErrors({ ...errors, phone: null });
+              }}
+              className={`form-input pl-10 ${errors.phone
+                  ? 'border-red-500 ring-2 ring-red-500/20'
+                  : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
+                }`}
               placeholder="e.g. 012-3456789"
             />
           </div>
+          {errors.phone && (
+            <p className="mt-1 text-xs text-red-600 font-medium flex items-center gap-1">
+              <AlertCircle size={12} />
+              <span>{errors.phone}</span>
+            </p>
+          )}
         </div>
 
         {/* Password */}
@@ -266,11 +285,10 @@ export default function RegisterPage() {
                 setFormData({ ...formData, password: e.target.value });
                 if (errors.password) setErrors({ ...errors, password: null });
               }}
-              className={`form-input pl-10 pr-10 ${
-                errors.password
+              className={`form-input pl-10 pr-10 ${errors.password
                   ? 'border-red-500 ring-2 ring-red-500/20'
                   : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
-              }`}
+                }`}
               placeholder="At least 6 characters"
             />
             <button
@@ -312,11 +330,10 @@ export default function RegisterPage() {
                 setFormData({ ...formData, confirmPassword: e.target.value });
                 if (errors.confirmPassword) setErrors({ ...errors, confirmPassword: null });
               }}
-              className={`form-input pl-10 pr-10 ${
-                errors.confirmPassword
+              className={`form-input pl-10 pr-10 ${errors.confirmPassword
                   ? 'border-red-500 ring-2 ring-red-500/20'
                   : 'focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20'
-              }`}
+                }`}
               placeholder="Re-enter password"
             />
             <button

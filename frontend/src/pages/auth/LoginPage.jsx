@@ -5,7 +5,7 @@
  * Minimalist, modern LRT-themed login page:
  * - Centered glassmorphic card over full-screen LRT background.
  * - Simple, distraction-free interface displaying only required authentication elements.
- * - Retains full functionality: input validation, demo accounts, role-based redirects.
+ * - Retains full functionality: input validation, role-based redirects.
  */
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -21,7 +21,6 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import AuthLayout from '../../components/auth/AuthLayout';
-import DemoAccountSelector from '../../components/auth/DemoAccountSelector';
 import PenangLRTLogo from '../../components/common/PenangLRTLogo';
 
 export default function LoginPage() {
@@ -38,13 +37,10 @@ export default function LoginPage() {
     password: '',
   });
 
-  const [showPassword, setShowPassword]       = useState(false);
-  const [errors, setErrors]                   = useState({});
-  const [loading, setLoading]                 = useState(false);
-  const [generalError, setGeneralError]       = useState(null);
-  const [selectedDemoRole, setSelectedDemoRole] = useState(
-    location.state?.prefillEmail ? null : 'user'
-  );
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors]             = useState({});
+  const [loading, setLoading]           = useState(false);
+  const [generalError, setGeneralError] = useState(null);
 
   const validate = () => {
     const newErrors = {};
@@ -92,24 +88,6 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  // Quick fill helper for demonstrator convenience
-  const fillDemoAccount = (role) => {
-    setSelectedDemoRole(role);
-    if (role === 'user') {
-      setFormData({
-        email: 'user@demo.test',
-        password: 'Demo12345!',
-      });
-    } else if (role === 'admin') {
-      setFormData({
-        email: 'admin@demo.test',
-        password: 'Demo12345!',
-      });
-    }
-    setErrors({});
-    setGeneralError(null);
   };
 
   return (
@@ -166,7 +144,6 @@ export default function LoginPage() {
               value={formData.email}
               onChange={(e) => {
                 setFormData({ ...formData, email: e.target.value });
-                setSelectedDemoRole(null);
                 if (errors.email) setErrors({ ...errors, email: null });
               }}
               className={`form-input pl-9 py-2 text-xs sm:text-sm ${
@@ -205,7 +182,6 @@ export default function LoginPage() {
               value={formData.password}
               onChange={(e) => {
                 setFormData({ ...formData, password: e.target.value });
-                setSelectedDemoRole(null);
                 if (errors.password) setErrors({ ...errors, password: null });
               }}
               className={`form-input pl-9 pr-9 py-2 text-xs sm:text-sm ${
@@ -254,14 +230,6 @@ export default function LoginPage() {
           </button>
         </div>
       </form>
-
-      {/* Demo Accounts */}
-      <div className="mt-3 pt-2.5 border-t border-slate-200/80">
-        <DemoAccountSelector
-          selectedRole={selectedDemoRole}
-          onSelect={fillDemoAccount}
-        />
-      </div>
 
       {/* Registration Link */}
       <div className="mt-3 pt-2 border-t border-slate-200/80 text-center">

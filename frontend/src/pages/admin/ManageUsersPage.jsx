@@ -45,7 +45,7 @@ import ConfirmDialog from '../../components/common/ConfirmDialog';
 
 const ROLE_OPTIONS = [
   { value: '', label: 'All Roles' },
-  { value: 'user', label: 'Resident / Community User' },
+  { value: 'user', label: 'Community User' },
   { value: 'admin', label: 'Administrator' },
 ];
 
@@ -190,7 +190,7 @@ export default function ManageUsersPage() {
             User Account Management
           </h2>
           <p className="text-xs text-gray-500">
-            Oversee community resident profiles, verify administrator privileges, and manage account access.
+            Oversee community user profiles, verify administrator privileges, and manage account access.
           </p>
         </div>
       </div>
@@ -432,7 +432,7 @@ export default function ManageUsersPage() {
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 text-[11px] font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full">
-                            Resident
+                            Community User
                           </span>
                         )}
                       </td>
@@ -529,7 +529,7 @@ export default function ManageUsersPage() {
         message={
           toggleTarget?.is_active
             ? `Are you sure you want to suspend the account for "${toggleTarget?.name}"? The user will be unable to log in or submit new complaints until reactivated.`
-            : `Reactivate access for "${toggleTarget?.name}"? The resident will regain portal access immediately.`
+            : `Reactivate access for "${toggleTarget?.name}"? The user will regain portal access immediately.`
         }
         confirmLabel={toggleTarget?.is_active ? 'Yes, Suspend Account' : 'Yes, Activate Account'}
         isLoading={isUpdatingStatus}
@@ -583,7 +583,7 @@ export default function ManageUsersPage() {
                   System Role
                 </span>
                 <p className="font-bold text-gray-800 capitalize">
-                  {selectedUser.role === 'admin' ? 'Administrator' : 'Community Resident'}
+                  {selectedUser.role === 'admin' ? 'Administrator' : 'Community User'}
                 </p>
               </div>
 
