@@ -152,12 +152,6 @@ export default function AnnouncementDetailsPage() {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/30 to-black/20" />
-              <div className="absolute top-4 left-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider text-white bg-slate-900/90 border border-slate-700 shadow-sm">
-                  <Tag size={12} className="text-teal-400" />
-                  {announcement.category}
-                </span>
-              </div>
             </div>
 
             {/* Header / Meta banner */}
@@ -170,7 +164,16 @@ export default function AnnouncementDetailsPage() {
             >
               {/* Category, Status & Share */}
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className={`text-xs font-bold uppercase tracking-wider ${
+                    announcement.category === 'Construction Progress' ? 'text-[#0284C7]' :
+                    announcement.category === 'General Update' ? 'text-[#10B981]' :
+                    announcement.category === 'Public Notice' ? 'text-[#F59E0B]' :
+                    'text-[#EF4444]'
+                  }`}>
+                    {announcement.category}
+                  </span>
+                  <span className="text-gray-300">•</span>
                   <StatusBadge status={announcement.status} type="announcement" />
                   <span className="text-xs text-gray-500 font-medium">Notice Ref #{announcement.id}</span>
                 </div>
@@ -264,7 +267,7 @@ export default function AnnouncementDetailsPage() {
                     </div>
                   </div>
 
-                  <span className="text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-200 px-3 py-1 rounded-full">
+                  <span className="text-xs font-bold text-teal-700">
                     Active Phase
                   </span>
                 </div>

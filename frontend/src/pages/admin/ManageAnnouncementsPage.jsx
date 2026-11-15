@@ -266,8 +266,13 @@ export default function ManageAnnouncementsPage() {
                       {item.title}
                     </td>
                     <td className="px-5 py-3.5 whitespace-nowrap text-gray-600">
-                      <span className="inline-flex items-center gap-1 font-medium text-teal-700 bg-teal-50 px-2 py-0.5 rounded">
-                        <Tag size={10} /> {item.category}
+                      <span className={`inline-flex items-center gap-1 font-bold ${
+                        item.category === 'Construction Progress' ? 'text-[#0284C7]' :
+                        item.category === 'General Update' ? 'text-[#10B981]' :
+                        item.category === 'Public Notice' ? 'text-[#F59E0B]' :
+                        'text-[#EF4444]'
+                      }`}>
+                        <Tag size={11} /> {item.category}
                       </span>
                     </td>
                     <td className="px-5 py-3.5 text-gray-600 max-w-[180px] truncate">

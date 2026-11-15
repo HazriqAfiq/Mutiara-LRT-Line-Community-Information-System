@@ -351,38 +351,39 @@ input.pr-11,
   min-height: 120px;
 }
 
-/* --- Status Badges --- */
+/* --- Status Badges (Text Only) --- */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-sm);
+  padding: 0;
+  border-radius: 0;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  border: 1px solid transparent;
+  letter-spacing: 0.03em;
+  border: none;
+  background: transparent !important;
 }
 
 /* Announcement statuses */
-.badge-draft     { background-color: #F3F4F6; color: #4B5563; border-color: #E5E7EB; }
-.badge-published { background-color: #ECFDF5; color: #065F46; border-color: #A7F3D0; }
-.badge-archived  { background-color: #F3F4F6; color: #374151; border-color: #D1D5DB; }
+.badge-draft     { color: #6B7280; }
+.badge-published { color: #059669; }
+.badge-archived  { color: #9CA3AF; }
 
 /* Road closure statuses */
-.badge-scheduled { background-color: #EFF6FF; color: #1E40AF; border-color: #BFDBFE; }
-.badge-active    { background-color: #FEF2F2; color: #991B1B; border-color: #FECACA; }
-.badge-completed { background-color: #ECFDF5; color: #065F46; border-color: #A7F3D0; }
+.badge-scheduled { color: #2563EB; }
+.badge-active    { color: #DC2626; }
+.badge-completed { color: #059669; }
 
 /* Feedback statuses */
-.badge-pending     { background-color: #FFFBEB; color: #92400E; border-color: #FDE68A; }
-.badge-in_progress { background-color: #EFF6FF; color: #1E40AF; border-color: #BFDBFE; }
-.badge-resolved    { background-color: #ECFDF5; color: #065F46; border-color: #A7F3D0; }
+.badge-pending     { color: #D97706; }
+.badge-in_progress { color: #2563EB; }
+.badge-resolved    { color: #059669; }
 
 /* User role */
-.badge-admin     { background-color: #F5F3FF; color: #5B21B6; border-color: #DDD6FE; }
-.badge-user      { background-color: #F0F9FF; color: #075985; border-color: #BAE6FD; }
+.badge-admin     { color: #7C3AED; }
+.badge-user      { color: #0284C7; }
 
 /* --- Section Containers --- */
 .section {

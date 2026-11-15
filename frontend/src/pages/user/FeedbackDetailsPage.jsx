@@ -193,23 +193,24 @@ export default function FeedbackDetailsPage() {
                 }}
               >
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-sm font-bold text-gray-800 bg-white border border-gray-200 px-3 py-1 rounded-lg shadow-sm">
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <span className="font-mono text-sm font-bold text-gray-800">
                       {feedback.reference_number}
                     </span>
+                    <span className="text-gray-300">•</span>
                     <span
-                      className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
-                      style={{ backgroundColor: 'rgba(22, 166, 161, 0.12)', color: 'var(--color-teal)' }}
+                      className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider"
+                      style={{ color: 'var(--color-teal)' }}
                     >
                       <Tag size={12} /> {feedback.category}
                     </span>
-
+                    <span className="text-gray-300">•</span>
                     {feedback.feedbackType === 'business' || feedback.businessName ? (
-                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-blue-700">
                         <Store size={12} /> Business Disruption
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">
+                      <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-emerald-700">
                         <Home size={12} /> Community Complaint
                       </span>
                     )}
@@ -233,7 +234,7 @@ export default function FeedbackDetailsPage() {
                       <span className="font-bold text-sm text-blue-900">{feedback.businessName}</span>
                     </div>
                     {feedback.disruptionType && (
-                      <span className="px-2.5 py-1 bg-white text-blue-800 font-semibold rounded-lg border border-blue-200">
+                      <span className="text-xs text-blue-800 font-bold uppercase tracking-wider">
                         Disruption: {feedback.disruptionType}
                       </span>
                     )}

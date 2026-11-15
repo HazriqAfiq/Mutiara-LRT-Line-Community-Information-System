@@ -252,7 +252,7 @@ export default function AboutPage() {
             }}
           >
             <div className="max-w-2xl space-y-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider text-[#12375B] bg-[#F4B942]">
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#F4B942]">
                 <HardHat size={13} />
                 National Rail Infrastructure Project
               </span>
@@ -365,7 +365,7 @@ export default function AboutPage() {
                 Sequential station list along the 29.5 km transit line.
               </p>
             </div>
-            <span className="text-xs font-bold text-[#16A6A1] bg-teal-50 px-2.5 py-1 rounded w-fit">
+            <span className="text-xs font-bold text-[#16A6A1] w-fit">
               {currentSector.stations.length} Stations in View
             </span>
           </div>
@@ -426,7 +426,7 @@ export default function AboutPage() {
                 key={item.title}
                 className="p-4 rounded-lg bg-[#F5F7FA] border border-gray-200 space-y-1.5"
               >
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#0f7a76] bg-teal-100/70 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#0f7a76]">
                   {item.location}
                 </span>
                 <h3 className="font-bold text-xs sm:text-sm text-[#12375B]">
@@ -468,12 +468,12 @@ export default function AboutPage() {
                       {step.year}
                     </span>
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                      className={`text-xs font-bold ${
                         isCurrent
-                          ? 'bg-[#F4B942] text-[#12375B]'
+                          ? 'text-[#F4B942]'
                           : isDone
-                          ? 'bg-teal-100 text-[#0f7a76]'
-                          : 'bg-gray-100 text-gray-500'
+                          ? 'text-[#0f7a76]'
+                          : 'text-gray-400'
                       }`}
                     >
                       {step.status}
@@ -499,7 +499,7 @@ export default function AboutPage() {
           style={{ backgroundColor: '#12375B' }}
         >
           <div className="relative z-10 max-w-xl space-y-2.5">
-            <span className="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-white/10 text-[#F4B942] border border-white/20">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#F4B942] block">
               Community Portal
             </span>
             <h2 className="text-lg sm:text-xl font-extrabold tracking-tight leading-tight text-white">

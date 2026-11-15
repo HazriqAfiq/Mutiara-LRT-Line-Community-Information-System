@@ -133,13 +133,6 @@ export default function RoadClosureDetailsPage() {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-900/30 to-black/30" />
-              <div className="absolute top-4 left-4 flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold text-slate-950 bg-amber-400 shadow-md">
-                  <AlertTriangle size={14} className="text-slate-950" />
-                  {closure.road_name}
-                </span>
-                <StatusBadge status={closure.status} type="roadClosure" />
-              </div>
             </div>
 
             {/* Header banner */}
@@ -152,13 +145,11 @@ export default function RoadClosureDetailsPage() {
             >
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <div className="flex items-center gap-2">
-                  <span
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
-                    style={{ backgroundColor: 'rgba(18, 55, 91, 0.1)', color: 'var(--color-navy)' }}
-                  >
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#12375B]">
                     <AlertTriangle size={12} />
                     {closure.road_name}
                   </span>
+                  <span className="text-gray-300">•</span>
                   <StatusBadge status={closure.status} type="roadClosure" />
                 </div>
 

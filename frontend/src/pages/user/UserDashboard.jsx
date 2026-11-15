@@ -209,15 +209,17 @@ export default function UserDashboard() {
                         >
                           <div className="space-y-1.5 flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-mono text-xs font-bold text-gray-700 bg-gray-200/70 px-2 py-0.5 rounded">
+                              <span className="font-mono text-xs font-bold text-gray-700">
                                 {item.reference_number}
                               </span>
+                              <span className="text-gray-300">•</span>
                               <span
                                 className="inline-flex items-center gap-1 text-xs font-semibold"
                                 style={{ color: 'var(--color-teal)' }}
                               >
                                 <Tag size={11} /> {item.category}
                               </span>
+                              <span className="text-gray-300">•</span>
                               <StatusBadge status={item.status} type="feedback" />
                             </div>
 

@@ -249,10 +249,11 @@ export default function AdminFeedbackDetailsPage() {
             <ArrowLeft size={18} />
           </Link>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-sm font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">
+            <div className="flex items-center gap-2.5">
+              <span className="font-mono text-sm font-bold text-teal-700">
                 {feedback.reference_number}
               </span>
+              <span className="text-gray-300">•</span>
               <StatusBadge status={feedback.status} type="feedback" />
             </div>
             <h2 className="text-lg sm:text-xl font-bold text-gray-900 mt-1">
@@ -306,19 +307,25 @@ export default function AdminFeedbackDetailsPage() {
           {/* Complaint Details Card */}
           <div className="card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-3">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full">
+              <div className="flex items-center gap-2.5">
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-800">
                   <Tag size={12} /> {feedback.category}
                 </span>
 
                 {feedback.feedbackType === 'business' || feedback.businessName ? (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-800 bg-blue-100 px-2.5 py-0.5 rounded-full">
-                    <Store size={12} /> Business Disruption
-                  </span>
+                  <>
+                    <span className="text-gray-300">•</span>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-800">
+                      <Store size={12} /> Business Disruption
+                    </span>
+                  </>
                 ) : (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
-                    <Home size={12} /> Community Complaint
-                  </span>
+                  <>
+                    <span className="text-gray-300">•</span>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-800">
+                      <Home size={12} /> Community Complaint
+                    </span>
+                  </>
                 )}
               </div>
 
@@ -335,7 +342,7 @@ export default function AdminFeedbackDetailsPage() {
                   <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700 flex items-center gap-1.5">
                     <Store size={14} /> Commercial Entity Information
                   </span>
-                  <span className="text-xs font-semibold px-2.5 py-0.5 bg-blue-100 text-blue-800 rounded-md">
+                  <span className="text-xs font-bold text-blue-800 uppercase tracking-wider">
                     {feedback.disruptionType || 'Commercial Access Disruption'}
                   </span>
                 </div>
@@ -353,7 +360,7 @@ export default function AdminFeedbackDetailsPage() {
             {feedback.complaintCategory && feedback.feedbackType !== 'business' && (
               <div className="p-3 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-between">
                 <span className="text-xs text-gray-600 font-medium">Specific Complaint Category:</span>
-                <span className="text-xs font-bold text-teal-800 bg-white px-2.5 py-1 rounded-md border border-gray-200">
+                <span className="text-xs font-bold text-teal-800">
                   {feedback.complaintCategory}
                 </span>
               </div>

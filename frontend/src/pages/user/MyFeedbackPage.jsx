@@ -187,7 +187,7 @@ export default function MyFeedbackPage() {
               </span>
 
               {status && (
-                <span className="capitalize font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">
+                <span className="capitalize font-bold text-teal-700">
                   Status: {status.replace('_', ' ')}
                 </span>
               )}
@@ -250,7 +250,7 @@ export default function MyFeedbackPage() {
                         className="hover:bg-teal-50/20 transition-colors group"
                       >
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="font-mono text-xs font-bold text-gray-800 bg-gray-100 px-2.5 py-1 rounded-md">
+                          <span className="font-mono text-xs font-bold text-gray-700">
                             {item.reference_number}
                           </span>
                         </td>
@@ -303,7 +303,7 @@ export default function MyFeedbackPage() {
                   className="card p-5 bg-white rounded-2xl border border-gray-100 shadow-sm space-y-3"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-xs font-bold text-gray-800 bg-gray-100 px-2 py-0.5 rounded">
+                    <span className="font-mono text-xs font-bold text-gray-700">
                       {item.reference_number}
                     </span>
                     <StatusBadge status={item.status} type="feedback" />

@@ -14,11 +14,11 @@ import { Link } from 'react-router-dom';
 import { MapPin, Calendar, ArrowRight } from 'lucide-react';
 import { formatDate } from '../../utils/dateUtils';
 
-const CATEGORY_STYLES = {
-  'Construction Progress': 'bg-[#0284C7] text-white',
-  'General Update': 'bg-[#10B981] text-white',
-  'Public Notice': 'bg-[#F59E0B] text-white',
-  'Safety Advisory': 'bg-[#EF4444] text-white',
+const CATEGORY_COLORS = {
+  'Construction Progress': 'text-[#0284C7]',
+  'General Update': 'text-[#10B981]',
+  'Public Notice': 'text-[#F59E0B]',
+  'Safety Advisory': 'text-[#EF4444]',
 };
 
 const CATEGORY_IMAGES = {
@@ -40,13 +40,13 @@ export default function AnnouncementCard({ announcement, compact = false }) {
   } = announcement;
 
   const displayImage = image_url || CATEGORY_IMAGES[category] || '/images/construction_viaduct.jpg';
-  const badgeClass = CATEGORY_STYLES[category] || 'bg-[#009688] text-white';
+  const categoryColor = CATEGORY_COLORS[category] || 'text-[#009688]';
 
   return (
     <article
       className="bg-white overflow-hidden flex flex-col h-full border border-gray-200 rounded-lg hover:border-gray-300 transition-colors shadow-sm"
     >
-      {/* Image Header with Category Badge */}
+      {/* Image Header */}
       <div className="relative w-full h-48 bg-gray-100 overflow-hidden flex-shrink-0">
         <img
           src={displayImage}
@@ -54,20 +54,19 @@ export default function AnnouncementCard({ announcement, compact = false }) {
           className="w-full h-full object-cover"
           loading="lazy"
         />
-        {/* Top-left Category Pill */}
-        <div className="absolute top-3 left-3 z-10">
-          <span className={`inline-block px-2.5 py-1 rounded text-[11px] font-bold uppercase tracking-wider ${badgeClass}`}>
-            {category}
-          </span>
-        </div>
       </div>
 
       {/* Card Content Body */}
       <div className="p-5 flex flex-col flex-1">
-        {/* Date Row */}
-        <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-2">
-          <Calendar size={13} className="text-gray-400" />
-          <span>{formatDate(created_at)}</span>
+        {/* Category & Date Row */}
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <span className={`text-[11px] font-bold uppercase tracking-wider ${categoryColor}`}>
+            {category}
+          </span>
+          <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <Calendar size={13} className="text-gray-400" />
+            <span>{formatDate(created_at)}</span>
+          </div>
         </div>
 
         {/* Title */}

@@ -510,11 +510,11 @@ export default function ManageUsersPage() {
                       {/* System Role & Stakeholder */}
                       <td className="px-5 py-3.5 whitespace-nowrap">
                         {userItem.role === 'admin' ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-700">
                             <Shield size={11} /> Administrator
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded-full">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-gray-600">
                             Community User
                           </span>
                         )}
@@ -535,10 +535,10 @@ export default function ManageUsersPage() {
                       {/* Complaints count */}
                       <td className="px-5 py-3.5 whitespace-nowrap">
                         <span
-                          className={`font-semibold px-2 py-0.5 rounded text-xs ${
+                          className={`text-xs font-semibold ${
                             complaints > 0
-                              ? 'bg-teal-50 text-teal-800 font-bold'
-                              : 'text-gray-400 bg-gray-50'
+                              ? 'text-teal-800 font-bold'
+                              : 'text-gray-400'
                           }`}
                         >
                           {complaints} submitted
@@ -548,11 +548,11 @@ export default function ManageUsersPage() {
                       {/* Status */}
                       <td className="px-5 py-3.5 whitespace-nowrap">
                         {isActive ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-700">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Active
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-red-700 bg-red-50 px-2.5 py-0.5 rounded-full border border-red-200">
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-red-600">
                             <span className="w-1.5 h-1.5 rounded-full bg-red-500" /> Suspended
                           </span>
                         )}
