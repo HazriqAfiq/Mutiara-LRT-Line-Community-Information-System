@@ -32,9 +32,10 @@ import {
   Shield,
   Tag,
   Check,
+  Trash2,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { getUsers, updateProfile, getUserFeedbackCount, assignRole } from '../../services/userService';
+import { getUsers, updateProfile, getUserFeedbackCount, assignRole, deleteUser } from '../../services/userService';
 import { getAllFeedback } from '../../services/feedbackService';
 import { formatDate } from '../../utils/dateUtils';
 import SearchBar from '../../components/common/SearchBar';
@@ -78,6 +79,10 @@ export default function ManageUsersPage() {
   // Role Assignment state (UML: Role.assignRole)
   const [roleTarget, setRoleTarget]             = useState(null);
   const [isUpdatingRole, setIsUpdatingRole]     = useState(false);
+
+  // User Deletion state
+  const [deleteTarget, setDeleteTarget]         = useState(null);
+  const [isDeletingUser, setIsDeletingUser]     = useState(false);
 
   const fetchUsersData = async () => {
     setLoading(true);
@@ -211,6 +216,43 @@ export default function ManageUsersPage() {
       });
     } finally {
       setIsUpdatingRole(false);
+    }
+  };
+
+  // Handle deleting a user account permanently
+  const handleConfirmDelete = async () => {
+    if (!deleteTarget) return;
+
+    // Guard: Prevent deleting currently logged in admin account
+    if (deleteTarget.id === currentAdmin?.id) {
+      setSuccessBanner({
+        type: 'error',
+        text: 'Action Prohibited: You cannot delete your own active administrator account.',
+      });
+      setDeleteTarget(null);
+      return;
+    }
+
+    setIsDeletingUser(true);
+    try {
+      await deleteUser(deleteTarget.id);
+      setSuccessBanner({
+        type: 'success',
+        text: `Account for "${deleteTarget.name}" (${deleteTarget.email}) has been permanently deleted.`,
+      });
+      setDeleteTarget(null);
+      if (selectedUser?.id === deleteTarget.id) {
+        setSelectedUser(null);
+      }
+      await fetchUsersData();
+    } catch (err) {
+      console.error('Failed to delete user:', err);
+      setSuccessBanner({
+        type: 'error',
+        text: err?.response?.data?.message || 'Failed to delete user account. Please try again.',
+      });
+    } finally {
+      setIsDeletingUser(false);
     }
   };
 
@@ -581,6 +623,25 @@ export default function ManageUsersPage() {
                         >
                           {isActive ? <UserX size={14} /> : <UserCheck size={14} />}
                         </button>
+
+                        {/* Delete User Action */}
+                        <button
+                          type="button"
+                          disabled={isCurrentAdmin}
+                          onClick={() => setDeleteTarget(userItem)}
+                          className={`p-1.5 rounded-lg inline-flex items-center transition-colors ${
+                            isCurrentAdmin
+                              ? 'text-gray-300 cursor-not-allowed'
+                              : 'text-gray-400 hover:text-red-600 hover:bg-red-50'
+                          }`}
+                          title={
+                            isCurrentAdmin
+                              ? 'Cannot delete active session account'
+                              : `Delete account for ${userItem.name}`
+                          }
+                        >
+                          <Trash2 size={14} />
+                        </button>
                       </td>
                     </tr>
                   );
@@ -619,6 +680,17 @@ export default function ManageUsersPage() {
         isLoading={isUpdatingStatus}
         onConfirm={handleConfirmToggle}
         onCancel={() => setToggleTarget(null)}
+      />
+
+      {/* Confirmation Modal for Delete User */}
+      <ConfirmDialog
+        isOpen={Boolean(deleteTarget)}
+        title="Delete User Account?"
+        message={`Are you sure you want to permanently delete the account for "${deleteTarget?.name}" (${deleteTarget?.email})? This user will no longer be able to access the portal and their profile record will be erased.`}
+        confirmLabel="Yes, Delete User"
+        isLoading={isDeletingUser}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteTarget(null)}
       />
 
       {/* User Dossier Modal */}
@@ -797,7 +869,23 @@ export default function ManageUsersPage() {
             </div>
 
             {/* Modal Actions */}
-            <div className="pt-3 border-t border-gray-100 flex items-center justify-end">
+            <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
+              <div>
+                {selectedUser.id !== currentAdmin?.id && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const target = selectedUser;
+                      setSelectedUser(null);
+                      setDeleteTarget(target);
+                    }}
+                    className="btn btn-outline btn-sm text-xs text-red-600 border-red-200 hover:bg-red-50 hover:border-red-300 flex items-center gap-1.5"
+                  >
+                    <Trash2 size={13} />
+                    Delete Account
+                  </button>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() => setSelectedUser(null)}

@@ -21,12 +21,30 @@ const FEEDBACK_STORE_KEY = 'mutiara_feedback_store';
 
 const delay = (ms = 300) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const TEST_EMAILS_TO_CLEANUP = [
+  'aa@gmail.com',
+  'alaminzaani@gmail.com',
+  'farhan@example.com',
+  'amin1@example.com',
+];
+
 function getStoredUsers() {
   try {
     const raw = localStorage.getItem(USERS_STORE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
+        // Automatically prune test accounts requested for deletion
+        const hasTestAccounts = parsed.some((u) =>
+          TEST_EMAILS_TO_CLEANUP.includes(u.email?.trim().toLowerCase())
+        );
+        if (hasTestAccounts) {
+          const cleaned = parsed.filter(
+            (u) => !TEST_EMAILS_TO_CLEANUP.includes(u.email?.trim().toLowerCase())
+          );
+          saveStoredUsers(cleaned);
+          return cleaned;
+        }
         return parsed;
       }
     }
@@ -143,6 +161,29 @@ export async function assignRole(userId, newRole) {
 
   saveStoredUsers(users);
   const { password: _pw, ...safeUser } = users[idx];
+  return { data: safeUser };
+}
+
+/**
+ * Permanently delete a user account from directory (admin action).
+ *
+ * @param {number|string} userId
+ * @returns {Promise<{ data: object }>}
+ */
+export async function deleteUser(userId) {
+  await delay(300);
+  const users = getStoredUsers();
+  const idx = users.findIndex((u) => u.id === Number(userId));
+
+  if (idx === -1) {
+    throw { response: { data: { message: 'User account not found.' }, status: 404 } };
+  }
+
+  const removedUser = users[idx];
+  const updated = users.filter((u) => u.id !== Number(userId));
+  saveStoredUsers(updated);
+
+  const { password: _pw, ...safeUser } = removedUser;
   return { data: safeUser };
 }
 

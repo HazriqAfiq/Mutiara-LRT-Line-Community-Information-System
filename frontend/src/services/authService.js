@@ -28,6 +28,13 @@ const USERS_STORE_KEY = 'mutiara_users_store';
 /** Simulate network latency so the frontend exercises loading states. */
 const delay = (ms = 350) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const TEST_EMAILS_TO_CLEANUP = [
+  'aa@gmail.com',
+  'alaminzaani@gmail.com',
+  'farhan@example.com',
+  'amin1@example.com',
+];
+
 /** Load users from localStorage or initialize with seed MOCK_USERS */
 function getStoredUsers() {
   try {
@@ -35,6 +42,17 @@ function getStoredUsers() {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
+        // Automatically prune test accounts requested for deletion
+        const hasTestAccounts = parsed.some((u) =>
+          TEST_EMAILS_TO_CLEANUP.includes(u.email?.trim().toLowerCase())
+        );
+        if (hasTestAccounts) {
+          const cleaned = parsed.filter(
+            (u) => !TEST_EMAILS_TO_CLEANUP.includes(u.email?.trim().toLowerCase())
+          );
+          saveStoredUsers(cleaned);
+          return cleaned;
+        }
         return parsed;
       }
     }
