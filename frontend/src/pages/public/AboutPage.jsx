@@ -6,13 +6,11 @@
  * Focuses on core facts, vital transit hubs, and station alignment from MRT Corp.
  */
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Route,
   MapPin,
   Anchor,
   Clock,
-  ChevronRight,
   Train,
 } from 'lucide-react';
 import PageHeader from '../../components/common/PageHeader';
@@ -175,13 +173,7 @@ export default function AboutPage() {
       <PageHeader
         title="About LRT Mutiara Line"
         subtitle="Key project facts, alignment route, and major transit hubs for Penang's first light rail transit system."
-      >
-        <div className="flex items-center gap-2 text-xs text-white/80">
-          <Link to="/" className="hover:text-white transition-colors">Home</Link>
-          <ChevronRight size={13} className="text-[#F4B942]" />
-          <span className="text-[#F4B942] font-semibold">About Project</span>
-        </div>
-      </PageHeader>
+      />
 
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8 space-y-6">
 
@@ -292,18 +284,13 @@ export default function AboutPage() {
             4. ROUTE ALIGNMENT & 22 STATIONS
             ============================================================ */}
         <section className="bg-white rounded-lg p-5 border border-gray-200 shadow-sm space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div>
-              <h2 className="text-base sm:text-lg font-extrabold text-[#12375B] tracking-tight">
-                Station Alignment Directory (22 Stations)
-              </h2>
-              <p className="text-xs text-gray-600 mt-0.5">
-                Full station sequence along the 29.67 km alignment from south to north.
-              </p>
-            </div>
-            <span className="text-xs font-bold text-[#16A6A1] w-fit">
-              {currentSector.stations.length} Stations in View
-            </span>
+          <div>
+            <h2 className="text-base sm:text-lg font-extrabold text-[#12375B] tracking-tight">
+              Station Alignment Directory (22 Stations)
+            </h2>
+            <p className="text-xs text-gray-600 mt-0.5">
+              Full station sequence along the 29.67 km alignment from south to north.
+            </p>
           </div>
 
           {/* Sector Filter Tabs */}
