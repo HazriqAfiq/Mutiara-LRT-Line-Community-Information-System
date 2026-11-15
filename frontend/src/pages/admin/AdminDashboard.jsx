@@ -210,8 +210,7 @@ export default function AdminDashboard() {
             {/* Group 1: Community Feedback Lifecycle */}
             <div>
               <div className="flex items-center justify-between mb-2.5">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-teal-500"></span>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Community Feedback Lifecycle
                 </h3>
                 <span className="text-[11px] text-slate-400 font-medium">Grievance Pipeline</span>
@@ -258,8 +257,7 @@ export default function AdminDashboard() {
             {/* Group 2: Transit Operations & Platform Governance */}
             <div>
               <div className="flex items-center justify-between mb-2.5">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-navy)' }}></span>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Transit Operations &amp; Platform Governance
                 </h3>
                 <span className="text-[11px] text-slate-400 font-medium">Platform Oversight</span>
