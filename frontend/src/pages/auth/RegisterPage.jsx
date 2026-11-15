@@ -285,15 +285,12 @@ export default function RegisterPage() {
               onChange={(e) => setFormData({ ...formData, communityType: e.target.value })}
               className="form-select pl-10 text-xs py-2.5 focus:border-[#16A6A1] focus:ring-2 focus:ring-[#16A6A1]/20 bg-white"
             >
-              <option value="Resident">Local Resident (Living along alignment)</option>
-              <option value="Pedestrian">Pedestrian / Transit Commuter (Walking & detour corridors)</option>
-              <option value="Commuter">Daily Commuter / Motorist (Road user navigating diversions)</option>
-              <option value="Business Owner">Commercial Business Owner / SME (Shoplot operator)</option>
+              <option value="Resident">Resident</option>
+              <option value="Pedestrian">Pedestrian</option>
+              <option value="Commuter">Commuter</option>
+              <option value="Business Owner">Business Owner</option>
             </select>
           </div>
-          <p className="mt-1 text-[11px] text-slate-400">
-            Helps the project liaison team route your feedback to the appropriate site contractors.
-          </p>
         </div>
 
         {/* Password */}
