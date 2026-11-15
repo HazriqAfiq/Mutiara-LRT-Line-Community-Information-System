@@ -494,10 +494,10 @@ export default function SubmitFeedbackPage() {
               )}
             </div>
 
-            {/* Supporting Image Upload (Optional) */}
+            {/* Supporting Image Upload */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1">
-                Supporting Photo <span className="text-xs text-gray-400 font-normal lowercase">(optional)</span>
+                Supporting Photo
               </label>
 
               {!imagePreview ? (
