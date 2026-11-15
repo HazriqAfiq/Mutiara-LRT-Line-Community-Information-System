@@ -18,7 +18,11 @@ const FILTERS = [
 
 export default function MapFilters({ activeFilter, onFilterChange, counts = {} }) {
   return (
-    <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100 rounded-lg border border-slate-200/60" role="tablist" aria-label="Map marker filters">
+    <div
+      className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-lg border border-slate-200/60"
+      role="tablist"
+      aria-label="Map marker filters"
+    >
       {FILTERS.map((f) => {
         const Icon = f.icon;
         const isActive = activeFilter === f.id;
@@ -31,17 +35,20 @@ export default function MapFilters({ activeFilter, onFilterChange, counts = {} }
             role="tab"
             aria-selected={isActive}
             onClick={() => onFilterChange(f.id)}
-            className={`flex-1 min-w-[70px] inline-flex items-center justify-center gap-1.5 py-1.5 px-2.5 rounded-md text-xs font-semibold transition-all duration-150 cursor-pointer ${
+            className={`w-full h-9 inline-flex items-center justify-center gap-1.5 px-2 rounded-md text-xs font-semibold transition-all duration-150 cursor-pointer border ${
               isActive
-                ? 'bg-white text-[#12375B] shadow-xs font-bold border border-slate-200/80'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                ? 'bg-white text-[#12375B] shadow-xs font-bold border-slate-200/80'
+                : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-white/60'
             }`}
           >
-            <Icon size={13} className={isActive ? 'text-[#16A6A1]' : 'text-slate-400'} />
-            <span>{f.label}</span>
+            <Icon
+              size={13}
+              className={`shrink-0 ${isActive ? 'text-[#16A6A1]' : 'text-slate-400'}`}
+            />
+            <span className="whitespace-nowrap">{f.label}</span>
             {count > 0 && (
               <span
-                className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                className={`shrink-0 text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none ${
                   isActive
                     ? 'bg-[#12375B]/10 text-[#12375B]'
                     : 'bg-slate-200 text-slate-600'
