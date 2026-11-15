@@ -134,7 +134,7 @@ export default function UserDashboard() {
                 title="Total Submitted"
                 value={stats.total}
                 icon={<MessageSquare size={20} />}
-                color="navy"
+                color="success"
                 subtitle="All submitted issues"
                 link="/my-feedback"
               />
@@ -143,7 +143,7 @@ export default function UserDashboard() {
                 title="Pending Review"
                 value={stats.pending}
                 icon={<Clock size={20} />}
-                color="warning"
+                color="success"
                 subtitle="Awaiting liaison assessment"
                 link="/my-feedback?status=pending"
               />
@@ -152,7 +152,7 @@ export default function UserDashboard() {
                 title="In Progress"
                 value={stats.inProgress}
                 icon={<RefreshCw size={20} />}
-                color="info"
+                color="success"
                 subtitle="Active on-site mitigation"
                 link="/my-feedback?status=in_progress"
               />
@@ -279,74 +279,74 @@ export default function UserDashboard() {
                   <div className="space-y-2.5">
                     <Link
                       to="/feedback/new"
-                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-amber-50 hover:border-amber-300 transition-colors flex items-center gap-3 group text-left"
+                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-emerald-50 hover:border-emerald-300 transition-colors flex items-center gap-3 group text-left"
                     >
-                      <div className="w-8 h-8 rounded-md bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-emerald-100 text-emerald-800 flex items-center justify-center flex-shrink-0">
                         <Send size={15} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-gray-800 group-hover:text-amber-900">
+                        <p className="text-xs font-bold text-gray-800 group-hover:text-emerald-900">
                           Submit New Feedback
                         </p>
                         <p className="text-[11px] text-gray-500 truncate">
                           Report noise, dust, safety, or access issues
                         </p>
                       </div>
-                      <ArrowRight size={14} className="text-gray-400 group-hover:text-amber-700" />
+                      <ArrowRight size={14} className="text-gray-400 group-hover:text-emerald-700" />
                     </Link>
 
                     <Link
                       to="/my-feedback"
-                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-teal-50 hover:border-teal-300 transition-colors flex items-center gap-3 group text-left"
+                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-emerald-50 hover:border-emerald-300 transition-colors flex items-center gap-3 group text-left"
                     >
-                      <div className="w-8 h-8 rounded-md bg-teal-100 text-teal-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-emerald-100 text-emerald-800 flex items-center justify-center flex-shrink-0">
                         <FileText size={15} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-gray-800 group-hover:text-teal-900">
+                        <p className="text-xs font-bold text-gray-800 group-hover:text-emerald-900">
                           View My Feedback
                         </p>
                         <p className="text-[11px] text-gray-500 truncate">
                           Track status and responses
                         </p>
                       </div>
-                      <ArrowRight size={14} className="text-gray-400 group-hover:text-teal-700" />
+                      <ArrowRight size={14} className="text-gray-400 group-hover:text-emerald-700" />
                     </Link>
 
                     <Link
                       to="/announcements"
-                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-colors flex items-center gap-3 group text-left"
+                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-emerald-50 hover:border-emerald-300 transition-colors flex items-center gap-3 group text-left"
                     >
-                      <div className="w-8 h-8 rounded-md bg-blue-100 text-blue-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-emerald-100 text-emerald-800 flex items-center justify-center flex-shrink-0">
                         <HardHat size={15} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-gray-800 group-hover:text-blue-900">
+                        <p className="text-xs font-bold text-gray-800 group-hover:text-emerald-900">
                           Construction Updates
                         </p>
                         <p className="text-[11px] text-gray-500 truncate">
                           Check official station and viaduct notices
                         </p>
                       </div>
-                      <ArrowRight size={14} className="text-gray-400 group-hover:text-blue-700" />
+                      <ArrowRight size={14} className="text-gray-400 group-hover:text-emerald-700" />
                     </Link>
 
                     <Link
                       to="/road-closures"
-                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-red-50 hover:border-red-300 transition-colors flex items-center gap-3 group text-left"
+                      className="w-full p-3 rounded-md border border-gray-200 bg-gray-50 hover:bg-emerald-50 hover:border-emerald-300 transition-colors flex items-center gap-3 group text-left"
                     >
-                      <div className="w-8 h-8 rounded-md bg-red-100 text-red-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-md bg-emerald-100 text-emerald-800 flex items-center justify-center flex-shrink-0">
                         <AlertTriangle size={15} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-gray-800 group-hover:text-red-900">
+                        <p className="text-xs font-bold text-gray-800 group-hover:text-emerald-900">
                           Check Road Closures
                         </p>
                         <p className="text-[11px] text-gray-500 truncate">
                           Detours and active traffic diversions
                         </p>
                       </div>
-                      <ArrowRight size={14} className="text-gray-400 group-hover:text-red-700" />
+                      <ArrowRight size={14} className="text-gray-400 group-hover:text-emerald-700" />
                     </Link>
                   </div>
                 </div>

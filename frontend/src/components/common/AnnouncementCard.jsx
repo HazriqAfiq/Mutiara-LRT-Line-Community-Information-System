@@ -71,18 +71,20 @@ export default function AnnouncementCard({ announcement, compact = false }) {
         </div>
 
         {/* Title */}
-        <h3
-          className="font-bold text-[#12375B] mb-2 leading-snug hover:text-[#16A6A1] transition-colors"
-          style={{
-            fontSize: '1rem',
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-          }}
-        >
-          {title}
-        </h3>
+        <Link to={`/announcements/${id}`}>
+          <h3
+            className="font-bold text-[#12375B] mb-2 leading-snug hover:text-[#16A6A1] transition-colors cursor-pointer"
+            style={{
+              fontSize: '1rem',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
+            {title}
+          </h3>
+        </Link>
 
         {/* Location Row */}
         {location && (

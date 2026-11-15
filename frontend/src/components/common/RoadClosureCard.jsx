@@ -79,9 +79,11 @@ export default function RoadClosureCard({ closure, compact = false }) {
       </div>
 
       {/* Road Name Title */}
-      <h3 className="font-bold text-[#12375B] text-base mb-1 leading-snug">
-        {road_name || title}
-      </h3>
+      <Link to={`/road-closures/${id}`}>
+        <h3 className="font-bold text-[#12375B] text-base mb-1 leading-snug hover:text-[#16A6A1] transition-colors cursor-pointer">
+          {road_name || title}
+        </h3>
+      </Link>
 
       {/* Location */}
       {location && (

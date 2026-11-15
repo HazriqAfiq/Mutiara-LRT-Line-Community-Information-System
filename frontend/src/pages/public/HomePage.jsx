@@ -14,7 +14,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  MessageSquare,
   ArrowRight,
   ChevronRight,
   Train,
@@ -25,7 +24,6 @@ import {
   MessageCircle,
   ChevronDown,
 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
 import { getAnnouncements } from '../../services/announcementService';
 import { getRoadClosures } from '../../services/roadClosureService';
 import AnnouncementCard from '../../components/common/AnnouncementCard';
@@ -34,7 +32,6 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 import LRTMapSection from '../../components/map/LRTMapSection';
 
 export default function HomePage() {
-  const { isAuthenticated, isAdmin } = useAuth();
   const belowHeroRef = useRef(null);
 
   const [announcements, setAnnouncements] = useState([]);
@@ -260,61 +257,7 @@ export default function HomePage() {
       </section>
 
       {/* ============================================================
-          6. COMMUNITY ENGAGEMENT PROTOCOL
-          ============================================================ */}
-      <section className="px-4 sm:px-6 py-10 bg-white border-y border-gray-200">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-8">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#16A6A1] block mb-1">
-              COMMUNITY GRIEVANCE MECHANISM
-            </span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] tracking-tight">
-              Community Engagement & Inquiries
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-600 mt-2">
-              Every complaint is logged, assigned to an on-site liaison engineer, and resolved under transparent timelines.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {/* Step 1 */}
-            <div className="bg-[#F5F7FA] p-6 rounded-lg border border-gray-200 flex flex-col items-center text-center">
-              <div className="w-12 h-12 flex items-center justify-center mb-3 rounded-md bg-[#E0F2FE] text-[#0284C7] font-bold text-lg">
-                1
-              </div>
-              <h3 className="font-bold text-[#12375B] text-sm mb-1.5">Lodge Inquiry</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Provide location, category (e.g. noise, traffic detour), and description of construction concerns.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="bg-[#F5F7FA] p-6 rounded-lg border border-gray-200 flex flex-col items-center text-center">
-              <div className="w-12 h-12 flex items-center justify-center mb-3 rounded-md bg-[#CCFBF1] text-[#0f7a76] font-bold text-lg">
-                2
-              </div>
-              <h3 className="font-bold text-[#12375B] text-sm mb-1.5">Site Investigation</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Project engineers inspect the site and document mitigation steps directly in the resolution log.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="bg-[#F5F7FA] p-6 rounded-lg border border-gray-200 flex flex-col items-center text-center">
-              <div className="w-12 h-12 flex items-center justify-center mb-3 rounded-md bg-[#E0E7FF] text-[#4F46E5] font-bold text-lg">
-                3
-              </div>
-              <h3 className="font-bold text-[#12375B] text-sm mb-1.5">Verified Resolution</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Status is updated to Resolved once mitigation measures are verified by municipal authorities.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          7. ABOUT THE INFRASTRUCTURE
+          6. ABOUT THE INFRASTRUCTURE
           ============================================================ */}
       <section
         id="about-project"
@@ -357,7 +300,7 @@ export default function HomePage() {
                   <div className="text-[#16A6A1] mb-1 flex justify-center">
                     <Train size={20} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B]">29</p>
+                  <p className="font-extrabold text-sm text-[#12375B]">21</p>
                   <p className="text-[11px] text-gray-600">Stations</p>
                 </div>
 
@@ -365,7 +308,7 @@ export default function HomePage() {
                   <div className="text-[#16A6A1] mb-1 flex justify-center">
                     <Route size={20} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B]">29 km</p>
+                  <p className="font-extrabold text-sm text-[#12375B]">29.5 km</p>
                   <p className="text-[11px] text-gray-600">Alignment</p>
                 </div>
 
@@ -387,41 +330,6 @@ export default function HomePage() {
                   <ChevronRight size={15} />
                 </Link>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          8. CALL TO ACTION BANNER: Civic Engagement
-          ============================================================ */}
-      <section className="px-4 sm:px-6 py-8">
-        <div
-          className="max-w-[1200px] mx-auto rounded-lg border border-navy/20"
-          style={{ backgroundColor: '#12375B' }}
-        >
-          <div className="px-6 sm:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-left max-w-lg">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#F4B942] block mb-1">
-                PUBLIC INQUIRIES & COMPLAINTS
-              </span>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight mb-2">
-                Have an Issue Regarding Construction in Your Area?
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
-                Submit an inquiry or feedback ticket. The project coordination desk reviews submissions daily.
-              </p>
-            </div>
-
-            <div className="flex-shrink-0">
-              <Link
-                to={isAuthenticated ? (isAdmin ? '/admin/feedback' : '/feedback/new') : '/feedback/new'}
-                className="inline-flex items-center gap-2 font-bold text-sm px-6 py-3 rounded-md bg-[#F4B942] hover:bg-[#d9992a] text-[#12375B] transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
-                id="cta-submit-feedback-button"
-              >
-                <MessageSquare size={16} />
-                <span>Submit Feedback Ticket</span>
-              </Link>
             </div>
           </div>
         </div>
