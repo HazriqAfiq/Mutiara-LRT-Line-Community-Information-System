@@ -253,13 +253,7 @@ export default function UserDashboard() {
               {/* Right Column: Quick Actions & Helpful Info (4 cols) */}
               <div className="lg:col-span-4 space-y-6">
                 {/* Account Details Widget */}
-                <div
-                  className="rounded-lg p-5 border shadow-xs"
-                  style={{
-                    backgroundColor: 'rgba(18, 55, 91, 0.03)',
-                    borderColor: 'var(--color-gray-200)',
-                  }}
-                >
+                <div className="card bg-white p-5 rounded-lg border border-gray-200 shadow-xs">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
                       Account Profile
