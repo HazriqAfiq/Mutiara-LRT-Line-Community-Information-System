@@ -86,10 +86,6 @@ export default function RoadClosuresPage() {
 
   const hasActiveFilters = Boolean(search || status || location);
 
-  // Status counts for quick dashboard badges
-  const activeCount = closures.filter((c) => c.status === 'active').length;
-  const scheduledCount = closures.filter((c) => c.status === 'scheduled').length;
-
   return (
     <div className="min-h-screen pb-16">
       {/* Header */}
@@ -100,22 +96,11 @@ export default function RoadClosuresPage() {
 
       <div className="container mt-8">
         {/* Quick summary alert bar */}
-        <div className="card p-4 mb-6 flex flex-wrap items-center justify-between gap-4 bg-gray-50 border border-gray-200">
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-700 font-medium">
-            <AlertTriangle size={16} className="text-amber-600 flex-shrink-0" />
-            <span>
-              Always exercise caution near heavy construction machinery and obey traffic flaggers.
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3 text-xs">
-            <span className="badge badge-active font-semibold">
-              {activeCount} Active Now
-            </span>
-            <span className="badge badge-scheduled font-semibold">
-              {scheduledCount} Scheduled
-            </span>
-          </div>
+        <div className="card p-4 mb-6 flex items-center gap-2 bg-gray-50 border border-gray-200 text-xs sm:text-sm text-gray-700 font-medium">
+          <AlertTriangle size={16} className="text-amber-600 flex-shrink-0" />
+          <span>
+            Always exercise caution near heavy construction machinery and obey traffic flaggers.
+          </span>
         </div>
 
         {/* Filters Card */}
