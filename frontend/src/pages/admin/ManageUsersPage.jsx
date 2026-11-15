@@ -307,7 +307,7 @@ export default function ManageUsersPage() {
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="card p-3 sm:p-4 bg-white rounded-2xl border border-gray-100 shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
             <Users size={18} />
           </div>
           <div>
@@ -335,7 +335,7 @@ export default function ManageUsersPage() {
         </div>
 
         <div className="card p-3 sm:p-4 bg-white rounded-2xl border border-gray-100 shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
             <UserX size={18} />
           </div>
           <div>
@@ -349,7 +349,7 @@ export default function ManageUsersPage() {
         </div>
 
         <div className="card p-3 sm:p-4 bg-white rounded-2xl border border-gray-100 shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
             <ShieldCheck size={18} />
           </div>
           <div>

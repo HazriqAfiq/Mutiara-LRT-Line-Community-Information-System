@@ -220,7 +220,7 @@ export default function AdminDashboard() {
                   title="Total Feedback"
                   value={stats.totalComplaints}
                   icon={<MessageSquare size={19} />}
-                  color="navy"
+                  color="success"
                   subtitle="All submitted community feedback"
                   link="/admin/feedback"
                 />
@@ -229,7 +229,7 @@ export default function AdminDashboard() {
                   title="Pending Review"
                   value={stats.pendingComplaints}
                   icon={<Clock size={19} />}
-                  color="warning"
+                  color="success"
                   subtitle="Awaiting liaison assessment"
                   link="/admin/feedback"
                 />
@@ -238,7 +238,7 @@ export default function AdminDashboard() {
                   title="In Progress"
                   value={stats.inProgressComplaints}
                   icon={<RefreshCw size={19} />}
-                  color="info"
+                  color="success"
                   subtitle="Active on-site mitigation"
                   link="/admin/feedback"
                 />
@@ -267,7 +267,7 @@ export default function AdminDashboard() {
                   title="Published Announcements"
                   value={stats.publishedAnnouncements}
                   icon={<Megaphone size={19} />}
-                  color="teal"
+                  color="success"
                   subtitle={`${stats.totalAnnouncements} total notices logged`}
                   link="/admin/announcements"
                 />
@@ -276,7 +276,7 @@ export default function AdminDashboard() {
                   title="Active Road Closures"
                   value={stats.activeRoadClosures}
                   icon={<AlertTriangle size={19} />}
-                  color="warning"
+                  color="success"
                   subtitle="Lane restrictions active now"
                   link="/admin/road-closures"
                 />
@@ -285,7 +285,7 @@ export default function AdminDashboard() {
                   title="Registered Users"
                   value={stats.totalUsers}
                   icon={<Users size={19} />}
-                  color="navy"
+                  color="success"
                   subtitle="Registered community user accounts"
                   link="/admin/users"
                 />

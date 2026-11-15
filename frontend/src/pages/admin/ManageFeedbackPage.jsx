@@ -152,7 +152,7 @@ export default function ManageFeedbackPage() {
       {/* Metric Counters Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="card p-3 sm:p-4 bg-white rounded-2xl border border-gray-100 shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
             <MessageSquare size={18} />
           </div>
           <div>
@@ -166,7 +166,7 @@ export default function ManageFeedbackPage() {
         </div>
 
         <div className="card p-3 sm:p-4 bg-white rounded-2xl border border-gray-100 shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
             <Clock size={18} />
           </div>
           <div>
@@ -180,7 +180,7 @@ export default function ManageFeedbackPage() {
         </div>
 
         <div className="card p-3 sm:p-4 bg-white rounded-2xl border border-gray-100 shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
             <ShieldAlert size={18} />
           </div>
           <div>
