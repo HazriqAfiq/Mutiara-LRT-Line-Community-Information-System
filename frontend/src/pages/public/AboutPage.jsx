@@ -13,7 +13,6 @@ import {
   Anchor,
   Clock,
   ChevronRight,
-  ArrowRight,
   Train,
 } from 'lucide-react';
 import PageHeader from '../../components/common/PageHeader';
@@ -351,40 +350,6 @@ export default function AboutPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* ============================================================
-            5. CIVIC ENGAGEMENT BANNER
-            ============================================================ */}
-        <section
-          className="rounded-lg p-5 sm:p-6 text-white relative overflow-hidden shadow-sm"
-          style={{ backgroundColor: '#12375B' }}
-        >
-          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1 max-w-xl">
-              <h2 className="text-base sm:text-lg font-extrabold text-white tracking-tight">
-                Community Feedback &amp; Inquiries
-              </h2>
-              <p className="text-xs text-gray-200 leading-relaxed">
-                Have questions or feedback regarding construction, road closures, or station access? Lodge an inquiry directly to the liaison team.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
-              <Link
-                to="/feedback/new"
-                className="text-xs font-bold px-4 py-2 rounded-md inline-flex items-center gap-1.5 bg-[#F4B942] hover:bg-[#d9992a] text-[#12375B] transition-colors shadow-xs"
-              >
-                <span>Submit Feedback</span>
-                <ArrowRight size={13} />
-              </Link>
-              <Link
-                to="/road-closures"
-                className="text-xs font-semibold px-4 py-2 rounded-md inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 transition-colors"
-              >
-                <span>Traffic Advisories</span>
-              </Link>
-            </div>
           </div>
         </section>
 
