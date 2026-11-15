@@ -106,10 +106,6 @@ export default function HomePage() {
           {/* Hero Content Overlay: Aligned to max-w-[1200px] mx-auto matching Navbar */}
           <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-16 text-left">
             <div className="max-w-2xl">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#F4B942] mb-3">
-                <Train size={13} />
-                Penang Public Transit Infrastructure
-              </span>
               <h1
                 className="font-extrabold tracking-tight leading-tight mb-2 text-white"
                 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)' }}

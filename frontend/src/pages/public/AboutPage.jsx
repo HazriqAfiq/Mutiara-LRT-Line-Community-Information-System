@@ -11,7 +11,6 @@ import {
   MapPin,
   Anchor,
   Clock,
-  Train,
 } from 'lucide-react';
 import PageHeader from '../../components/common/PageHeader';
 
@@ -198,10 +197,6 @@ export default function AboutPage() {
             }}
           >
             <div className="max-w-2xl space-y-1.5">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#F4B942]">
-                <Train size={13} />
-                Penang Transport Master Plan
-              </span>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight leading-tight text-white">
                 Penang LRT Mutiara Line
               </h1>
