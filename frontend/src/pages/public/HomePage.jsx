@@ -23,6 +23,7 @@ import {
   Search,
   MessageCircle,
   ChevronDown,
+  Clock,
 } from 'lucide-react';
 import { getAnnouncements } from '../../services/announcementService';
 import { getRoadClosures } from '../../services/roadClosureService';
@@ -122,8 +123,7 @@ export default function HomePage() {
                 Community Information & Public Feedback Portal
               </p>
               <p className="text-sm sm:text-base text-gray-200 leading-relaxed mb-6 max-w-xl">
-                Official public notices, scheduled road closures, and neighbourhood traffic advisories.
-                Submit inquiries directly to the project team and track resolution progress.
+                Official community liaison portal for MRT Corp's 29.67 km Penang LRT Mutiara Line project. Access construction notices, traffic advisories, and submit inquiries directly to project liaison teams.
               </p>
 
               {/* Primary Action Buttons */}
@@ -257,7 +257,7 @@ export default function HomePage() {
       </section>
 
       {/* ============================================================
-          6. ABOUT THE INFRASTRUCTURE
+          6. ABOUT THE INFRASTRUCTURE (Validated MRT Corp Data)
           ============================================================ */}
       <section
         id="about-project"
@@ -282,42 +282,64 @@ export default function HomePage() {
             <div className="space-y-4">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#16A6A1] block mb-1">
-                  PROJECT SCOPE
+                  PROJECT SCOPE &amp; SPECIFICATIONS
                 </span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-[#12375B] tracking-tight mb-2">
                   Penang LRT Mutiara Line Overview
                 </h2>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  The Mutiara Line represents Penang's first urban light rail transit system, spanning from
-                  Silicon Island through the Bayan Lepas industrial corridor to George Town (KOMTAR) and connecting
-                  to Penang Sentral (Butterworth) via a sea-crossing viaduct.
+                  Developed by <strong>MRT Corp</strong> under the Penang Transport Master Plan (PTMP), the Mutiara Line is Penang's first urban light rail transit system. Spanning <strong>29.67 km</strong> across <strong>22 passenger stations</strong>, the alignment connects Silicon Island, Bayan Lepas, and George Town (KOMTAR), extending across the Penang Strait to Penang Sentral (Butterworth) via a <strong>3.05 km marine viaduct</strong>.
                 </p>
               </div>
 
-              {/* Transit Parameters (Real Planned Specifications) */}
-              <div className="grid grid-cols-3 gap-3 pt-2">
+              {/* Transit Parameters (Validated Official Specifications) */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
                 <div className="p-3 text-center bg-white border border-gray-200 rounded-md">
                   <div className="text-[#16A6A1] mb-1 flex justify-center">
-                    <Train size={20} />
+                    <Route size={18} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B]">21</p>
-                  <p className="text-[11px] text-gray-600">Stations</p>
+                  <p className="font-extrabold text-sm text-[#12375B]">29.67 km</p>
+                  <p className="text-[10px] text-gray-600 font-medium">Total Alignment</p>
                 </div>
 
                 <div className="p-3 text-center bg-white border border-gray-200 rounded-md">
                   <div className="text-[#16A6A1] mb-1 flex justify-center">
-                    <Route size={20} />
+                    <Train size={18} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B]">29.5 km</p>
-                  <p className="text-[11px] text-gray-600">Alignment</p>
+                  <p className="font-extrabold text-sm text-[#12375B]">22</p>
+                  <p className="text-[10px] text-gray-600 font-medium">Stations</p>
                 </div>
 
                 <div className="p-3 text-center bg-white border border-gray-200 rounded-md">
                   <div className="text-[#16A6A1] mb-1 flex justify-center">
-                    <Users size={20} />
+                    <Users size={18} />
                   </div>
-                  <p className="font-extrabold text-sm text-[#12375B]">Penang</p>
-                  <p className="text-[11px] text-gray-600">Island & Mainland</p>
+                  <p className="font-extrabold text-sm text-[#12375B]">405 Pax</p>
+                  <p className="text-[10px] text-gray-600 font-medium">Min. Train Capacity</p>
+                </div>
+
+                <div className="p-3 text-center bg-white border border-gray-200 rounded-md">
+                  <div className="text-[#16A6A1] mb-1 flex justify-center">
+                    <Clock size={18} />
+                  </div>
+                  <p className="font-extrabold text-sm text-[#12375B]">4 Min</p>
+                  <p className="text-[10px] text-gray-600 font-medium">Peak Headway</p>
+                </div>
+              </div>
+
+              {/* Core Advantages List */}
+              <div className="space-y-1.5 text-xs text-gray-600 pt-1">
+                <div className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#16A6A1] mt-1.5 flex-shrink-0" />
+                  <span><strong>Cross-Strait Fixed Link:</strong> 3.05 km dedicated marine rail viaduct linking George Town (Macallum) directly to Penang Sentral.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#16A6A1] mt-1.5 flex-shrink-0" />
+                  <span><strong>Multimodal Connectivity:</strong> Integrated interchanges at Penang Airport (PIA), Sungai Nibong Bus Terminal, KOMTAR, and Penang Sentral.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#16A6A1] mt-1.5 flex-shrink-0" />
+                  <span><strong>Traffic Decongestion:</strong> Reliable transit bypassing peak-hour bottlenecks along Tun Dr Lim Chong Eu Expressway and Jalan Sultan Azlan Shah.</span>
                 </div>
               </div>
 

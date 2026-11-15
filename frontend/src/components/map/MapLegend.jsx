@@ -47,7 +47,7 @@ export default function MapLegend() {
           <span className="w-5 flex items-center justify-center flex-shrink-0">
             <span className="w-4 h-0.5 border-t-2 border-dashed border-[#16A6A1]" />
           </span>
-          <span className="text-slate-700 font-medium">29.5 km Route</span>
+          <span className="text-slate-700 font-medium">29.67 km Alignment</span>
         </div>
       </div>
     </div>
