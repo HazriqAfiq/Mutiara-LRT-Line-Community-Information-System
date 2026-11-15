@@ -36,6 +36,7 @@ import {
   X,
   FileCheck2,
   PieChart as PieChartIcon,
+  TrendingUp,
 } from 'lucide-react';
 import { generateReport, getReports, exportReportCSV } from '../../services/reportService';
 import {
@@ -204,77 +205,106 @@ export default function AdminDashboard() {
 
       {!loading && !error && stats && (
         <>
-          {/* Section A: 7 KPI Summary Cards */}
-          <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
-              Core Operational Indicators
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <DashboardStatCard
-                title="Total Feedback"
-                value={stats.totalComplaints}
-                icon={<MessageSquare size={19} />}
-                color="navy"
-                subtitle="All submitted community feedback"
-                link="/admin/feedback"
-              />
+          {/* Section A: Structured KPI Summary Cards */}
+          <div className="space-y-5">
+            {/* Group 1: Community Feedback Lifecycle */}
+            <div>
+              <div className="flex items-center justify-between mb-2.5">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-teal-500"></span>
+                  Community Feedback Lifecycle
+                </h3>
+                <span className="text-[11px] text-slate-400 font-medium">Grievance Pipeline</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <DashboardStatCard
+                  title="Total Feedback"
+                  value={stats.totalComplaints}
+                  icon={<MessageSquare size={19} />}
+                  color="navy"
+                  subtitle="All submitted community feedback"
+                  link="/admin/feedback"
+                />
 
-              <DashboardStatCard
-                title="Pending Review"
-                value={stats.pendingComplaints}
-                icon={<Clock size={19} />}
-                color="warning"
-                subtitle="Awaiting liaison assessment"
-                link="/admin/feedback"
-              />
+                <DashboardStatCard
+                  title="Pending Review"
+                  value={stats.pendingComplaints}
+                  icon={<Clock size={19} />}
+                  color="warning"
+                  subtitle="Awaiting liaison assessment"
+                  link="/admin/feedback"
+                />
 
-              <DashboardStatCard
-                title="In Progress"
-                value={stats.inProgressComplaints}
-                icon={<RefreshCw size={19} />}
-                color="info"
-                subtitle="Active on-site mitigation"
-                link="/admin/feedback"
-              />
+                <DashboardStatCard
+                  title="In Progress"
+                  value={stats.inProgressComplaints}
+                  icon={<RefreshCw size={19} />}
+                  color="info"
+                  subtitle="Active on-site mitigation"
+                  link="/admin/feedback"
+                />
 
-              <DashboardStatCard
-                title="Resolved"
-                value={stats.resolvedComplaints}
-                icon={<CheckCircle2 size={19} />}
-                color="success"
-                subtitle="Case concluded and mitigated"
-                link="/admin/feedback"
-              />
+                <DashboardStatCard
+                  title="Resolved"
+                  value={stats.resolvedComplaints}
+                  icon={<CheckCircle2 size={19} />}
+                  color="success"
+                  subtitle="Case concluded and mitigated"
+                  link="/admin/feedback"
+                />
+              </div>
             </div>
 
-            {/* Secondary row of 3 KPIs */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-              <DashboardStatCard
-                title="Published Announcements"
-                value={stats.publishedAnnouncements}
-                icon={<Megaphone size={19} />}
-                color="teal"
-                subtitle={`${stats.totalAnnouncements} total notices logged`}
-                link="/admin/announcements"
-              />
+            {/* Group 2: Transit Operations & Platform Governance */}
+            <div>
+              <div className="flex items-center justify-between mb-2.5">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-navy)' }}></span>
+                  Transit Operations &amp; Platform Governance
+                </h3>
+                <span className="text-[11px] text-slate-400 font-medium">Platform Oversight</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <DashboardStatCard
+                  title="Published Announcements"
+                  value={stats.publishedAnnouncements}
+                  icon={<Megaphone size={19} />}
+                  color="teal"
+                  subtitle={`${stats.totalAnnouncements} total notices logged`}
+                  link="/admin/announcements"
+                />
 
-              <DashboardStatCard
-                title="Active Road Closures"
-                value={stats.activeRoadClosures}
-                icon={<AlertTriangle size={19} />}
-                color="warning"
-                subtitle="Lane restrictions active now"
-                link="/admin/road-closures"
-              />
+                <DashboardStatCard
+                  title="Active Road Closures"
+                  value={stats.activeRoadClosures}
+                  icon={<AlertTriangle size={19} />}
+                  color="warning"
+                  subtitle="Lane restrictions active now"
+                  link="/admin/road-closures"
+                />
 
-              <DashboardStatCard
-                title="Registered Users"
-                value={stats.totalUsers}
-                icon={<Users size={19} />}
-                color="navy"
-                subtitle="Registered community user accounts"
-                link="/admin/users"
-              />
+                <DashboardStatCard
+                  title="Registered Users"
+                  value={stats.totalUsers}
+                  icon={<Users size={19} />}
+                  color="navy"
+                  subtitle="Registered community user accounts"
+                  link="/admin/users"
+                />
+
+                <DashboardStatCard
+                  title="Resolution Rate"
+                  value={
+                    stats.totalComplaints > 0
+                      ? `${Math.round((stats.resolvedComplaints / stats.totalComplaints) * 100)}%`
+                      : '0%'
+                  }
+                  icon={<TrendingUp size={19} />}
+                  color="success"
+                  subtitle={`${stats.resolvedComplaints} of ${stats.totalComplaints} tickets resolved`}
+                  link="/admin/feedback"
+                />
+              </div>
             </div>
           </div>
 
