@@ -221,8 +221,8 @@ export default function Footer() {
 
       {/* ── Bottom Bar ─────────────────────────────────────────────── */}
       <div className="border-t border-slate-700/80 py-4" style={{ backgroundColor: '#071829' }}>
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-slate-300">
-          <p className="text-center md:text-left">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex justify-center items-center text-xs text-slate-300">
+          <p className="text-center w-full">
             © 2026 Mutiara Line Update. All rights reserved.
           </p>
         </div>
